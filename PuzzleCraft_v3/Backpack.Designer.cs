@@ -28,31 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.pnlBag = new System.Windows.Forms.Panel();
             this.SuspendLayout();
-            // 
-            // pnlBag
-            // 
-            this.pnlBag.BackColor = System.Drawing.Color.OldLace;
-            this.pnlBag.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnlBag.Location = new System.Drawing.Point(0, 0);
-            this.pnlBag.Name = "pnlBag";
-            this.pnlBag.Size = new System.Drawing.Size(382, 210);
-            this.pnlBag.TabIndex = 0;
             // 
             // Backpack
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.pnlBag);
+            this.BackColor = System.Drawing.Color.DarkGoldenrod;
             this.Name = "Backpack";
-            this.Size = new System.Drawing.Size(382, 210);
+            this.Size = new System.Drawing.Size(380, 210);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private Panel pnlBag;
     }
 }

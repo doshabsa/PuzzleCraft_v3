@@ -9,11 +9,14 @@ namespace PuzzleCraft_v3.Classes
 {
     static class Inventory
     {
+        public delegate void ChangeInventory(int value);
+        public static ChangeInventory someUpdate;
         private static Backpack Pack;
 
         static Inventory()
         {
-            Pack = new();
+            //Pack = new();
+            
         }
 
         public static void GameReset()
@@ -21,7 +24,7 @@ namespace PuzzleCraft_v3.Classes
             //Code to reset all items in the pack
         }
 
-        public static void ChangeInv(string ItemName, bool AddOrRemove)
+        private static void AlterInventory(string ItemName, bool AddOrRemove)
         {
             //Code to add or remove from the pack
         }
