@@ -14,7 +14,7 @@ namespace PuzzleCraft_v3
     internal partial class Backpack : UserControl
     {
         private Panel panel;
-
+        
         public Backpack()
         {
             this.Size = new Size(380, 210);
@@ -28,7 +28,7 @@ namespace PuzzleCraft_v3
         {
             panel = new();
             panel.Location = new Point(3, 3);
-            panel.Size = new Size(374, 204);
+            panel.Size = new Size(this.Width-6, this.Height-6);
             panel.Name = "pnlBag";
             panel.BackColor = Color.OldLace;
             this.Controls.Add(panel);

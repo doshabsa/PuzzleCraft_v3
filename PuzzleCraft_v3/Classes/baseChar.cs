@@ -10,7 +10,7 @@ namespace PuzzleCraft_v3.Classes
     {
         #region Properties/Fields
         protected bool isDead;
-        protected PictureBox picture = new();
+        public Token Token;
         public static Main? mainForm;
 
         protected int HP;
@@ -24,26 +24,28 @@ namespace PuzzleCraft_v3.Classes
                 else HP = value;
             }
         }
-        public Point Location { get { return picture.Location; } }
-        public Size Dimensions { get { return picture.Size; } }
+        public Point GetLocation { get { return Token.Location; } }
+        public Size GetDimensions { get { return Token.Size; } }
         public bool IsDead {  get { return isDead; } }
         #endregion
 
         #region Constructors
         public BaseChar(Bitmap pic, Point loc, Size size)
         {
-            picture.SizeMode = PictureBoxSizeMode.StretchImage;
-            picture.Image = pic;
-            picture.Size = size;
-            picture.Location = loc;
-            mainForm?.Controls.Add(picture);
+            Token = new(pic, loc, size);
+            mainForm?.Controls.Add(Token);
         }
         #endregion
 
         #region Methods
         public virtual void Deletion()
         {
-            mainForm?.Controls.Remove(picture);
+            mainForm?.Controls.Remove(Token);
+        }
+
+        public void TestMethod()
+        {
+            Token.X += 50;
         }
         #endregion
     }

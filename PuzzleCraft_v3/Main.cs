@@ -9,7 +9,12 @@ namespace PuzzleCraft_v3
             InitializeComponent();
             BaseChar.mainForm = this;
             Start newGame = new();
-            Backpack newPack = new();
+            //Backpack newPack = new();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }
