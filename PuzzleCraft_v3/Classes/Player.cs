@@ -14,6 +14,7 @@ namespace PuzzleCraft_v3.Classes
         public static Player? thePlayer;
         public enum KeyMove { none, up, down, left, right, space }
         public static KeyMove PlayerKey;
+        public static Point NewLocation;
         #endregion
 
         #region Constructors
@@ -29,12 +30,22 @@ namespace PuzzleCraft_v3.Classes
         #endregion
 
         #region Methods
-        public void Move()
+        protected override void Move()
         {
-            if (PlayerKey == KeyMove.up) { Token.MoveTop(this, true); }
-            if (PlayerKey == KeyMove.right) { Token.MoveLeft(this, false); }
-            if (PlayerKey == KeyMove.down) { Token.MoveTop(this, false); }
-            if (PlayerKey == KeyMove.left) { Token.MoveLeft(this, true); }
+            if(NewLocation.Y != Token.Location.Y)
+            {
+                if (NewLocation.Y > Token.Location.Y)
+                    Token.Top += Speed;
+                else if (NewLocation.Y < Token.Location.Y)
+                    Token.Top -= Speed;
+            }
+            if (NewLocation.X != Token.Location.X)
+            {
+                if (NewLocation.X > Token.Location.X)
+                    Token.Left += Speed;
+                else if (NewLocation.X < Token.Location.X)
+                    Token.Left -= Speed;
+            }
         }
         #endregion
     }

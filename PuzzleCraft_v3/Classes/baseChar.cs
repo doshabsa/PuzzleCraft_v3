@@ -45,20 +45,22 @@ namespace PuzzleCraft_v3.Classes
 
         public BaseChar(Bitmap pic, Point loc, Size size)
         {
-
             Token = new(pic, loc, size);
             MainForm?.Controls.Add(Token);
             TokenList.Add(Token);            
+        }
+
+        ~BaseChar()
+        {
+
         }
         #endregion
 
         #region Movement/Collision
         private static void T1_Tick(object? sender, EventArgs e)
         {
-            foreach (Player c in CharacterList)
-            {
+            foreach (BaseChar c in CharacterList)
                 c.Move();
-            }
 
             try
             {
@@ -80,22 +82,24 @@ namespace PuzzleCraft_v3.Classes
             }
         }
 
+        protected virtual void Move()
+        {
+            //Movement for regular monster tokens
+            //Player movement is overriden
+        }
+
         private static bool CrashTest(BaseChar One, BaseChar Two)
         {
-            if (One.Token.Left + One.Token.Width < Two.Token.Left)
-                return false;
-            if (Two.Token.Left + Two.Token.Width < One.Token.Left)
-                return false;
-            if (One.Token.Top + One.Token.Height < Two.Token.Top)
-                return false;
-            if (Two.Token.Top + Two.Token.Height < One.Token.Top)
-                return false;
+            if (One.Token.Left + One.Token.Width < Two.Token.Left) return false;
+            if (Two.Token.Left + Two.Token.Width < One.Token.Left) return false;
+            if (One.Token.Top + One.Token.Height < Two.Token.Top) return false;
+            if (Two.Token.Top + Two.Token.Height < One.Token.Top) return false;
             return true;
         }
 
         public void AdvancedCollision(BaseChar otherGuy)
         {  
-            if (Health == 0)
+            if (isDead)
             {
                 MainForm?.Controls.Remove(Token);
                 Token.Dispose();

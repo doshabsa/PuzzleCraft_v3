@@ -12,5 +12,10 @@ namespace PuzzleCraft_v3
             Start newGame = new();
             //Backpack newPack = new();
         }
+
+        private void Main_MouseClick(object sender, MouseEventArgs e)
+        {
+            NewLocation = e.Location;
+        }
     }
 }
