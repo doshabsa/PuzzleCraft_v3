@@ -56,7 +56,6 @@ namespace PuzzleCraft_v3.Classes
         }
         #endregion
 
-        #region Movement/Collision
         private static void T1_Tick(object? sender, EventArgs e)
         {
             foreach (BaseChar c in CharacterList)
@@ -82,6 +81,7 @@ namespace PuzzleCraft_v3.Classes
             }
         }
 
+        #region Movement/Collision
         protected virtual void Move()
         {
             //Movement for regular monster tokens
