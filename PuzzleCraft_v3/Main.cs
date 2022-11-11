@@ -1,4 +1,5 @@
 using PuzzleCraft_v3.Classes;
+using static PuzzleCraft_v3.Classes.Player;
 
 namespace PuzzleCraft_v3
 {
@@ -10,11 +11,6 @@ namespace PuzzleCraft_v3
             BaseChar.MainForm = this;
             Start newGame = new();
             //Backpack newPack = new();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            BaseChar.TokenList[0].TestMethod();
         }
     }
 }
