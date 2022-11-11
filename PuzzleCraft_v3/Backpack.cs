@@ -21,7 +21,7 @@ namespace PuzzleCraft_v3
             this.BackColor = Color.DarkGoldenrod;
             SetUpPack();
             this.Location = new Point(100, 100);
-            Player.mainForm.Controls.Add(this);
+            Player.MainForm.Controls.Add(this);
         }
 
         private void SetUpPack()

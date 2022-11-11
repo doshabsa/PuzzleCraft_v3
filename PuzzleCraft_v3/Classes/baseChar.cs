@@ -10,8 +10,10 @@ namespace PuzzleCraft_v3.Classes
     {
         #region Properties/Fields
         protected bool isDead;
-        public Token Token;
-        public static Main? mainForm;
+        private Token Token;
+        public static List<Token> TokenList = new();
+        public static Main? MainForm;
+        public BaseChar BaseCharacter;
 
         protected int HP;
         public int Health
@@ -33,19 +35,15 @@ namespace PuzzleCraft_v3.Classes
         public BaseChar(Bitmap pic, Point loc, Size size)
         {
             Token = new(pic, loc, size);
-            mainForm?.Controls.Add(Token);
+            MainForm?.Controls.Add(Token);
+            TokenList.Add(Token);
         }
         #endregion
 
         #region Methods
         public virtual void Deletion()
         {
-            mainForm?.Controls.Remove(Token);
-        }
-
-        public void TestMethod()
-        {
-            Token.X += 50;
+            MainForm?.Controls.Remove(Token);
         }
         #endregion
     }

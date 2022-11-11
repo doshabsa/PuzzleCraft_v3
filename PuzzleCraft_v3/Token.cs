@@ -14,15 +14,11 @@ namespace PuzzleCraft_v3
 {
     public partial class Token : UserControl
     {
-        public int X { get; set; }
-        public int Y { get; set; }
         public Token(Bitmap pic, Point loc, Size newSize)
         {
             InitializeComponent();
-            Y = loc.Y;
-            X = loc.X;
-            this.Top = Y;
-            this.Left = X;
+            this.Top = loc.Y;
+            this.Left = loc.X;
             this.Size = newSize;
             SetUpPicture(pic);
         }
@@ -34,6 +30,11 @@ namespace PuzzleCraft_v3
             picture.Image = pic;
             picture.Size = this.Size;
             this.Controls.Add(picture);
+        }
+        public void TestMethod()
+        {
+            this.Top += 50;
+            this.Left += 50;
         }
     }
 }

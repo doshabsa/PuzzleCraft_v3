@@ -21,7 +21,7 @@ namespace PuzzleCraft_v3.Classes
         static Map()
         {            
             CreateMapList();
-            BaseChar.mainForm.BackgroundImage = ListMaps[rnd.Next(0, ListMaps.Count)];
+            BaseChar.MainForm.BackgroundImage = ListMaps[rnd.Next(0, ListMaps.Count)];
         }
         #endregion
 

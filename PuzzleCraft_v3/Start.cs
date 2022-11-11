@@ -46,7 +46,7 @@ namespace PuzzleCraft_v3
             backings[5] = panel5;
 
             RandomizeTok();
-            BaseChar.mainForm.Controls.Add(this);
+            BaseChar.MainForm.Controls.Add(this);
         }
 
         private void RandomizeTok()
