@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static PuzzleCraft_v3.Classes.BaseChar;
+using static System.Windows.Forms.AxHost;
 
 namespace PuzzleCraft_v3.Classes
 {
@@ -22,7 +23,7 @@ namespace PuzzleCraft_v3.Classes
         {
             isDead = false;
             HP = 100;
-            Speed = 5;
+            Speed = 1;
             PlayerKey = KeyMove.none;
             thePlayer = this;
             BaseChar.CharacterList.Add(this);
@@ -32,19 +33,35 @@ namespace PuzzleCraft_v3.Classes
         #region Methods
         protected override void Move()
         {
-            if(NewLocation.Y != Token.Location.Y)
+            if (NewLocation.Y != Token.Location.Y)
             {
                 if (NewLocation.Y > Token.Location.Y)
-                    Token.Top += Speed;
+                    Token.Top = (int)(Token.Top += Speed);
                 else if (NewLocation.Y < Token.Location.Y)
-                    Token.Top -= Speed;
+                    Token.Top = (int)(Token.Top -= Speed);
             }
             if (NewLocation.X != Token.Location.X)
             {
                 if (NewLocation.X > Token.Location.X)
-                    Token.Left += Speed;
+                    Token.Left = (int)(Token.Left += Speed);
                 else if (NewLocation.X < Token.Location.X)
-                    Token.Left -= Speed;
+                    Token.Left = (int)(Token.Left -= Speed);
+
+                //if (NewLocation.Y != Token.Location.Y)
+                //{
+                //    if (NewLocation.Y > Token.Location.Y)
+                //        Token.Top += Speed;
+                //    else if (NewLocation.Y < Token.Location.Y)
+                //        Token.Top -= Speed;
+                //}
+                //if (NewLocation.X != Token.Location.X)
+                //{
+                //    if (NewLocation.X > Token.Location.X)
+                //        Token.Left += Speed;
+                //    else if (NewLocation.X < Token.Location.X)
+                //        Token.Left -= Speed;
+                //}
+                //}
             }
         }
         #endregion

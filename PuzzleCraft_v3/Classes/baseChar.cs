@@ -6,6 +6,7 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using static PuzzleCraft_v3.Classes.Player;
+using static System.Windows.Forms.AxHost;
 
 namespace PuzzleCraft_v3.Classes
 {
@@ -14,11 +15,11 @@ namespace PuzzleCraft_v3.Classes
         #region Properties/Fields
         protected bool isDead;
         public Token Token;
+        public int Speed;
+        public int HP;
         public static List<BaseChar> CharacterList = new();
         public static List<Token> TokenList = new();
         public static Main? MainForm;
-        public int Speed;
-        protected int HP;
         public int Health
         {
             get { return HP; }
@@ -38,7 +39,7 @@ namespace PuzzleCraft_v3.Classes
         static BaseChar()
         {
             System.Windows.Forms.Timer t1 = new System.Windows.Forms.Timer();
-            t1.Interval = 100;
+            t1.Interval = 5;
             t1.Tick += T1_Tick;
             t1.Enabled = true;
         }
@@ -84,8 +85,12 @@ namespace PuzzleCraft_v3.Classes
         #region Movement/Collision
         protected virtual void Move()
         {
-            //Movement for regular monster tokens
-            //Player movement is overriden
+            //double deltaX = endX - startX;
+            //double deltaY = endY - startY;
+            //double angle = Math.Atan2(deltaY, deltaX);
+
+            //Token.Left = (int)(Math.Round(Speed * Math.Cos(angle)));
+            //Token.Top = (int)(Math.Round(Speed * Math.Sin(angle)));
         }
 
         private static bool CrashTest(BaseChar One, BaseChar Two)
