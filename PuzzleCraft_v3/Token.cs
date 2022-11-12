@@ -16,8 +16,8 @@ namespace PuzzleCraft_v3
 {
     public partial class Token : UserControl
     {
-        public double stepX { get; set; }
-        public double stepY { get; set; }
+        public double StepX { get; set; }
+        public double StepY { get; set; }
         public double LocX { get; set; }
         public double LocY { get; set; }
 
@@ -34,7 +34,6 @@ namespace PuzzleCraft_v3
             this.Size = newSize;
             SetUpPicture(pic, hp);
             BaseChar.MainForm?.Controls.Add(this);
-            BaseChar.TokenList.Add(this);
         }
 
         private void SetUpPicture(Bitmap pic, int hp)

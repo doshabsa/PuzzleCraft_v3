@@ -403,9 +403,9 @@ namespace PuzzleCraft_v3 {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Skeleton_9___1x1 {
+        internal static System.Drawing.Bitmap skeleton {
             get {
-                object obj = ResourceManager.GetObject("Skeleton_9___1x1", resourceCulture);
+                object obj = ResourceManager.GetObject("skeleton", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

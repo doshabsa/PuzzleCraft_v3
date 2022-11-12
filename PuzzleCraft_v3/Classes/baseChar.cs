@@ -15,17 +15,16 @@ namespace PuzzleCraft_v3.Classes
     public class BaseChar
     {
         #region Properties/Fields
-        protected Token Token;
+        public Token Token;
         protected string CharName;
         protected bool isDead;
         protected bool isSmart;
-        protected int Speed;
+        protected double Speed;
         protected int HP;
         protected int Damage;
+        protected static System.Windows.Forms.Timer? PlayerTimer;
 
-        private System.Windows.Forms.Timer t1;
         public static List<BaseChar> CharacterList = new();
-        public static List<Token> TokenList = new();
         public static Main? MainForm;
 
         public int Health
@@ -51,10 +50,6 @@ namespace PuzzleCraft_v3.Classes
 
         public BaseChar(Bitmap pic, string name) //For Player
         {
-            t1 = new System.Windows.Forms.Timer();
-            t1.Interval = 5;
-            t1.Tick += T1_Tick;
-            t1.Enabled = true;
             CharName = name;
         }
 
@@ -64,10 +59,16 @@ namespace PuzzleCraft_v3.Classes
         }
         #endregion
 
-        public virtual void T1_Tick(object? sender, EventArgs e)
+        public virtual void PlayerTimer_Tick(object? sender, EventArgs e)
         {
             Move();
-            if(isSmart) CalcTrajectory(Token.Left, Token.Top, NewLocation.X, NewLocation.Y);
+            if (isSmart)
+            {
+                if (this is Monster)
+                    CalcTrajectory(Token.Left, Token.Top, thePlayer.Token.Left, thePlayer.Token.Top);
+                else
+                    CalcTrajectory(Token.Left, Token.Top, NewLocation.X, NewLocation.Y);
+            }
             CheckForCrash();
             RemoveTheDead();
         }
@@ -75,14 +76,13 @@ namespace PuzzleCraft_v3.Classes
         #region Tick Events
         public virtual void Move()
         {
-            if (!isDead)
-                foreach (BaseChar c in CharacterList)
-                {
-                    c.Token.LocX += c.Token.stepX;
-                    c.Token.LocY += c.Token.stepY;
-                    c.Token.Left = (int)c.Token.LocX;
-                    c.Token.Top = (int)c.Token.LocY;
-                }
+            foreach (BaseChar c in CharacterList)
+            {
+                c.Token.LocX += c.Token.StepX;
+                c.Token.LocY += c.Token.StepY;
+                c.Token.Left = (int)c.Token.LocX;
+                c.Token.Top = (int)c.Token.LocY;
+            }
 
             if (!this.hasValidPosition())
                 this.isDead = true;
@@ -94,8 +94,8 @@ namespace PuzzleCraft_v3.Classes
             double deltaY = endY - startY;
             double angle = Math.Atan2(deltaY, deltaX);
 
-            Token.stepX = Speed * Math.Cos(angle);
-            Token.stepY = Speed * Math.Sin(angle);
+            Token.StepX = Speed * Math.Cos(angle);
+            Token.StepY = Speed * Math.Sin(angle);
         }
 
         public static void CheckForCrash()
@@ -120,15 +120,14 @@ namespace PuzzleCraft_v3.Classes
 
         public static void RemoveTheDead()
         {
-            List<int> isDeadList = new List<int>();
+            List<int> isDeadList = new();
             for (int i = 0; i < CharacterList.Count; i++)
                 if (CharacterList[i].isDead) isDeadList.Add(i);
 
             for (int i = 0; i < isDeadList.Count; i++)
             {
                 MainForm.Controls.Remove(CharacterList[isDeadList[i] - i].Token);
-                TokenList.Remove(CharacterList[i].Token);
-                CharacterList[i].Token.Dispose();
+                CharacterList[isDeadList[i] - i].Token.Dispose();
                 CharacterList.RemoveAt(isDeadList[i] - i);
             }
         }
@@ -148,7 +147,7 @@ namespace PuzzleCraft_v3.Classes
         {
             Health -= damage;
             if (Health <= 0) isDead = true;
-            if(!isDead) Token.UpdateTokenHP(damage);
+            if (!isDead) Token.UpdateTokenHP(damage);
         }
         #endregion
 
