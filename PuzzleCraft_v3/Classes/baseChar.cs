@@ -15,11 +15,12 @@ namespace PuzzleCraft_v3.Classes
     public class BaseChar
     {
         #region Properties/Fields
+        protected Token Token;
+        protected string CharName;
         protected bool isDead;
-        private string CharName;
-        public Token Token;
-        public int Speed;
-        public int HP;
+        protected int Speed;
+        protected int HP;
+        protected int Damage;
 
         private System.Windows.Forms.Timer t1;
         public static List<BaseChar> CharacterList = new();
@@ -42,7 +43,6 @@ namespace PuzzleCraft_v3.Classes
         #endregion
 
         #region Constructors
-       
         public BaseChar(string name) //For Monsters and Items
         {
             CharName = name;
@@ -70,40 +70,7 @@ namespace PuzzleCraft_v3.Classes
             RemoveTheDead();
         }
 
-        #region Collision
-        private static bool CrashTest(BaseChar One, BaseChar Two)
-        {
-            if (One.Token.Left + One.Token.Width < Two.Token.Left) return false;
-            if (Two.Token.Left + Two.Token.Width < One.Token.Left) return false;
-            if (One.Token.Top + One.Token.Height < Two.Token.Top) return false;
-            if (Two.Token.Top + Two.Token.Height < One.Token.Top) return false;
-            return true;
-        }
-
-        public void AdvancedCollision(int damage, BaseChar otherGuy)
-        {
-            Health -= damage;
-            thePlayer.Health -= damage;
-            if (thePlayer.Health <= 0) isDead = true;
-            if (Health <=0) isDead = true;
-        }
-
-        public static void RemoveTheDead()
-        {
-            List<int> isDeadList = new List<int>();
-            for (int i = 0; i < CharacterList.Count; i++)
-                if (CharacterList[i].isDead) isDeadList.Add(i);
-
-            for (int i = 0; i < isDeadList.Count; i++)
-            {
-                MainForm.Controls.Remove(CharacterList[isDeadList[i] - i].Token);
-                CharacterList[i].Token.Dispose();
-                CharacterList.RemoveAt(isDeadList[i] - i);
-            }
-        }
-        #endregion
-
-        #region Movement
+        #region Tick Events
         public virtual void Move()
         {
             if (!isDead)
@@ -129,8 +96,8 @@ namespace PuzzleCraft_v3.Classes
                             if (i != j)
                                 if (CrashTest(CharacterList[i], CharacterList[j]))
                                 {
-                                    CharacterList[i].AdvancedCollision(1, CharacterList[j]);
-                                    CharacterList[j].AdvancedCollision(1, CharacterList[i]);
+                                    CharacterList[i].AdvancedCollision(CharacterList[j].Damage, CharacterList[i]);
+                                    CharacterList[j].AdvancedCollision(CharacterList[i].Damage, CharacterList[j]);
                                 }
             }
             catch
@@ -139,14 +106,47 @@ namespace PuzzleCraft_v3.Classes
             }
         }
 
+        public static void RemoveTheDead()
+        {
+            List<int> isDeadList = new List<int>();
+            for (int i = 0; i < CharacterList.Count; i++)
+                if (CharacterList[i].isDead) isDeadList.Add(i);
+
+            for (int i = 0; i < isDeadList.Count; i++)
+            {
+                MainForm.Controls.Remove(CharacterList[isDeadList[i] - i].Token);
+                TokenList.Remove(CharacterList[i].Token);
+                CharacterList[i].Token.Dispose();
+                CharacterList.RemoveAt(isDeadList[i] - i);
+            }
+        }
+        #endregion
+
+        #region Collision
+        private static bool CrashTest(BaseChar One, BaseChar Two)
+        {
+            if (One.Token.Left + One.Token.Width < Two.Token.Left) return false;
+            if (Two.Token.Left + Two.Token.Width < One.Token.Left) return false;
+            if (One.Token.Top + One.Token.Height < Two.Token.Top) return false;
+            if (Two.Token.Top + Two.Token.Height < One.Token.Top) return false;
+            return true;
+        }
+
+        public void AdvancedCollision(int damage, BaseChar otherGuy)
+        {
+            Health -= damage;
+            if (Health <= 0) isDead = true;
+            if(!isDead) Token.UpdateTokenHP(damage);
+        }
+        #endregion
+
+        #region Movement
         public bool hasValidPosition()
         {
             if (Token.Left + Token.Width > MainForm.ClientRectangle.Width || Token.Left < 0 - Token.Width)
                 return false;
-
             if (Token.Top + Token.Height > MainForm.ClientRectangle.Height || Token.Top < 0 - Token.Height)
                 return false;
-
             return true;
         }
         #endregion

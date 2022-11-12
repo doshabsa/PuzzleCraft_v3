@@ -22,8 +22,9 @@ namespace PuzzleCraft_v3.Classes
             isDead = false;
             HP = 100;
             Speed = 1;
+            Damage = 5;
             thePlayer = this;
-            Token = new(pic, loc, size);
+            Token = new(pic, size, loc, HP);
             BaseChar.CharacterList.Add(this);
         }
         #endregion
@@ -31,8 +32,8 @@ namespace PuzzleCraft_v3.Classes
         #region Methods
         public override void T1_Tick(object? sender, EventArgs e)
         {
-            CalcTrajectory(Token.Left, Token.Top, NewLocation.X, NewLocation.Y);
             base.T1_Tick(sender, e);
+            CalcTrajectory(Token.Left, Token.Top, NewLocation.X, NewLocation.Y);
         }
 
         protected virtual void CalcTrajectory(int startX, int startY, int endX, int endY)
