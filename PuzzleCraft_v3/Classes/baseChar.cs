@@ -18,6 +18,7 @@ namespace PuzzleCraft_v3.Classes
         protected Token Token;
         protected string CharName;
         protected bool isDead;
+        protected bool isSmart;
         protected int Speed;
         protected int HP;
         protected int Damage;
@@ -66,6 +67,7 @@ namespace PuzzleCraft_v3.Classes
         public virtual void T1_Tick(object? sender, EventArgs e)
         {
             Move();
+            if(isSmart) CalcTrajectory(Token.Left, Token.Top, NewLocation.X, NewLocation.Y);
             CheckForCrash();
             RemoveTheDead();
         }
@@ -84,6 +86,16 @@ namespace PuzzleCraft_v3.Classes
 
             if (!this.hasValidPosition())
                 this.isDead = true;
+        }
+
+        protected virtual void CalcTrajectory(int startX, int startY, int endX, int endY)
+        {
+            double deltaX = endX - startX;
+            double deltaY = endY - startY;
+            double angle = Math.Atan2(deltaY, deltaX);
+
+            Token.stepX = Speed * Math.Cos(angle);
+            Token.stepY = Speed * Math.Sin(angle);
         }
 
         public static void CheckForCrash()

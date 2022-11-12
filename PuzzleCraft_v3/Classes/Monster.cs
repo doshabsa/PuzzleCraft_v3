@@ -32,6 +32,7 @@ namespace PuzzleCraft_v3.Classes
             switch (name)
             {
                 case "raven":
+                    isSmart = false;
                     HP = 1;
                     Speed = 2;
                     Damage = 1;
@@ -42,6 +43,7 @@ namespace PuzzleCraft_v3.Classes
                     return raven;
 
                 default: //change default image?
+                    isSmart = false;
                     HP = 0;
                     Speed = 0;
                     Damage = 0;
