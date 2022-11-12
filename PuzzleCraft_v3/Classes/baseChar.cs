@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Media;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using static PuzzleCraft_v3.Classes.Player;
 using static System.Windows.Forms.AxHost;
 
@@ -14,12 +16,16 @@ namespace PuzzleCraft_v3.Classes
     {
         #region Properties/Fields
         protected bool isDead;
+        private string CharName;
         public Token Token;
         public int Speed;
         public int HP;
+
+        private System.Windows.Forms.Timer t1;
         public static List<BaseChar> CharacterList = new();
         public static List<Token> TokenList = new();
         public static Main? MainForm;
+
         public int Health
         {
             get { return HP; }
@@ -36,19 +42,19 @@ namespace PuzzleCraft_v3.Classes
         #endregion
 
         #region Constructors
-        static BaseChar()
+       
+        public BaseChar(string name) //For Monsters and Items
         {
-            System.Windows.Forms.Timer t1 = new System.Windows.Forms.Timer();
+            CharName = name;
+        }
+
+        public BaseChar(Bitmap pic, string name) //For Player
+        {
+            t1 = new System.Windows.Forms.Timer();
             t1.Interval = 5;
             t1.Tick += T1_Tick;
             t1.Enabled = true;
-        }
-
-        public BaseChar(Bitmap pic, Point loc, Size size)
-        {
-            Token = new(pic, loc, size);
-            MainForm?.Controls.Add(Token);
-            TokenList.Add(Token);            
+            CharName = name;
         }
 
         ~BaseChar()
@@ -57,42 +63,14 @@ namespace PuzzleCraft_v3.Classes
         }
         #endregion
 
-        private static void T1_Tick(object? sender, EventArgs e)
+        public virtual void T1_Tick(object? sender, EventArgs e)
         {
-            foreach (BaseChar c in CharacterList)
-                c.Move();
-
-            try
-            {
-                if (CharacterList.Count >= 2)
-                {
-                    for (int i = 0; i < CharacterList.Count; i++)
-                        for (int j = i; j < CharacterList.Count; j++)
-                            if (i != j)
-                                if (CrashTest(CharacterList[i], CharacterList[j]))
-                                {
-                                    CharacterList[i].AdvancedCollision(CharacterList[j]);
-                                    CharacterList[j].AdvancedCollision(CharacterList[i]);
-                                }
-                }
-            }
-            catch
-            {
-
-            }
+            Move();
+            CheckForCrash();
+            RemoveTheDead();
         }
 
-        #region Movement/Collision
-        protected virtual void Move()
-        {
-            //double deltaX = endX - startX;
-            //double deltaY = endY - startY;
-            //double angle = Math.Atan2(deltaY, deltaX);
-
-            //Token.Left = (int)(Math.Round(Speed * Math.Cos(angle)));
-            //Token.Top = (int)(Math.Round(Speed * Math.Sin(angle)));
-        }
-
+        #region Collision
         private static bool CrashTest(BaseChar One, BaseChar Two)
         {
             if (One.Token.Left + One.Token.Width < Two.Token.Left) return false;
@@ -102,14 +80,74 @@ namespace PuzzleCraft_v3.Classes
             return true;
         }
 
-        public void AdvancedCollision(BaseChar otherGuy)
-        {  
-            if (isDead)
+        public void AdvancedCollision(int damage, BaseChar otherGuy)
+        {
+            Health -= damage;
+            thePlayer.Health -= damage;
+            if (thePlayer.Health <= 0) isDead = true;
+            if (Health <=0) isDead = true;
+        }
+
+        public static void RemoveTheDead()
+        {
+            List<int> isDeadList = new List<int>();
+            for (int i = 0; i < CharacterList.Count; i++)
+                if (CharacterList[i].isDead) isDeadList.Add(i);
+
+            for (int i = 0; i < isDeadList.Count; i++)
             {
-                MainForm?.Controls.Remove(Token);
-                Token.Dispose();
-                CharacterList.Remove(this);
+                MainForm.Controls.Remove(CharacterList[isDeadList[i] - i].Token);
+                CharacterList[i].Token.Dispose();
+                CharacterList.RemoveAt(isDeadList[i] - i);
             }
+        }
+        #endregion
+
+        #region Movement
+        public virtual void Move()
+        {
+            if (!isDead)
+                foreach (BaseChar c in CharacterList)
+                {
+                    c.Token.LocX += c.Token.stepX;
+                    c.Token.LocY += c.Token.stepY;
+                    c.Token.Left = (int)c.Token.LocX;
+                    c.Token.Top = (int)c.Token.LocY;
+                }
+
+            if (!this.hasValidPosition())
+                this.isDead = true;
+        }
+
+        public static void CheckForCrash()
+        {
+            try
+            {
+                if (CharacterList.Count >= 2)
+                    for (int i = 0; i < CharacterList.Count; i++)
+                        for (int j = i; j < CharacterList.Count; j++)
+                            if (i != j)
+                                if (CrashTest(CharacterList[i], CharacterList[j]))
+                                {
+                                    CharacterList[i].AdvancedCollision(1, CharacterList[j]);
+                                    CharacterList[j].AdvancedCollision(1, CharacterList[i]);
+                                }
+            }
+            catch
+            {
+
+            }
+        }
+
+        public bool hasValidPosition()
+        {
+            if (Token.Left + Token.Width > MainForm.ClientRectangle.Width || Token.Left < 0 - Token.Width)
+                return false;
+
+            if (Token.Top + Token.Height > MainForm.ClientRectangle.Height || Token.Top < 0 - Token.Height)
+                return false;
+
+            return true;
         }
         #endregion
     }

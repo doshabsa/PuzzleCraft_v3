@@ -10,8 +10,8 @@ namespace PuzzleCraft_v3.Classes
     internal static class Map
     {
         #region Properties/Fields/Delegates
-        public delegate void SetupMap();
-        public static event SetupMap UpdateMapBackdrop;
+        //public delegate void SetupMap();
+        //public static event SetupMap UpdateMapBackdrop;
 
         private static List<Image> ListMaps = new();
         private static Random rnd = new();

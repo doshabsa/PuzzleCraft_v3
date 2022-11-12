@@ -11,6 +11,7 @@ namespace PuzzleCraft_v3
             BaseChar.MainForm = this;
             Start newGame = new();
             //Backpack newPack = new();
+            Monster newMonster = new("raven");
         }
 
         private void Main_MouseClick(object sender, MouseEventArgs e)

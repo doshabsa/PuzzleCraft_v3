@@ -16,13 +16,22 @@ namespace PuzzleCraft_v3
 {
     public partial class Token : UserControl
     {
+        public double stepX;
+        public double stepY;
+        public double LocX;
+        public double LocY;
+
         public Token(Bitmap pic, Point loc, Size newSize)
         {
             InitializeComponent();
+            LocX = loc.X;
+            LocY = loc.Y;
             this.Top = loc.Y;
             this.Left = loc.X;
             this.Size = newSize;
             SetUpPicture(pic);
+            BaseChar.MainForm?.Controls.Add(this);
+            BaseChar.TokenList.Add(this);
         }
 
         private void SetUpPicture(Bitmap pic)

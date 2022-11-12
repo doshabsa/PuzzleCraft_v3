@@ -9,9 +9,9 @@ namespace PuzzleCraft_v3.Classes
 {
     static class Inventory
     {
-        public delegate void ChangeInventory(int value);
-        public static ChangeInventory someUpdate;
-        private static Backpack Pack;
+        //public delegate void ChangeInventory(int value);
+        //public static ChangeInventory someUpdate;
+        //private static Backpack Pack;
 
         static Inventory()
         {

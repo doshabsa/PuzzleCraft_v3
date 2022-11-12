@@ -9,11 +9,11 @@ namespace PuzzleCraft_v3.Classes
     internal class Item : BaseChar
     {
         #region Properties/Fields
-        private List<Image>? ListItemTokens;
+        //private List<Image>? ListItemTokens;
         #endregion
 
         #region Constructors
-        public Item(Bitmap pic, string name, Point loc, Size size) : base(pic, loc, size)
+        public Item(string name) : base(name)
         {
 
         }

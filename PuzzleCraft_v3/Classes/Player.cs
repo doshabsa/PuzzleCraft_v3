@@ -13,56 +13,36 @@ namespace PuzzleCraft_v3.Classes
     {
         #region Properties/Fields
         public static Player? thePlayer;
-        public enum KeyMove { none, up, down, left, right, space }
-        public static KeyMove PlayerKey;
         public static Point NewLocation;
         #endregion
 
         #region Constructors
-        public Player(Bitmap pic, Point loc, Size size) : base(pic, loc, size)
+        public Player(Bitmap pic, string name, Point loc, Size size) : base(pic, name)
         {
             isDead = false;
             HP = 100;
             Speed = 1;
-            PlayerKey = KeyMove.none;
             thePlayer = this;
+            Token = new(pic, loc, size);
             BaseChar.CharacterList.Add(this);
         }
         #endregion
 
         #region Methods
-        protected override void Move()
+        public override void T1_Tick(object? sender, EventArgs e)
         {
-            if (NewLocation.Y != Token.Location.Y)
-            {
-                if (NewLocation.Y > Token.Location.Y)
-                    Token.Top = (int)(Token.Top += Speed);
-                else if (NewLocation.Y < Token.Location.Y)
-                    Token.Top = (int)(Token.Top -= Speed);
-            }
-            if (NewLocation.X != Token.Location.X)
-            {
-                if (NewLocation.X > Token.Location.X)
-                    Token.Left = (int)(Token.Left += Speed);
-                else if (NewLocation.X < Token.Location.X)
-                    Token.Left = (int)(Token.Left -= Speed);
+            CalcTrajectory(Token.Left, Token.Top, NewLocation.X, NewLocation.Y);
+            base.T1_Tick(sender, e);
+        }
 
-                //if (NewLocation.Y != Token.Location.Y)
-                //{
-                //    if (NewLocation.Y > Token.Location.Y)
-                //        Token.Top += Speed;
-                //    else if (NewLocation.Y < Token.Location.Y)
-                //        Token.Top -= Speed;
-                //}
-                //if (NewLocation.X != Token.Location.X)
-                //{
-                //    if (NewLocation.X > Token.Location.X)
-                //        Token.Left += Speed;
-                //    else if (NewLocation.X < Token.Location.X)
-                //        Token.Left -= Speed;
-                //}
-                //}
-            }
+        protected virtual void CalcTrajectory(int startX, int startY, int endX, int endY)
+        {
+            double deltaX = endX - startX;
+            double deltaY = endY - startY;
+            double angle = Math.Atan2(deltaY, deltaX);
+
+            Token.stepX = Speed * Math.Cos(angle);
+            Token.stepY = Speed * Math.Sin(angle);
         }
         #endregion
     }

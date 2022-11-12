@@ -43,6 +43,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel0 = new System.Windows.Forms.Panel();
             this.pictureBox0 = new System.Windows.Forms.PictureBox();
+            this.txtName = new System.Windows.Forms.TextBox();
             this.panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
             this.panel4.SuspendLayout();
@@ -60,7 +61,7 @@
             // btnRandom
             // 
             this.btnRandom.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btnRandom.Location = new System.Drawing.Point(3, 209);
+            this.btnRandom.Location = new System.Drawing.Point(3, 247);
             this.btnRandom.Name = "btnRandom";
             this.btnRandom.Size = new System.Drawing.Size(256, 44);
             this.btnRandom.TabIndex = 14;
@@ -81,7 +82,7 @@
             // btnStart
             // 
             this.btnStart.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btnStart.Location = new System.Drawing.Point(3, 259);
+            this.btnStart.Location = new System.Drawing.Point(3, 297);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(256, 44);
             this.btnStart.TabIndex = 12;
@@ -92,7 +93,7 @@
             // panel5
             // 
             this.panel5.Controls.Add(this.pictureBox5);
-            this.panel5.Location = new System.Drawing.Point(178, 118);
+            this.panel5.Location = new System.Drawing.Point(178, 156);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(81, 81);
             this.panel5.TabIndex = 18;
@@ -110,7 +111,7 @@
             // panel4
             // 
             this.panel4.Controls.Add(this.pictureBox4);
-            this.panel4.Location = new System.Drawing.Point(91, 118);
+            this.panel4.Location = new System.Drawing.Point(91, 156);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(81, 81);
             this.panel4.TabIndex = 19;
@@ -128,7 +129,7 @@
             // panel3
             // 
             this.panel3.Controls.Add(this.pictureBox3);
-            this.panel3.Location = new System.Drawing.Point(4, 118);
+            this.panel3.Location = new System.Drawing.Point(4, 156);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(81, 81);
             this.panel3.TabIndex = 20;
@@ -146,7 +147,7 @@
             // panel2
             // 
             this.panel2.Controls.Add(this.pictureBox2);
-            this.panel2.Location = new System.Drawing.Point(178, 31);
+            this.panel2.Location = new System.Drawing.Point(178, 69);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(81, 81);
             this.panel2.TabIndex = 17;
@@ -164,7 +165,7 @@
             // panel1
             // 
             this.panel1.Controls.Add(this.pictureBox1);
-            this.panel1.Location = new System.Drawing.Point(91, 31);
+            this.panel1.Location = new System.Drawing.Point(91, 69);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(81, 81);
             this.panel1.TabIndex = 16;
@@ -182,7 +183,7 @@
             // panel0
             // 
             this.panel0.Controls.Add(this.pictureBox0);
-            this.panel0.Location = new System.Drawing.Point(4, 31);
+            this.panel0.Location = new System.Drawing.Point(4, 69);
             this.panel0.Name = "panel0";
             this.panel0.Size = new System.Drawing.Size(81, 81);
             this.panel0.TabIndex = 15;
@@ -198,10 +199,20 @@
             this.pictureBox0.TabStop = false;
             this.pictureBox0.Click += new System.EventHandler(this.PictureBox_Select);
             // 
+            // txtName
+            // 
+            this.txtName.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.txtName.Location = new System.Drawing.Point(6, 31);
+            this.txtName.Name = "txtName";
+            this.txtName.PlaceholderText = "Enter your name here!";
+            this.txtName.Size = new System.Drawing.Size(249, 32);
+            this.txtName.TabIndex = 21;
+            // 
             // Start
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.txtName);
             this.Controls.Add(this.panel5);
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.panel3);
@@ -212,7 +223,7 @@
             this.Controls.Add(this.lblPTselect);
             this.Controls.Add(this.btnStart);
             this.Name = "Start";
-            this.Size = new System.Drawing.Size(263, 306);
+            this.Size = new System.Drawing.Size(263, 346);
             this.panel5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
             this.panel4.ResumeLayout(false);
@@ -247,5 +258,6 @@
         private PictureBox pictureBox1;
         private Panel panel0;
         private PictureBox pictureBox0;
+        private TextBox txtName;
     }
 }
