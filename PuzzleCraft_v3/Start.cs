@@ -68,7 +68,7 @@ namespace PuzzleCraft_v3
             if (selected != null)
             {
                 Player newPlayer = new((Bitmap)selected.Image, txtName.Text, selected.Location, selected.Size);
-                Monster m1 = new("raven");
+                Monster newMonster = new("raven");
                 this.Dispose();
             }
             else

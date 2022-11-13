@@ -28,13 +28,25 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.btn_Cheat = new System.Windows.Forms.Button();
             this.SuspendLayout();
+            // 
+            // btn_Cheat
+            // 
+            this.btn_Cheat.Location = new System.Drawing.Point(833, 28);
+            this.btn_Cheat.Name = "btn_Cheat";
+            this.btn_Cheat.Size = new System.Drawing.Size(75, 23);
+            this.btn_Cheat.TabIndex = 0;
+            this.btn_Cheat.Text = "button1";
+            this.btn_Cheat.UseVisualStyleBackColor = true;
+            this.btn_Cheat.Click += new System.EventHandler(this.btn_Cheat_Click);
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(984, 661);
+            this.Controls.Add(this.btn_Cheat);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "Main";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
@@ -45,5 +57,7 @@
         }
 
         #endregion
+
+        private Button btn_Cheat;
     }
 }

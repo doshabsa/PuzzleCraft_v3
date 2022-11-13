@@ -16,5 +16,10 @@ namespace PuzzleCraft_v3
         {
             NewLocation = e.Location;
         }
+
+        private void btn_Cheat_Click(object sender, EventArgs e)
+        {
+            
+        }
     }
 }

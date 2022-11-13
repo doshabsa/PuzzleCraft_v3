@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace PuzzleCraft_v3.Classes
@@ -10,7 +11,7 @@ namespace PuzzleCraft_v3.Classes
     internal class Monster : BaseChar
     {
         #region Properties/Fields
-        private Random rnd = new Random();
+        private static Random rnd = new Random();
         #endregion
 
         #region Constructors
@@ -65,6 +66,20 @@ namespace PuzzleCraft_v3.Classes
                     Point newPoint = new(rnd.Next(0, BaseChar.MainForm.Width - newSize.Width), rnd.Next(0, BaseChar.MainForm.Height - newSize.Height));
                     var n = (HP, Speed, Damage, newPic, newSize, newPoint);
                     return n;
+            }
+        }
+
+        public static void CreateNewMonster()
+        {
+            switch (rnd.Next(0, 2))
+            {
+                case 0:
+                    Monster m0 = new("raven");
+                    break;
+
+                case 1:
+                    Monster m1 = new("skeleton");
+                    break;
             }
         }
         #endregion

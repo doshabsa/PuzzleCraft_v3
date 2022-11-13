@@ -9,7 +9,7 @@ using static System.Windows.Forms.AxHost;
 
 namespace PuzzleCraft_v3.Classes
 {
-    public class Player : BaseChar
+    internal class Player : BaseChar
     {
         #region Properties/Fields
         public static Point NewLocation;
