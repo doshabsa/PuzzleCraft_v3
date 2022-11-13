@@ -30,7 +30,7 @@ namespace PuzzleCraft_v3.Classes
         protected double Speed;
         protected int HP;
         protected int Damage;
-        protected static System.Windows.Forms.Timer? PlayerTimer;
+        public static System.Windows.Forms.Timer? PlayerTimer;
 
         public static List<BaseChar> CharacterList = new();
         public static Main? MainForm;
