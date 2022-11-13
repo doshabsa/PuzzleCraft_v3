@@ -69,6 +69,7 @@ namespace PuzzleCraft_v3
             {
                 Player newPlayer = new((Bitmap)selected.Image, txtName.Text, selected.Location, selected.Size);
                 Monster newMonster = new("raven");
+                Backpack newPack = new();
                 this.Dispose();
             }
             else

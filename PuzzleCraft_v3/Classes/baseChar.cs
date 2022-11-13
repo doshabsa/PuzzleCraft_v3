@@ -32,12 +32,6 @@ namespace PuzzleCraft_v3.Classes
         protected int Damage;
         protected static System.Windows.Forms.Timer? PlayerTimer;
 
-        //public delegate void SafeCallDelegate(string text);
-        //public SafeCallDelegate SafeCall;
-        //private Thread thread2 = null;
-        //private Button button1;
-        //private TextBox textBox1;
-
         public static List<BaseChar> CharacterList = new();
         public static Main? MainForm;
 
@@ -78,15 +72,12 @@ namespace PuzzleCraft_v3.Classes
         {
             Move();
             if (isSmart)
-            {
                 if (this is Monster)
                     CalcTrajectory(Token.Left, Token.Top, thePlayer.Token.Left, thePlayer.Token.Top);
                 else
                     CalcTrajectory(Token.Left, Token.Top, NewLocation.X, NewLocation.Y);
-            }
             CheckForCrash();
             RemoveTheDead();
-
             if (CharacterList.Count < 2)
                 Monster.CreateNewMonster();
         }
