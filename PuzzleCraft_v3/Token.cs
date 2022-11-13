@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Numerics;
 using System.Security.Policy;
 using System.Text;
@@ -55,6 +56,11 @@ namespace PuzzleCraft_v3
         public void UpdateTokenHP(int damage)
         {
             progressBar.Value -= damage;
+        }
+
+        public void UpdatePictureBox()
+        {
+            
         }
     }
 }
