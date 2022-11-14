@@ -20,22 +20,12 @@ namespace PuzzleCraft_v3.Classes
         public Player(Bitmap pic, string name, Point loc, Size size) : base(pic, name)
         {
             thePlayer = this;
-            isDead = false;
-            isSmart = true;
             HP = 100;
             Speed = 1;
             Damage = 5;
             Token = new(pic, size, loc, HP);
-            BaseChar.CharacterList.Add(this);
-            PlayerTimer = new System.Windows.Forms.Timer();
-            PlayerTimer.Interval = 5;
-            PlayerTimer.Tick += PlayerTimer_Tick;
-            PlayerTimer.Enabled = true;
+            CharacterList.Add(this);
         }
-        #endregion
-
-        #region Methods
-
         #endregion
     }
 }

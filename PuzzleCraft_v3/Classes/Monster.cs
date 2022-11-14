@@ -12,6 +12,7 @@ namespace PuzzleCraft_v3.Classes
     {
         #region Properties/Fields
         private static Random rnd = new Random();
+        protected bool isSmart;
         #endregion
 
         #region Constructors
@@ -23,9 +24,12 @@ namespace PuzzleCraft_v3.Classes
             Speed = details.Item2;
             Damage = details.Item3;
             Token = new(details.Item4, details.Item5, details.Item6, HP);
-            BaseChar.CharacterList.Add(this);
-            if (isSmart)
-                PlayerTimer.Tick += PlayerTimer_Tick;
+            CharacterList.Add(this);
+        }
+
+        ~Monster()
+        {
+
         }
         #endregion
 
@@ -37,7 +41,7 @@ namespace PuzzleCraft_v3.Classes
                 case "raven":
                     isSmart = true;
                     HP = 1;
-                    Speed = 0.5;
+                    Speed = 1;
                     Damage = 1;
                     Bitmap? ravenPic = Resource1.raven;
                     Size ravenSize = new(35, 35);
@@ -71,7 +75,7 @@ namespace PuzzleCraft_v3.Classes
 
         public static void CreateNewMonster()
         {
-            switch (rnd.Next(0, 2))
+            switch (rnd.Next(0, 1))
             {
                 case 0:
                     Monster m0 = new("raven");

@@ -21,17 +21,14 @@ namespace PuzzleCraft_v3.Classes
     abstract class BaseChar
     {
         #region Properties/Fields
-        public static BaseChar Base;
         public Token Token;
-        private Monster? m1;
         protected string CharName;
         protected bool isDead;
-        protected bool isSmart;
         protected double Speed;
         protected int HP;
         protected int Damage;
-        public static System.Windows.Forms.Timer? PlayerTimer;
 
+        public static System.Windows.Forms.Timer? PlayerTimer = new();
         public static List<BaseChar> CharacterList = new();
         public static Main? MainForm;
 
@@ -51,15 +48,24 @@ namespace PuzzleCraft_v3.Classes
         #endregion
 
         #region Constructors
+
+        static BaseChar()
+        {
+            PlayerTimer.Interval = 5;
+            PlayerTimer.Tick += PlayerTimer_Tick;
+            PlayerTimer.Enabled = true;
+        }
+
         public BaseChar(string name) //For Monsters and Items
         {
+            isDead = false;
             CharName = name;
         }
 
         public BaseChar(Bitmap pic, string name) //For Player
         {
-            Base = this;
-            CharName = name;            
+            isDead = false;
+            CharName = name;
         }
 
         ~BaseChar()
@@ -68,16 +74,14 @@ namespace PuzzleCraft_v3.Classes
         }
         #endregion
 
-        public virtual void PlayerTimer_Tick(object? sender, EventArgs e)
+        static void PlayerTimer_Tick(object? sender, EventArgs e)
         {
-            Move();
-            if (isSmart)
-                if (this is Monster)
-                    CalcTrajectory(Token.Left, Token.Top, thePlayer.Token.Left, thePlayer.Token.Top);
-                else
-                    CalcTrajectory(Token.Left, Token.Top, NewLocation.X, NewLocation.Y);
-            CheckForCrash();
+            foreach(BaseChar c in CharacterList)
+                c.Move();
+
+                        CheckForCrash();
             RemoveTheDead();
+
             if (CharacterList.Count < 2)
                 Monster.CreateNewMonster();
         }
@@ -85,9 +89,9 @@ namespace PuzzleCraft_v3.Classes
         #region Tick Events
         public bool hasValidPosition()
         {
-            if (Token.Left + Token.Width > MainForm.ClientRectangle.Width || Token.Left < 0 - Token.Width)
+            if (Token.Left - Token.Width > MainForm.ClientRectangle.Width || Token.Left < 0 - (Token.Width * 2))
                 return false;
-            if (Token.Top + Token.Height > MainForm.ClientRectangle.Height || Token.Top < 0 - Token.Height)
+            if (Token.Top - Token.Height > MainForm.ClientRectangle.Height || Token.Top < 0 - (Token.Height * 2))
                 return false;
             return true;
         }
@@ -148,13 +152,15 @@ namespace PuzzleCraft_v3.Classes
         #region Movement
         public virtual void Move()
         {
-            foreach (BaseChar c in CharacterList)
-            {
-                c.Token.LocX += c.Token.StepX;
-                c.Token.LocY += c.Token.StepY;
-                c.Token.Left = (int)c.Token.LocX;
-                c.Token.Top = (int)c.Token.LocY;
-            }
+            this.Token.LocX += this.Token.StepX;
+            this.Token.LocY += this.Token.StepY;
+            this.Token.Left = (int)this.Token.LocX;
+            this.Token.Top = (int)this.Token.LocY;
+
+            if(this is Player)
+                CalcTrajectory(this.Token.Left, this.Token.Top, NewLocation.X, NewLocation.Y);
+            if(this is Monster && Player.thePlayer is not null)
+                CalcTrajectory(this.Token.Left, this.Token.Top, Player.thePlayer.Token.Left, Player.thePlayer.Token.Top);
 
             if (!this.hasValidPosition())
                 this.isDead = true;

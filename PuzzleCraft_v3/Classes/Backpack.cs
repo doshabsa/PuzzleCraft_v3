@@ -31,14 +31,14 @@ namespace PuzzleCraft_v3
         {
             if (lblOpenBag.Visible)
             {
-                BaseChar.PlayerTimer.Start();
+                Player.PlayerTimer.Start();
                 OpenedBag.Visible = false;
                 ClosedBag.Visible = true;
                 ClosedBag.BringToFront();
             }
             else
             {
-                BaseChar.PlayerTimer.Stop();
+                Player.PlayerTimer.Stop();
                 OpenedBag.Visible = true;
                 ClosedBag.Visible = false;
                 OpenedBag.BringToFront();

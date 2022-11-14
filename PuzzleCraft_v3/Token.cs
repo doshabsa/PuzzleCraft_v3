@@ -57,10 +57,5 @@ namespace PuzzleCraft_v3
         {
             progressBar.Value -= damage;
         }
-
-        public void UpdatePictureBox()
-        {
-            
-        }
     }
 }
