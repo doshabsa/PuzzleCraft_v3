@@ -19,12 +19,14 @@ namespace PuzzleCraft_v3
         private static Label lblCloseBag;
         private static Size OpenBagSize = new Size(380, 210);
         private static Size ClosedSize = new Size(110, 30);
+        private static Point ClosedBackpackDock = new(3, 627);
+        private static Point OpenedBackpackDock = new(3, 447);
 
         public Backpack()
         {
             this.Font = new Font("Arial", 12);
-            SetupOpenBag();
             SetupCloseBag();
+            SetupOpenBag();
         }
 
         private void ToggleBag_Click(object? sender, EventArgs e)
@@ -49,6 +51,7 @@ namespace PuzzleCraft_v3
         {
             ClosedBag = new()
             {
+                Location = ClosedBackpackDock,
                 Size = ClosedSize,
                 Name = "pnlBagClose",
                 BackColor = Color.OldLace,
@@ -73,6 +76,7 @@ namespace PuzzleCraft_v3
         {
             OpenedBag = new()
             {
+                Location = OpenedBackpackDock,
                 Size = OpenBagSize,
                 Name = "pnlBagOpen",
                 BackColor = Color.OldLace,
@@ -83,7 +87,7 @@ namespace PuzzleCraft_v3
             BaseChar.MainForm.Controls.Add(OpenedBag);
 
             lblOpenBag = new();
-            lblOpenBag.Location = new Point(OpenedBag.Width / 2 - lblOpenBag.Width / 2, 4);
+            lblOpenBag.Location = new Point(ClosedBag.Width / 2 - lblCloseBag.Width / 2, 184);
             lblOpenBag.Name = "lblOpenBag";
             lblOpenBag.Text = "Backpack";
             lblOpenBag.BackColor = Color.OldLace;

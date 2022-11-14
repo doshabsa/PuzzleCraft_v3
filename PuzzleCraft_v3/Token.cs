@@ -46,9 +46,9 @@ namespace PuzzleCraft_v3
             this.Controls.Add(picture);
 
             progressBar = new ProgressBar();
+            progressBar.Height = 3;
             progressBar.Maximum = hp;
             progressBar.Value = hp;
-            progressBar.Height = 3;
             this.Controls.Add(progressBar);
             progressBar.BringToFront();
         }

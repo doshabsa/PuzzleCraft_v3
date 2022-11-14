@@ -76,10 +76,10 @@ namespace PuzzleCraft_v3.Classes
 
         static void PlayerTimer_Tick(object? sender, EventArgs e)
         {
-            foreach(BaseChar c in CharacterList)
+            foreach (BaseChar c in CharacterList)
                 c.Move();
 
-                        CheckForCrash();
+            CheckForCrash();
             RemoveTheDead();
 
             if (CharacterList.Count < 2)
@@ -152,18 +152,18 @@ namespace PuzzleCraft_v3.Classes
         #region Movement
         public virtual void Move()
         {
-            this.Token.LocX += this.Token.StepX;
-            this.Token.LocY += this.Token.StepY;
-            this.Token.Left = (int)this.Token.LocX;
-            this.Token.Top = (int)this.Token.LocY;
+            Token.LocX += Token.StepX;
+            Token.LocY += Token.StepY;
+            Token.Left = (int)Token.LocX;
+            Token.Top = (int)Token.LocY;
 
-            if(this is Player)
-                CalcTrajectory(this.Token.Left, this.Token.Top, NewLocation.X, NewLocation.Y);
-            if(this is Monster && Player.thePlayer is not null)
-                CalcTrajectory(this.Token.Left, this.Token.Top, Player.thePlayer.Token.Left, Player.thePlayer.Token.Top);
+            if (this is Player)
+                CalcTrajectory(Token.Left, Token.Top, NewLocation.X, NewLocation.Y);
+            if (this is Monster && Player.thePlayer is not null)
+                CalcTrajectory(Token.Left, Token.Top, Player.thePlayer.Token.Left, Player.thePlayer.Token.Top);
 
-            if (!this.hasValidPosition())
-                this.isDead = true;
+            if (!hasValidPosition())
+                isDead = true;
         }
 
         protected virtual void CalcTrajectory(int startX, int startY, int endX, int endY)

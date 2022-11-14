@@ -26,7 +26,7 @@ namespace PuzzleCraft_v3
         public Start()
         {
             InitializeComponent();
-
+            Player.PlayerTimer.Stop();
             ResourceManager rm = Resource1.ResourceManager;
             for (int i = 0; i < NUMTOKENS; i++)
                 pcTokens.Add((Bitmap)rm.GetObject("_" + i));
@@ -68,8 +68,8 @@ namespace PuzzleCraft_v3
             if (selected != null)
             {
                 Player newPlayer = new((Bitmap)selected.Image, txtName.Text, selected.Location, selected.Size);
-                Monster newMonster = new("raven");
                 Backpack newPack = new();
+                Player.PlayerTimer.Start();
                 this.Dispose();
             }
             else
