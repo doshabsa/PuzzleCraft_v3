@@ -14,6 +14,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Reflection.Metadata;
+using static System.Net.Mime.MediaTypeNames;
+using System.Drawing.Drawing2D;
+using System.Reflection;
 
 namespace PuzzleCraft_v3
 {
@@ -25,8 +28,10 @@ namespace PuzzleCraft_v3
         public double LocY { get; set; }
 
         private List<Bitmap> TokenPictures = new();
-        public PictureBox Picture;
-        private Bitmap TokenImage;
+
+        //private Graphics Graphic;
+        private Bitmap Bitmap;
+        public PictureBox PicBox;
         private ProgressBar ProgressBar;
 
         public Token(Bitmap pic, Size newSize, Point loc, int hp)
@@ -43,8 +48,9 @@ namespace PuzzleCraft_v3
             this.Top = loc.Y;
             this.Left = loc.X;
             this.Size = newSize;
-            TokenImage = pic;
-            SetUpPicture(TokenImage, hp);
+            //Graphic = Graphics.FromImage(pic);
+            Bitmap = pic;
+            SetUpPicture(Bitmap, hp);
             BaseChar.MainForm?.Controls.Add(this);
         }
 
@@ -58,11 +64,11 @@ namespace PuzzleCraft_v3
 
         private void SetUpPicture(Bitmap pic, int hp)
         {
-            Picture = new();
-            Picture.SizeMode = PictureBoxSizeMode.StretchImage;
-            Picture.Image = TokenImage;
-            Picture.Size = this.Size;
-            this.Controls.Add(Picture);
+            PicBox = new();
+            PicBox.SizeMode = PictureBoxSizeMode.StretchImage;
+            PicBox.Image = pic;
+            PicBox.Size = this.Size;
+            this.Controls.Add(PicBox);
 
             ProgressBar = new ProgressBar();
             ProgressBar.Height = 3;
@@ -77,23 +83,43 @@ namespace PuzzleCraft_v3
             ProgressBar.Value -= damage;
         }
 
-        public void UpdatePictureDirection(int input)
+        public void UpdatePictureDirection(double angle)
         {
-            switch (input)
-            {
-                case 0: //Up
-                    Picture.Image = TokenPictures[0];
-                    break;
-                case 1: //Right
-                    Picture.Image = TokenPictures[1];
-                    break;
-                case 2: //Down
-                    Picture.Image = TokenPictures[2];
-                    break;
-                case 3: //Left
-                    Picture.Image = TokenPictures[3];
-                    break;
-            }
+            ////Graphic.TranslateTransform(startX, startY);
+            //Graphic.RotateTransform((float)angle, MatrixOrder.Append);
+            ////Graphic.TranslateTransform((float)angle, startY, MatrixOrder.Append);
+
+            //Bitmap = new Bitmap(PicBox.Width, PicBox.Height, Graphic);
+            //PicBox.Image = Bitmap;
+
+            //switch (angle)
+            //{
+            //    case 0: //Up
+            //        PicBox.Image = TokenPictures[0];
+            //        break;
+            //    case 1: //Up-right
+            //        PicBox.Image = TokenPictures[1];
+            //        break;
+            //    case 2: //Right
+            //        PicBox.Image = TokenPictures[2];
+            //        break;
+            //    case 3: //Down-right
+            //        PicBox.Image = TokenPictures[3];
+            //        break;
+            //    case 4: //Down
+            //        PicBox.Image = TokenPictures[4];
+            //        break;
+            //    case 5: //Down-left
+            //        PicBox.Image = TokenPictures[5];
+            //        break;
+            //    case 6: //Left
+            //        PicBox.Image = TokenPictures[6];
+            //        break;
+            //    case 7: //Up-left
+            //        PicBox.Image = TokenPictures[7];
+            //        break;
+            //}
+
         }
     }
 }

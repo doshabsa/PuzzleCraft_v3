@@ -183,18 +183,19 @@ namespace PuzzleCraft_v3.Classes
         private void Demo(double test)
         {
             newLabel.Text = test.ToString();
-            int tmp = (int)Math.Round(test);
+            //double tmp = (int)Math.Round(test);
+            //Token.UpdatePictureDirection(test);
 
-            if (-45 <= test && test <= 45)
-                Token.UpdatePictureDirection(1); //Right
-            else if (-134 <= test && test <= -46)
-                Token.UpdatePictureDirection(0); //Up
-            else if ((135 <= test && test <= 180) || (-179 <= test && test <= -135))
-                Token.UpdatePictureDirection(3); //Left
-            else if (46 <= test && test <= 134)
-                Token.UpdatePictureDirection(2); //Down
-            Token.UpdatePictureDirection(tmp);
+            //if (-45 <= test && test <= 45)
+            //    Token.UpdatePictureDirection(1); //Right
+            //else if (-134 <= test && test <= -46)
+            //    Token.UpdatePictureDirection(0); //Up
+            //else if ((135 <= test && test <= 180) || (-179 <= test && test <= -135))
+            //    Token.UpdatePictureDirection(3); //Left
+            //else if (46 <= test && test <= 134)
+            //    Token.UpdatePictureDirection(2); //Down
 
+            //Token.UpdatePictureDirection(tmp);
         }
         #endregion
     }
