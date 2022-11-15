@@ -1,0 +1,12 @@
+Straight
+	right endX > startX (deltaX 576, deltaY 39)
+	left startX > endX (deltaX -133, deltaY 27)
+	down endY > startY (deltaX -301, deltaY 143)
+	up startY > endY (deltaX 22, deltaY -212)
+
+Diagonal
+	up/right endX > startX; startY > end Y (deltaX 347, deltaY -194)
+	down/right endX > startX; endY > startY (deltaX 313, deltaY 141)
+	down/left = endX > startX, endY > startY (deltaX -213, deltaY 172)
+	up/left startX > endX, startY > endY (deltaX -434, deltaY -235)
+

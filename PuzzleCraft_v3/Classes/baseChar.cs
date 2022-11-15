@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Linq;
 using System.Media;
 using System.Numerics;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -28,6 +29,8 @@ namespace PuzzleCraft_v3.Classes
         protected int HP;
         protected int Damage;
 
+        public static Label newLabel;
+
         public static System.Windows.Forms.Timer? PlayerTimer = new();
         public static List<BaseChar> CharacterList = new();
         public static Main? MainForm;
@@ -42,13 +45,9 @@ namespace PuzzleCraft_v3.Classes
                 else HP = value;
             }
         }
-        public Point GetLocation { get { return Token.Location; } }
-        public Size GetDimensions { get { return Token.Size; } }
-        public bool IsDead { get { return isDead; } }
         #endregion
 
         #region Constructors
-
         static BaseChar()
         {
             PlayerTimer.Interval = 5;
@@ -66,6 +65,8 @@ namespace PuzzleCraft_v3.Classes
         {
             isDead = false;
             CharName = name;
+            newLabel = new();
+            MainForm.Controls.Add(newLabel);
         }
 
         ~BaseChar()
@@ -74,7 +75,7 @@ namespace PuzzleCraft_v3.Classes
         }
         #endregion
 
-        static void PlayerTimer_Tick(object? sender, EventArgs e)
+        private static void PlayerTimer_Tick(object? sender, EventArgs e)
         {
             foreach (BaseChar c in CharacterList)
                 c.Move();
@@ -87,7 +88,7 @@ namespace PuzzleCraft_v3.Classes
         }
 
         #region Tick Events
-        public bool hasValidPosition()
+        private bool hasValidPosition()
         {
             if (Token.Left - Token.Width > MainForm.ClientRectangle.Width || Token.Left < 0 - (Token.Width * 2))
                 return false;
@@ -96,7 +97,7 @@ namespace PuzzleCraft_v3.Classes
             return true;
         }
 
-        public static void RemoveTheDead()
+        private static void RemoveTheDead()
         {
             List<int> isDeadList = new();
             for (int i = 0; i < CharacterList.Count; i++)
@@ -112,7 +113,7 @@ namespace PuzzleCraft_v3.Classes
         #endregion
 
         #region Collision
-        public static void CheckForCrash()
+        private static void CheckForCrash()
         {
             try
             {
@@ -141,7 +142,7 @@ namespace PuzzleCraft_v3.Classes
             return true;
         }
 
-        public void AdvancedCollision(int damage, BaseChar otherGuy)
+        private void AdvancedCollision(int damage, BaseChar otherGuy)
         {
             Health -= damage;
             if (Health <= 0) isDead = true;
@@ -150,30 +151,50 @@ namespace PuzzleCraft_v3.Classes
         #endregion
 
         #region Movement
-        public virtual void Move()
+        private void Move()
         {
-            Token.LocX += Token.StepX;
-            Token.LocY += Token.StepY;
-            Token.Left = (int)Token.LocX;
-            Token.Top = (int)Token.LocY;
-
             if (this is Player)
                 CalcTrajectory(Token.Left, Token.Top, NewLocation.X, NewLocation.Y);
             if (this is Monster && Player.thePlayer is not null)
                 CalcTrajectory(Token.Left, Token.Top, Player.thePlayer.Token.Left, Player.thePlayer.Token.Top);
 
+            Token.LocX += Token.StepX;
+            Token.LocY += Token.StepY;
+            Token.Left = (int)Token.LocX;
+            Token.Top = (int)Token.LocY;
+
             if (!hasValidPosition())
                 isDead = true;
         }
 
-        protected virtual void CalcTrajectory(int startX, int startY, int endX, int endY)
+        private void CalcTrajectory(int startX, int startY, int endX, int endY)
         {
             double deltaX = endX - startX;
             double deltaY = endY - startY;
-            double angle = Math.Atan2(deltaY, deltaX);
+            double radians = Math.Atan2(deltaY, deltaX);
+            double angle = radians * (180 / Math.PI);
+            if(this is Player)
+                Demo(angle);
 
             Token.StepX = Speed * Math.Cos(angle);
             Token.StepY = Speed * Math.Sin(angle);
+        }
+
+        private void Demo(double test)
+        {
+            newLabel.Text = test.ToString();
+            int tmp = (int)Math.Round(test);
+
+            if (-45 <= test && test <= 45)
+                Token.UpdatePictureDirection(1); //Right
+            else if (-134 <= test && test <= -46)
+                Token.UpdatePictureDirection(0); //Up
+            else if ((135 <= test && test <= 180) || (-179 <= test && test <= -135))
+                Token.UpdatePictureDirection(3); //Left
+            else if (46 <= test && test <= 134)
+                Token.UpdatePictureDirection(2); //Down
+            Token.UpdatePictureDirection(tmp);
+
         }
         #endregion
     }
