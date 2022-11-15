@@ -174,15 +174,21 @@ namespace PuzzleCraft_v3.Classes
             double radians = Math.Atan2(deltaY, deltaX);
             double angle = radians * (180 / Math.PI);
             if(this is Player)
-                Demo(angle);
+                Demo((float)angle);
 
             Token.StepX = Speed * Math.Cos(angle);
             Token.StepY = Speed * Math.Sin(angle);
         }
 
-        private void Demo(double test)
+        private void Demo(float test)
         {
-            newLabel.Text = test.ToString();
+            if (OldLocation != NewLocation)
+                Token.UpdatePictureDirection(test);
+            else
+            {
+                newLabel.Text = test.ToString();
+            }
+            
             //double tmp = (int)Math.Round(test);
             //Token.UpdatePictureDirection(test);
 

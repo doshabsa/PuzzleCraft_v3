@@ -12,6 +12,7 @@ using System.Numerics;
 using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 using System.Windows.Forms;
 using System.Reflection.Metadata;
 using static System.Net.Mime.MediaTypeNames;
@@ -27,7 +28,7 @@ namespace PuzzleCraft_v3
         public double LocX { get; set; }
         public double LocY { get; set; }
 
-        private List<Bitmap> TokenPictures = new();
+        //private List<Bitmap> TokenPictures = new();
 
         //private Graphics Graphic;
         private Bitmap Bitmap;
@@ -37,12 +38,12 @@ namespace PuzzleCraft_v3
         public Token(Bitmap pic, Size newSize, Point loc, int hp)
         {
             InitializeComponent();
-            if (TokenPictures.Count < 8)   //Checks if a playerImages list is already made
-            {
-                for (int i = 0; i < 8; i++) //Adds eight player tokens to playerImages List
-                    TokenPictures.Add(new Bitmap(pic));
-                SetupTokenList(); //Adjusts images to complete players laying in all four directions (plus flipped versions)
-            }
+            //if (TokenPictures.Count < 8)   //Checks if a playerImages list is already made
+            //{
+            //    for (int i = 0; i < 8; i++) //Adds eight player tokens to playerImages List
+            //        TokenPictures.Add(new Bitmap(pic));
+            //    SetupTokenList(); //Adjusts images to complete players laying in all four directions (plus flipped versions)
+            //}
             LocX = loc.X;
             LocY = loc.Y;
             this.Top = loc.Y;
@@ -54,13 +55,13 @@ namespace PuzzleCraft_v3
             BaseChar.MainForm?.Controls.Add(this);
         }
 
-        private void SetupTokenList()
-        {
-            TokenPictures[1].RotateFlip(RotateFlipType.Rotate90FlipNone);
-            TokenPictures[2].RotateFlip(RotateFlipType.Rotate180FlipNone);
-            TokenPictures[3].RotateFlip(RotateFlipType.Rotate270FlipNone);
-            TokenPictures.Add(Resource1.skeleton);
-        }
+        //private void SetupTokenList()
+        //{
+        //    TokenPictures[1].RotateFlip(RotateFlipType.Rotate90FlipNone);
+        //    TokenPictures[2].RotateFlip(RotateFlipType.Rotate180FlipNone);
+        //    TokenPictures[3].RotateFlip(RotateFlipType.Rotate270FlipNone);
+        //    TokenPictures.Add(Resource1.skeleton);
+        //}
 
         private void SetUpPicture(Bitmap pic, int hp)
         {
@@ -83,8 +84,23 @@ namespace PuzzleCraft_v3
             ProgressBar.Value -= damage;
         }
 
-        public void UpdatePictureDirection(double angle)
+        public static System.Drawing.Image RotateImage(System.Drawing.Image img, float rotationAngle)
         {
+            Bitmap bmp = new Bitmap(img.Width, img.Height);
+            Graphics gfx = Graphics.FromImage(bmp);
+            gfx.TranslateTransform((float)bmp.Width / 2, (float)bmp.Height / 2);
+            gfx.RotateTransform(rotationAngle);
+            gfx.TranslateTransform(-(float)bmp.Width / 2, -(float)bmp.Height / 2);
+            gfx.InterpolationMode = InterpolationMode.HighQualityBicubic;
+            gfx.DrawImage(img, new Point(0, 0));
+            gfx.Dispose();
+            Player.OldLocation = Player.NewLocation;
+            return bmp;
+        }
+
+        public void UpdatePictureDirection(float angle)
+        {
+            PicBox.Image = RotateImage(PicBox.Image, angle);
             ////Graphic.TranslateTransform(startX, startY);
             //Graphic.RotateTransform((float)angle, MatrixOrder.Append);
             ////Graphic.TranslateTransform((float)angle, startY, MatrixOrder.Append);
@@ -119,7 +135,6 @@ namespace PuzzleCraft_v3
             //        PicBox.Image = TokenPictures[7];
             //        break;
             //}
-
         }
     }
 }

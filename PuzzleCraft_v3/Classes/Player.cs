@@ -13,6 +13,7 @@ namespace PuzzleCraft_v3.Classes
     {
         #region Properties/Fields
         public static Point NewLocation;
+        public static Point OldLocation;
         public static Player thePlayer;
         #endregion
 
