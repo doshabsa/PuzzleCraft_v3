@@ -12,8 +12,6 @@ namespace PuzzleCraft_v3.Classes
     internal class Player : BaseChar
     {
         #region Properties/Fields
-        public static Point NewLocation;
-        public static Point OldLocation;
         public static Player thePlayer;
         #endregion
 
@@ -22,7 +20,7 @@ namespace PuzzleCraft_v3.Classes
         {
             thePlayer = this;
             HP = 100;
-            Speed = 1;
+            Speed = 2;
             Damage = 5;
             Token = new(pic, size, loc, HP);
             CharacterList.Add(this);

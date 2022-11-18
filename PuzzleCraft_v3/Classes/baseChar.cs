@@ -19,7 +19,7 @@ using TextBox = System.Windows.Forms.TextBox;
 
 namespace PuzzleCraft_v3.Classes
 {
-    abstract class BaseChar
+    public abstract class BaseChar
     {
         #region Properties/Fields
         public Token Token;
@@ -28,6 +28,8 @@ namespace PuzzleCraft_v3.Classes
         protected double Speed;
         protected int HP;
         protected int Damage;
+        public Point NewLocation;
+        public Point OldLocation;
 
         public static Label newLabel;
 
@@ -65,8 +67,6 @@ namespace PuzzleCraft_v3.Classes
         {
             isDead = false;
             CharName = name;
-            newLabel = new();
-            MainForm.Controls.Add(newLabel);
         }
 
         ~BaseChar()
@@ -75,10 +75,32 @@ namespace PuzzleCraft_v3.Classes
         }
         #endregion
 
-        private static void PlayerTimer_Tick(object? sender, EventArgs e)
+        private static async void PlayerTimer_Tick(object? sender, EventArgs e)
         {
+            //Task[] Tasks = new Task[CharacterList.Count];
+            List<Task> Tasks = new();
+
             foreach (BaseChar c in CharacterList)
-                c.Move();
+            {
+                var tmp = new Task(() => c.Move());
+                Tasks.Add(tmp);
+                tmp.Start();
+            }
+                //for (int i = 0; i < CharacterList.Count; i++)
+                //{
+                //    //Tasks[i] = CharacterList[i].Move();
+
+                //    var tmp = new Task(() => CharacterList[i].Move());
+                //    Tasks.Add(tmp);
+                //    tmp.Start();
+                //}
+
+                await Task.WhenAll(Tasks.ToArray());
+
+            foreach(BaseChar c in CharacterList)
+            {
+                c.MoveToken();
+            }
 
             CheckForCrash();
             RemoveTheDead();
@@ -90,13 +112,14 @@ namespace PuzzleCraft_v3.Classes
         #region Tick Events
         private bool hasValidPosition()
         {
-            if (Token.Left - Token.Width > MainForm.ClientRectangle.Width || Token.Left < 0 - (Token.Width * 2))
+            if (Token.Left - Token.Width > MainForm.ClientRectangle.Width
+                || Token.Left < 0 - (Token.Width * 2))
                 return false;
-            if (Token.Top - Token.Height > MainForm.ClientRectangle.Height || Token.Top < 0 - (Token.Height * 2))
+            if (Token.Top - Token.Height > MainForm.ClientRectangle.Height
+                || Token.Top < 0 - (Token.Height * 2))
                 return false;
             return true;
         }
-
         private static void RemoveTheDead()
         {
             List<int> isDeadList = new();
@@ -123,8 +146,10 @@ namespace PuzzleCraft_v3.Classes
                             if (i != j)
                                 if (CrashTest(CharacterList[i], CharacterList[j]))
                                 {
-                                    CharacterList[i].AdvancedCollision(CharacterList[j].Damage, CharacterList[i]);
-                                    CharacterList[j].AdvancedCollision(CharacterList[i].Damage, CharacterList[j]);
+                                    CharacterList[i].AdvancedCollision(
+                                        CharacterList[j].Damage, CharacterList[i]);
+                                    CharacterList[j].AdvancedCollision(
+                                        CharacterList[i].Damage, CharacterList[j]);
                                 }
             }
             catch
@@ -151,15 +176,19 @@ namespace PuzzleCraft_v3.Classes
         #endregion
 
         #region Movement
-        private void Move()
+        private async Task Move()
         {
             if (this is Player)
-                CalcTrajectory(Token.Left, Token.Top, NewLocation.X, NewLocation.Y);
-            if (this is Monster && Player.thePlayer is not null)
-                CalcTrajectory(Token.Left, Token.Top, Player.thePlayer.Token.Left, Player.thePlayer.Token.Top);
+                await CalcTrajectory(Token.Left, Token.Top, NewLocation.X, NewLocation.Y);
+            if (this is Monster && thePlayer is not null)
+                await CalcTrajectory(Token.Left, Token.Top, thePlayer.Token.Left, thePlayer.Token.Top);
 
             Token.LocX += Token.StepX;
             Token.LocY += Token.StepY;
+        }
+
+        private void MoveToken()
+        {
             Token.Left = (int)Token.LocX;
             Token.Top = (int)Token.LocY;
 
@@ -167,41 +196,19 @@ namespace PuzzleCraft_v3.Classes
                 isDead = true;
         }
 
-        private void CalcTrajectory(int startX, int startY, int endX, int endY)
+        private async Task CalcTrajectory(int startX, int startY, int endX, int endY)
         {
-            double deltaX = endX - startX;
-            double deltaY = endY - startY;
-            double radians = Math.Atan2(deltaY, deltaX);
-            double angle = radians * (180 / Math.PI);
-            if(this is Player)
-                Demo((float)angle);
-
-            Token.StepX = Speed * Math.Cos(angle);
-            Token.StepY = Speed * Math.Sin(angle);
-        }
-
-        private void Demo(float test)
-        {
-            if (OldLocation != NewLocation)
-                Token.UpdatePictureDirection(test);
-            else
+            await Task.Run(() =>
             {
-                newLabel.Text = test.ToString();
-            }
-            
-            //double tmp = (int)Math.Round(test);
-            //Token.UpdatePictureDirection(test);
+                double deltaX = endX - startX;
+                double deltaY = endY - startY;
+                double radians = Math.Atan2(deltaY, deltaX);
+                double angle = radians * (180 / Math.PI);
 
-            //if (-45 <= test && test <= 45)
-            //    Token.UpdatePictureDirection(1); //Right
-            //else if (-134 <= test && test <= -46)
-            //    Token.UpdatePictureDirection(0); //Up
-            //else if ((135 <= test && test <= 180) || (-179 <= test && test <= -135))
-            //    Token.UpdatePictureDirection(3); //Left
-            //else if (46 <= test && test <= 134)
-            //    Token.UpdatePictureDirection(2); //Down
-
-            //Token.UpdatePictureDirection(tmp);
+                Token.UpdatePictureDirection(this, (float)angle);
+                Token.StepX = Speed * Math.Cos(angle);
+                Token.StepY = Speed * Math.Sin(angle);
+            });
         }
         #endregion
     }

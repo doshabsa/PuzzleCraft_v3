@@ -14,7 +14,7 @@ namespace PuzzleCraft_v3
 
         private void Main_MouseClick(object sender, MouseEventArgs e)
         {
-            NewLocation = e.Location;
+            thePlayer.NewLocation = e.Location;
         }
 
         private void btn_Cheat_Click(object sender, EventArgs e)

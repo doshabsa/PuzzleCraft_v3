@@ -17,7 +17,7 @@ using System.Windows.Forms;
 using System.Reflection.Metadata;
 using static System.Net.Mime.MediaTypeNames;
 using System.Drawing.Drawing2D;
-using System.Reflection;
+using System.Drawing;
 
 namespace PuzzleCraft_v3
 {
@@ -35,33 +35,22 @@ namespace PuzzleCraft_v3
         public PictureBox PicBox;
         private ProgressBar ProgressBar;
 
+        private double NewAngleMarker;
+        private double OldAngleMarker;
+        public float Angle;
+
         public Token(Bitmap pic, Size newSize, Point loc, int hp)
         {
             InitializeComponent();
-            //if (TokenPictures.Count < 8)   //Checks if a playerImages list is already made
-            //{
-            //    for (int i = 0; i < 8; i++) //Adds eight player tokens to playerImages List
-            //        TokenPictures.Add(new Bitmap(pic));
-            //    SetupTokenList(); //Adjusts images to complete players laying in all four directions (plus flipped versions)
-            //}
             LocX = loc.X;
             LocY = loc.Y;
             this.Top = loc.Y;
             this.Left = loc.X;
             this.Size = newSize;
-            //Graphic = Graphics.FromImage(pic);
             Bitmap = pic;
             SetUpPicture(Bitmap, hp);
             BaseChar.MainForm?.Controls.Add(this);
         }
-
-        //private void SetupTokenList()
-        //{
-        //    TokenPictures[1].RotateFlip(RotateFlipType.Rotate90FlipNone);
-        //    TokenPictures[2].RotateFlip(RotateFlipType.Rotate180FlipNone);
-        //    TokenPictures[3].RotateFlip(RotateFlipType.Rotate270FlipNone);
-        //    TokenPictures.Add(Resource1.skeleton);
-        //}
 
         private void SetUpPicture(Bitmap pic, int hp)
         {
@@ -94,47 +83,23 @@ namespace PuzzleCraft_v3
             gfx.InterpolationMode = InterpolationMode.HighQualityBicubic;
             gfx.DrawImage(img, new Point(0, 0));
             gfx.Dispose();
-            Player.OldLocation = Player.NewLocation;
             return bmp;
         }
 
-        public void UpdatePictureDirection(float angle)
+        public void UpdatePictureDirection(BaseChar tmp, float angle)
         {
-            PicBox.Image = RotateImage(PicBox.Image, angle);
-            ////Graphic.TranslateTransform(startX, startY);
-            //Graphic.RotateTransform((float)angle, MatrixOrder.Append);
-            ////Graphic.TranslateTransform((float)angle, startY, MatrixOrder.Append);
+            Angle = angle;
+            //NewAngleMarker = Math.Round(angle);
+            this.Invalidate(false);
+        }
 
-            //Bitmap = new Bitmap(PicBox.Width, PicBox.Height, Graphic);
-            //PicBox.Image = Bitmap;
-
-            //switch (angle)
-            //{
-            //    case 0: //Up
-            //        PicBox.Image = TokenPictures[0];
-            //        break;
-            //    case 1: //Up-right
-            //        PicBox.Image = TokenPictures[1];
-            //        break;
-            //    case 2: //Right
-            //        PicBox.Image = TokenPictures[2];
-            //        break;
-            //    case 3: //Down-right
-            //        PicBox.Image = TokenPictures[3];
-            //        break;
-            //    case 4: //Down
-            //        PicBox.Image = TokenPictures[4];
-            //        break;
-            //    case 5: //Down-left
-            //        PicBox.Image = TokenPictures[5];
-            //        break;
-            //    case 6: //Left
-            //        PicBox.Image = TokenPictures[6];
-            //        break;
-            //    case 7: //Up-left
-            //        PicBox.Image = TokenPictures[7];
-            //        break;
-            //}
+        private void Token_Paint(object sender, PaintEventArgs e)
+        {
+            System.Drawing.Image tmpImage;
+            //await Task<System.Drawing.Image>.Run( () => 
+            tmpImage = RotateImage(Bitmap, Angle+90);
+            PicBox.Image = tmpImage;
+            //OldAngleMarker = NewAngleMarker;
         }
     }
 }
