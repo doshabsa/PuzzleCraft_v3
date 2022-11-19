@@ -76,28 +76,17 @@ namespace PuzzleCraft_v3.Classes
         #endregion
 
         private static async void PlayerTimer_Tick(object? sender, EventArgs e)
-        {
-            //Task[] Tasks = new Task[CharacterList.Count];
+        { 
             List<Task> Tasks = new();
-
             foreach (BaseChar c in CharacterList)
             {
-                var tmp = new Task(() => c.Move());
+                var tmp = new Task(() => c.RotateToken());
                 Tasks.Add(tmp);
                 tmp.Start();
             }
-                //for (int i = 0; i < CharacterList.Count; i++)
-                //{
-                //    //Tasks[i] = CharacterList[i].Move();
+            await Task.WhenAll(Tasks.ToArray());
 
-                //    var tmp = new Task(() => CharacterList[i].Move());
-                //    Tasks.Add(tmp);
-                //    tmp.Start();
-                //}
-
-                await Task.WhenAll(Tasks.ToArray());
-
-            foreach(BaseChar c in CharacterList)
+            foreach (BaseChar c in CharacterList)
             {
                 c.MoveToken();
             }
@@ -176,7 +165,7 @@ namespace PuzzleCraft_v3.Classes
         #endregion
 
         #region Movement
-        private async Task Move()
+        private async Task RotateToken()
         {
             if (this is Player)
                 await CalcTrajectory(Token.Left, Token.Top, NewLocation.X, NewLocation.Y);
@@ -188,9 +177,9 @@ namespace PuzzleCraft_v3.Classes
         }
 
         private void MoveToken()
-        {
-            Token.Left = (int)Token.LocX;
-            Token.Top = (int)Token.LocY;
+        { //Issue with moving an image, since default origin is Top/Left. Need to move origin to centre.
+            Token.Left = (int)Token.LocX - Token.Size.Width/2;
+            Token.Top = (int)Token.LocY - Token.Size.Height/2;
 
             if (!hasValidPosition())
                 isDead = true;

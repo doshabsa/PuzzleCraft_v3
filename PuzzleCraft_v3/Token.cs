@@ -31,9 +31,9 @@ namespace PuzzleCraft_v3
         //private List<Bitmap> TokenPictures = new();
 
         //private Graphics Graphic;
-        private Bitmap Bitmap;
-        public PictureBox PicBox;
-        private ProgressBar ProgressBar;
+        private Bitmap _picture;
+        public PictureBox _box;
+        private ProgressBar _bar;
 
         private double NewAngleMarker;
         private double OldAngleMarker;
@@ -42,35 +42,35 @@ namespace PuzzleCraft_v3
         public Token(Bitmap pic, Size newSize, Point loc, int hp)
         {
             InitializeComponent();
-            LocX = loc.X;
-            LocY = loc.Y;
-            this.Top = loc.Y;
-            this.Left = loc.X;
             this.Size = newSize;
-            Bitmap = pic;
-            SetUpPicture(Bitmap, hp);
+            LocX = loc.X - this.Size.Width/2;
+            LocY = loc.Y - this.Size.Height/2;
+            this.Top = (int)LocY;
+            this.Left = (int)LocY;
+            _picture = pic;
+            SetUpPicture(_picture, hp);
             BaseChar.MainForm?.Controls.Add(this);
         }
 
         private void SetUpPicture(Bitmap pic, int hp)
         {
-            PicBox = new();
-            PicBox.SizeMode = PictureBoxSizeMode.StretchImage;
-            PicBox.Image = pic;
-            PicBox.Size = this.Size;
-            this.Controls.Add(PicBox);
+            _box = new();
+            _box.SizeMode = PictureBoxSizeMode.StretchImage;
+            _box.Image = pic;
+            _box.Size = this.Size;
+            this.Controls.Add(_box);
 
-            ProgressBar = new ProgressBar();
-            ProgressBar.Height = 3;
-            ProgressBar.Maximum = hp;
-            ProgressBar.Value = hp;
-            this.Controls.Add(ProgressBar);
-            ProgressBar.BringToFront();
+            _bar = new ProgressBar();
+            _bar.Height = 3;
+            _bar.Maximum = hp;
+            _bar.Value = hp;
+            this.Controls.Add(_bar);
+            _bar.BringToFront();
         }
 
         public void UpdateTokenHP(int damage)
         {
-            ProgressBar.Value -= damage;
+            _bar.Value -= damage;
         }
 
         public static System.Drawing.Image RotateImage(System.Drawing.Image img, float rotationAngle)
@@ -97,8 +97,8 @@ namespace PuzzleCraft_v3
         {
             System.Drawing.Image tmpImage;
             //await Task<System.Drawing.Image>.Run( () => 
-            tmpImage = RotateImage(Bitmap, Angle+90);
-            PicBox.Image = tmpImage;
+            tmpImage = RotateImage(_picture, Angle+90);
+            _box.Image = tmpImage;
             //OldAngleMarker = NewAngleMarker;
         }
     }
