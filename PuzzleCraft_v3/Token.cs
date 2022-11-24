@@ -19,8 +19,8 @@ namespace PuzzleCraft_v3
             get { return startX; }
             set
             {
-                if (value + this.Width > BaseChar.MainForm?.Width)
-                    startX = (int)BaseChar.MainForm?.Width - this.Width;
+                if (value + this.Width > BaseChar.MainForm?.ClientSize.Width)
+                    startX = (int)BaseChar.MainForm?.ClientSize.Width - this.Width;
                 else
                     startX = value;
             }
@@ -30,8 +30,8 @@ namespace PuzzleCraft_v3
             get { return startY; }
             set
             {
-                if (value + this.Height > BaseChar.MainForm?.Height)
-                    startY = (int)BaseChar.MainForm?.Height - this.Height;
+                if (value + this.Height > BaseChar.MainForm?.ClientSize.Height)
+                    startY = (int)BaseChar.MainForm?.ClientSize.Height - this.Height;
                 else
                     startY = value;
             }
