@@ -19,7 +19,7 @@ namespace PuzzleCraft_v3
                 //do nothing
             }
             else
-                thePlayer.NewLocation = e.Location;
+                thePlayer.ClickLocation = e.Location;
         }
 
         private void btn_Cheat_Click(object sender, EventArgs e)

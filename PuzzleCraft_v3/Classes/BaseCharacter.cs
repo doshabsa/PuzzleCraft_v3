@@ -13,7 +13,7 @@ namespace PuzzleCraft_v3.Classes
         protected double Speed;
         protected int HP;
         protected int Damage;
-        public Point NewLocation;
+        public Point ClickLocation;
 
         public static System.Windows.Forms.Timer? PlayerTimer = new();
         public static List<BaseCharacter> CharacterList = new();
@@ -66,7 +66,7 @@ namespace PuzzleCraft_v3.Classes
 
             foreach (BaseCharacter c in CharacterList)
             {
-                c.MoveToken();
+                c.Move();
             }
 
             CheckForCrash();
@@ -79,17 +79,11 @@ namespace PuzzleCraft_v3.Classes
         #region Tick Events
         private bool hasValidPosition()
         {
-            //if (Token.Left + Token.Width + Speed > MainForm.ClientRectangle.Width
-            //    || Token.Left < 0)
-            //    return false;
-            //if (Token.Top + Token.Height + Speed > MainForm.ClientRectangle.Height
-            //    || Token.Top < 0)
-
-            if (Token.Left - Token.Width > MainForm?.ClientRectangle.Width
-                || Token.Left < 0 - (Token.Width * 2))
+            if (Token.Left - Token.Width > MainForm?.ClientSize.Width
+                || Token.Left < 0)
                 return false;
-            if (Token.Top - Token.Height > MainForm?.ClientRectangle.Height
-                || Token.Top < 0 - (Token.Height * 2))
+            if (Token.Top - Token.Height > MainForm?.ClientSize.Height
+                || Token.Top < 0)
                 return false;
             return true;
         }
@@ -124,7 +118,8 @@ namespace PuzzleCraft_v3.Classes
                                     CharacterList[j].AdvancedCollision(
                                         CharacterList[i].Damage, CharacterList[j]);
                                 }
-            } catch { }
+            }
+            catch { }
         }
 
         private static bool CrashTest(BaseCharacter One, BaseCharacter Two)
@@ -144,30 +139,56 @@ namespace PuzzleCraft_v3.Classes
         #endregion
 
         #region Movement
-        private async Task RotateToken()
+        protected virtual void Move()
         {
-            if (this is Player)
-                await CalcTrajectory(Token.Left, Token.Top, NewLocation.X, NewLocation.Y);
-            if (this is Monster && thePlayer is not null)
-                await CalcTrajectory(Token.Left, Token.Top, thePlayer.Token.Left, thePlayer.Token.Top);
+            //if (this is Player)
+            //{
+            //    if (Token.Left - Speed > ClickLocation.X)
+            //    {
+            //        PerformMove();
+            //        Token.Left = (int)Token.LocX;
+            //    }
+            //    else if (Token.Left + Speed < ClickLocation.X)
+            //    {
+            //        PerformMove();
+            //        Token.Left = (int)Token.LocX;
+            //    }
+
+            //    if (Token.Top - Speed > ClickLocation.Y)
+            //    {
+            //        PerformMove();
+            //        Token.Top = (int)Token.LocY;
+            //    }
+            //    else if (Token.Top + Speed < ClickLocation.Y)
+            //    {
+            //        PerformMove();
+            //        Token.Top = (int)Token.LocY;
+            //    }
+            //}
+            //else
+            //{
 
             Token.LocX += Token.StepX;
             Token.LocY += Token.StepY;
-        }
-
-        private void MoveToken()
-        {
             Token.Left = (int)Token.LocX;
             Token.Top = (int)Token.LocY;
 
-            //Can below become a property of token?
-            if (Token.Left + Token.Width > MainForm.Width)
-                Token.Left = MainForm.Width - Token.Width;
-            if (Token.Top + Token.Height > MainForm.Height)
-                Token.Top = MainForm.Height - Token.Height;
+           // }
+
+            //PerformMove();
+            //Token.Left = (int)Token.LocX;
+            //Token.Top = (int)Token.LocY;
 
             if (!hasValidPosition())
                 isDead = true;
+        }
+
+        private async Task RotateToken()
+        {
+            if (this is Player)
+                await CalcTrajectory(Token.Left, Token.Top, ClickLocation.X, ClickLocation.Y);
+            if (this is Monster && thePlayer is not null)
+                await CalcTrajectory(Token.Left, Token.Top, thePlayer.Token.Left, thePlayer.Token.Top);
         }
 
         private async Task CalcTrajectory(int startX, int startY, int endX, int endY)
