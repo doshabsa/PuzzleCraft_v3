@@ -34,8 +34,11 @@ namespace PuzzleCraft_v3.Classes
         #endregion
 
         #region Methods
-        private (int, double, int, Bitmap, Size, Point) GetMonsterDetails(string name) //There is a better way, this works for now
+        private (int, double, int, Bitmap, Size, Point) GetMonsterDetails(string name) 
         {
+            //There is a better way, this works for now
+            //Consider using a file containing the details, just grab that and populate based on the monster type?
+
             switch (name)
             {
                 case "raven":

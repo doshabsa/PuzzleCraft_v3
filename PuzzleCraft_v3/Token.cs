@@ -5,28 +5,64 @@ namespace PuzzleCraft_v3
 {
     public partial class Token : UserControl
     {
+        private Bitmap Image;
+        private ProgressBar HealthBar;
+        private PictureBox PicBox;
+
+        private double startX;
+        private double startY;
+        private float Angle;
         public double StepX { get; set; }
         public double StepY { get; set; }
-        public double LocX { get; set; }
-        public double LocY { get; set; }
-
-        private Bitmap Bitmap;
-        public PictureBox PicBox;
-        private ProgressBar ProgressBar;
-        public float Angle;
+        public double LocX
+        {
+            get { return startX; }
+            set
+            {
+                if (value + this.Width > BaseChar.MainForm?.Width)
+                    startX = (int)BaseChar.MainForm?.Width - this.Width;
+                else
+                    startX = value;
+            }
+        }
+        public double LocY
+        {
+            get { return startY; }
+            set
+            {
+                if (value + this.Height > BaseChar.MainForm?.Height)
+                    startY = (int)BaseChar.MainForm?.Height - this.Height;
+                else
+                    startY = value;
+            }
+        }
 
         public Token(Bitmap pic, Size newSize, Point loc, int hp)
         {
             InitializeComponent();
-            this.BackColor = Color.Black;
-            LocX = loc.X;
-            LocY = loc.Y;
+            this.BackColor = Color.Beige;
+            startX = loc.X;
+            startY = loc.Y;
             this.Top = loc.Y;
             this.Left = loc.X;
             this.Size = newSize;
-            Bitmap = pic;
-            SetUpPicture(Bitmap, hp);
+            Image = pic;
+            SetUpPicture(Image, hp);
             BaseChar.MainForm?.Controls.Add(this);
+        }
+
+        public void UpdateTokenHP(int damage)
+        {
+            if (damage > HealthBar.Value)
+                HealthBar.Value = 0;
+            else
+                HealthBar.Value -= damage;
+        }
+
+        public void UpdatePictureDirection(BaseChar tmp, float angle)
+        {
+            Angle = angle;
+            this.Invalidate(false);
         }
 
         private void SetUpPicture(Bitmap pic, int hp)
@@ -34,24 +70,19 @@ namespace PuzzleCraft_v3
             PicBox = new();
             PicBox.SizeMode = PictureBoxSizeMode.StretchImage;
             PicBox.Image = pic;
-            PicBox.Size = new Size((int)Math.Round(this.Size.Width/1.05), (int)Math.Round(this.Size.Height / 1.05));
-            PicBox.Location = new Point(this.Width/2 - PicBox.Width/2, this.Height/2 - PicBox.Height/2);
+            PicBox.Size = new Size((int)Math.Round(this.Size.Width / 1.05), (int)Math.Round(this.Size.Height / 1.05));
+            PicBox.Location = new Point(this.Width / 2 - PicBox.Width / 2, this.Height / 2 - PicBox.Height / 2);
             this.Controls.Add(PicBox);
 
-            ProgressBar = new ProgressBar();
-            ProgressBar.Height = 3;
-            ProgressBar.Maximum = hp;
-            ProgressBar.Value = hp;
-            this.Controls.Add(ProgressBar);
-            ProgressBar.BringToFront();
+            HealthBar = new ProgressBar();
+            HealthBar.Height = 3;
+            HealthBar.Maximum = hp;
+            HealthBar.Value = hp;
+            this.Controls.Add(HealthBar);
+            HealthBar.BringToFront();
         }
 
-        public void UpdateTokenHP(int damage)
-        {
-            ProgressBar.Value -= damage;
-        }
-
-        public static Image RotateImage(Image img, float rotationAngle)
+        private static Image RotateImage(Image img, float rotationAngle)
         {
             Bitmap bmp = new Bitmap(img.Width, img.Height);
             Graphics gfx = Graphics.FromImage(bmp);
@@ -64,16 +95,10 @@ namespace PuzzleCraft_v3
             return bmp;
         }
 
-        public void UpdatePictureDirection(BaseChar tmp, float angle)
-        {
-            Angle = angle;
-            this.Invalidate(false);
-        }
-
         private void Token_Paint(object sender, PaintEventArgs e)
         {
             Image tmpImage;
-            tmpImage = RotateImage(Bitmap, Angle+90);
+            tmpImage = RotateImage(Image, Angle+90);
             PicBox.Image = tmpImage;
         }
     }

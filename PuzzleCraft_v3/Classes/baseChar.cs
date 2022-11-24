@@ -7,16 +7,13 @@ namespace PuzzleCraft_v3.Classes
     public abstract class BaseChar
     {
         #region Properties/Fields
-        public Token Token;
-        protected string CharName;
+        public Token? Token;
+        protected string? CharName;
         protected bool isDead;
         protected double Speed;
         protected int HP;
         protected int Damage;
         public Point NewLocation;
-        public Point OldLocation;
-
-        public static Label newLabel;
 
         public static System.Windows.Forms.Timer? PlayerTimer = new();
         public static List<BaseChar> CharacterList = new();
@@ -53,11 +50,6 @@ namespace PuzzleCraft_v3.Classes
             isDead = false;
             CharName = name;
         }
-
-        ~BaseChar()
-        {
-
-        }
         #endregion
 
         private static async void PlayerTimer_Tick(object? sender, EventArgs e)
@@ -69,16 +61,8 @@ namespace PuzzleCraft_v3.Classes
                 Tasks.Add(tmp);
                 tmp.Start();
             }
-                //for (int i = 0; i < CharacterList.Count; i++)
-                //{
-                //    //Tasks[i] = CharacterList[i].Move();
 
-                //    var tmp = new Task(() => CharacterList[i].Move());
-                //    Tasks.Add(tmp);
-                //    tmp.Start();
-                //}
-
-                await Task.WhenAll(Tasks.ToArray());
+            await Task.WhenAll(Tasks.ToArray());
 
             foreach (BaseChar c in CharacterList)
             {
@@ -95,10 +79,16 @@ namespace PuzzleCraft_v3.Classes
         #region Tick Events
         private bool hasValidPosition()
         {
-            if (Token.Left - Token.Width > MainForm.ClientRectangle.Width
+            //if (Token.Left + Token.Width + Speed > MainForm.ClientRectangle.Width
+            //    || Token.Left < 0)
+            //    return false;
+            //if (Token.Top + Token.Height + Speed > MainForm.ClientRectangle.Height
+            //    || Token.Top < 0)
+
+            if (Token.Left - Token.Width > MainForm?.ClientRectangle.Width
                 || Token.Left < 0 - (Token.Width * 2))
                 return false;
-            if (Token.Top - Token.Height > MainForm.ClientRectangle.Height
+            if (Token.Top - Token.Height > MainForm?.ClientRectangle.Height
                 || Token.Top < 0 - (Token.Height * 2))
                 return false;
             return true;
@@ -134,11 +124,7 @@ namespace PuzzleCraft_v3.Classes
                                     CharacterList[j].AdvancedCollision(
                                         CharacterList[i].Damage, CharacterList[j]);
                                 }
-            }
-            catch
-            {
-
-            }
+            } catch { }
         }
 
         private static bool CrashTest(BaseChar One, BaseChar Two)
@@ -153,8 +139,7 @@ namespace PuzzleCraft_v3.Classes
         private void AdvancedCollision(int damage, BaseChar otherGuy)
         {
             Health -= damage;
-            if (Health <= 0) isDead = true;
-            if (!isDead) Token.UpdateTokenHP(damage);
+            if (!isDead) Token?.UpdateTokenHP(damage);
         }
         #endregion
 
@@ -171,9 +156,15 @@ namespace PuzzleCraft_v3.Classes
         }
 
         private void MoveToken()
-        { //Issue with moving an image, since default origin is Top/Left. Need to move origin to centre.
-            Token.Left = (int)Token.LocX - Token.Size.Width/2;
-            Token.Top = (int)Token.LocY - Token.Size.Height/2;
+        {
+            Token.Left = (int)Token.LocX;
+            Token.Top = (int)Token.LocY;
+
+            //Can below become a property of token?
+            if (Token.Left + Token.Width > MainForm.Width)
+                Token.Left = MainForm.Width - Token.Width;
+            if (Token.Top + Token.Height > MainForm.Height)
+                Token.Top = MainForm.Height - Token.Height;
 
             if (!hasValidPosition())
                 isDead = true;
