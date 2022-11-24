@@ -19,8 +19,8 @@ namespace PuzzleCraft_v3
             get { return startX; }
             set
             {
-                if (value + this.Width > BaseChar.MainForm?.ClientSize.Width)
-                    startX = (int)BaseChar.MainForm?.ClientSize.Width - this.Width;
+                if (value + this.Width > BaseCharacter.MainForm?.ClientSize.Width)
+                    startX = (int)BaseCharacter.MainForm?.ClientSize.Width - this.Width;
                 else
                     startX = value;
             }
@@ -30,8 +30,8 @@ namespace PuzzleCraft_v3
             get { return startY; }
             set
             {
-                if (value + this.Height > BaseChar.MainForm?.ClientSize.Height)
-                    startY = (int)BaseChar.MainForm?.ClientSize.Height - this.Height;
+                if (value + this.Height > BaseCharacter.MainForm?.ClientSize.Height)
+                    startY = (int)BaseCharacter.MainForm?.ClientSize.Height - this.Height;
                 else
                     startY = value;
             }
@@ -48,7 +48,7 @@ namespace PuzzleCraft_v3
             this.Size = newSize;
             Image = pic;
             SetUpPicture(Image, hp);
-            BaseChar.MainForm?.Controls.Add(this);
+            BaseCharacter.MainForm?.Controls.Add(this);
         }
 
         public void UpdateTokenHP(int damage)
@@ -59,7 +59,7 @@ namespace PuzzleCraft_v3
                 HealthBar.Value -= damage;
         }
 
-        public void UpdatePictureDirection(BaseChar tmp, float angle)
+        public void UpdatePictureDirection(BaseCharacter tmp, float angle)
         {
             Angle = angle;
             this.Invalidate(false);

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PuzzleCraft_v3.Classes
 {
-    internal class Item : BaseChar
+    internal class Item : BaseCharacter
     {
         #region Properties/Fields
         //private List<Image>? ListItemTokens;

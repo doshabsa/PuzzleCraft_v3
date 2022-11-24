@@ -8,7 +8,7 @@ namespace PuzzleCraft_v3
         public Main()
         {
             InitializeComponent();
-            BaseChar.MainForm = this;
+            BaseCharacter.MainForm = this;
             Start newGame = new();
         }
 

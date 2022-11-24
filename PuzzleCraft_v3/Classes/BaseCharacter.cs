@@ -4,10 +4,10 @@ using static PuzzleCraft_v3.Classes.Player;
 
 namespace PuzzleCraft_v3.Classes
 {
-    public abstract class BaseChar
+    public abstract class BaseCharacter
     {
         #region Properties/Fields
-        public Token? Token;
+        public Token Token;
         protected string? CharName;
         protected bool isDead;
         protected double Speed;
@@ -16,7 +16,7 @@ namespace PuzzleCraft_v3.Classes
         public Point NewLocation;
 
         public static System.Windows.Forms.Timer? PlayerTimer = new();
-        public static List<BaseChar> CharacterList = new();
+        public static List<BaseCharacter> CharacterList = new();
         public static Main? MainForm;
 
         public int Health
@@ -32,20 +32,20 @@ namespace PuzzleCraft_v3.Classes
         #endregion
 
         #region Constructors
-        static BaseChar()
+        static BaseCharacter()
         {
             PlayerTimer.Interval = 5;
             PlayerTimer.Tick += PlayerTimer_Tick;
             PlayerTimer.Enabled = true;
         }
 
-        public BaseChar(string name) //For Monsters and Items
+        public BaseCharacter(string name) //For Monsters and Items
         {
             isDead = false;
             CharName = name;
         }
 
-        public BaseChar(Bitmap pic, string name) //For Player
+        public BaseCharacter(Bitmap pic, string name) //For Player
         {
             isDead = false;
             CharName = name;
@@ -55,7 +55,7 @@ namespace PuzzleCraft_v3.Classes
         private static async void PlayerTimer_Tick(object? sender, EventArgs e)
         {
             List<Task> Tasks = new();
-            foreach (BaseChar c in CharacterList)
+            foreach (BaseCharacter c in CharacterList)
             {
                 var tmp = new Task(() => c.RotateToken());
                 Tasks.Add(tmp);
@@ -64,7 +64,7 @@ namespace PuzzleCraft_v3.Classes
 
             await Task.WhenAll(Tasks.ToArray());
 
-            foreach (BaseChar c in CharacterList)
+            foreach (BaseCharacter c in CharacterList)
             {
                 c.MoveToken();
             }
@@ -127,7 +127,7 @@ namespace PuzzleCraft_v3.Classes
             } catch { }
         }
 
-        private static bool CrashTest(BaseChar One, BaseChar Two)
+        private static bool CrashTest(BaseCharacter One, BaseCharacter Two)
         {
             if (One.Token.Left + One.Token.Width < Two.Token.Left) return false;
             if (Two.Token.Left + Two.Token.Width < One.Token.Left) return false;
@@ -136,7 +136,7 @@ namespace PuzzleCraft_v3.Classes
             return true;
         }
 
-        private void AdvancedCollision(int damage, BaseChar otherGuy)
+        private void AdvancedCollision(int damage, BaseCharacter otherGuy)
         {
             Health -= damage;
             if (!isDead) Token?.UpdateTokenHP(damage);

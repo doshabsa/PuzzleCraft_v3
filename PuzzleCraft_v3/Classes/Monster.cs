@@ -8,7 +8,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace PuzzleCraft_v3.Classes
 {
-    internal class Monster : BaseChar
+    internal class Monster : BaseCharacter
     {
         #region Properties/Fields
         private static Random rnd = new Random();
@@ -26,18 +26,13 @@ namespace PuzzleCraft_v3.Classes
             Token = new(details.Item4, details.Item5, details.Item6, HP);
             CharacterList.Add(this);
         }
-
-        ~Monster()
-        {
-
-        }
         #endregion
 
         #region Methods
         private (int, double, int, Bitmap, Size, Point) GetMonsterDetails(string name) 
         {
             //There is a better way, this works for now
-            //Consider using a file containing the details, just grab that and populate based on the monster type?
+            //make monster abstract, all monsters inherit from abstract monster - they have their own classes
 
             switch (name)
             {
@@ -48,7 +43,7 @@ namespace PuzzleCraft_v3.Classes
                     Damage = 1;
                     Bitmap? ravenPic = Resource1.raven;
                     Size ravenSize = new(35, 35);
-                    Point ravenPoint = new(rnd.Next(0, BaseChar.MainForm.Width - ravenSize.Width), rnd.Next(0, BaseChar.MainForm.Height - ravenSize.Height));
+                    Point ravenPoint = new(rnd.Next(0, BaseCharacter.MainForm.Width - ravenSize.Width), rnd.Next(0, BaseCharacter.MainForm.Height - ravenSize.Height));
                     var raven = (HP, Speed, Damage, ravenPic, ravenSize, ravenPoint);
                     return raven;
 
@@ -59,7 +54,7 @@ namespace PuzzleCraft_v3.Classes
                     Damage = 0;
                     Bitmap? skelePic = Resource1.skeleton;
                     Size skeleSize = new(35, 35);
-                    Point skelePoint = new(rnd.Next(0, BaseChar.MainForm.Width - skeleSize.Width), rnd.Next(0, BaseChar.MainForm.Height - skeleSize.Height));
+                    Point skelePoint = new(rnd.Next(0, BaseCharacter.MainForm.Width - skeleSize.Width), rnd.Next(0, BaseCharacter.MainForm.Height - skeleSize.Height));
                     var skele = (HP, Speed, Damage, skelePic, skeleSize, skelePoint);
                     return skele;
 
@@ -70,7 +65,7 @@ namespace PuzzleCraft_v3.Classes
                     Damage = 0;
                     Bitmap? newPic = null;
                     Size newSize = new(25, 25);
-                    Point newPoint = new(rnd.Next(0, BaseChar.MainForm.Width - newSize.Width), rnd.Next(0, BaseChar.MainForm.Height - newSize.Height));
+                    Point newPoint = new(rnd.Next(0, BaseCharacter.MainForm.Width - newSize.Width), rnd.Next(0, BaseCharacter.MainForm.Height - newSize.Height));
                     var n = (HP, Speed, Damage, newPic, newSize, newPoint);
                     return n;
             }

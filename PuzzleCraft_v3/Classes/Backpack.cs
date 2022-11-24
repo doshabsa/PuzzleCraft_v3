@@ -58,7 +58,7 @@ namespace PuzzleCraft_v3
                 BorderStyle = BorderStyle.FixedSingle,
                 Anchor = AnchorStyles.Left | AnchorStyles.Bottom
             };
-            BaseChar.MainForm.Controls.Add(ClosedBag);
+            BaseCharacter.MainForm.Controls.Add(ClosedBag);
 
             lblCloseBag = new();
             lblCloseBag.Location = new Point(ClosedBag.Width / 2 - lblCloseBag.Width / 2, 4);
@@ -84,7 +84,7 @@ namespace PuzzleCraft_v3
                 Visible = false,
                 Anchor = AnchorStyles.Left | AnchorStyles.Bottom
             };
-            BaseChar.MainForm.Controls.Add(OpenedBag);
+            BaseCharacter.MainForm.Controls.Add(OpenedBag);
 
             lblOpenBag = new();
             lblOpenBag.Location = new Point(ClosedBag.Width / 2 - lblCloseBag.Width / 2, 184);

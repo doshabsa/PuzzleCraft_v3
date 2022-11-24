@@ -1,6 +1,6 @@
 ﻿namespace PuzzleCraft_v3.Classes
 {
-    internal class Player : BaseChar
+    internal class Player : BaseCharacter
     {
         #region Properties/Fields
         public static Player thePlayer;
