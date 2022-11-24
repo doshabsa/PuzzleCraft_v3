@@ -1,21 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Linq;
-using System.Media;
-using System.Numerics;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Xml.Linq;
 using static PuzzleCraft_v3.Classes.Player;
-using static System.Windows.Forms.AxHost;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
-using Button = System.Windows.Forms.Button;
-using TextBox = System.Windows.Forms.TextBox;
 
 namespace PuzzleCraft_v3.Classes
 {
@@ -77,7 +62,6 @@ namespace PuzzleCraft_v3.Classes
 
         private static async void PlayerTimer_Tick(object? sender, EventArgs e)
         {
-            //Task[] Tasks = new Task[CharacterList.Count];
             List<Task> Tasks = new();
 
             foreach (BaseChar c in CharacterList)
@@ -86,18 +70,10 @@ namespace PuzzleCraft_v3.Classes
                 Tasks.Add(tmp);
                 tmp.Start();
             }
-                //for (int i = 0; i < CharacterList.Count; i++)
-                //{
-                //    //Tasks[i] = CharacterList[i].Move();
 
-                //    var tmp = new Task(() => CharacterList[i].Move());
-                //    Tasks.Add(tmp);
-                //    tmp.Start();
-                //}
+            await Task.WhenAll(Tasks.ToArray());
 
-                await Task.WhenAll(Tasks.ToArray());
-
-            foreach(BaseChar c in CharacterList)
+            foreach (BaseChar c in CharacterList)
             {
                 c.MoveToken();
             }
@@ -206,8 +182,8 @@ namespace PuzzleCraft_v3.Classes
                 double angle = radians * (180 / Math.PI);
 
                 Token.UpdatePictureDirection(this, (float)angle);
-                Token.StepX = Speed * Math.Cos(angle);
-                Token.StepY = Speed * Math.Sin(angle);
+                Token.StepX = Speed * Math.Cos(radians);
+                Token.StepY = Speed * Math.Sin(radians);
             });
         }
         #endregion

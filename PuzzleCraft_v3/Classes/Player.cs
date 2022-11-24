@@ -1,13 +1,4 @@
-﻿using PuzzleCraft_v3;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static PuzzleCraft_v3.Classes.BaseChar;
-using static System.Windows.Forms.AxHost;
-
-namespace PuzzleCraft_v3.Classes
+﻿namespace PuzzleCraft_v3.Classes
 {
     internal class Player : BaseChar
     {
