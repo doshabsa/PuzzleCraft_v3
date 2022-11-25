@@ -67,6 +67,8 @@ namespace PuzzleCraft_v3
 
         private void SetUpPicture(Bitmap pic, int hp)
         {
+            //Image edges are cut off by the control, depending which token is selected
+            //Archer bows are bad for this
             PicBox = new();
             PicBox.SizeMode = PictureBoxSizeMode.StretchImage;
             PicBox.Image = pic;

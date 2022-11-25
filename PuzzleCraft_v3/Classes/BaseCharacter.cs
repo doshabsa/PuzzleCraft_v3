@@ -13,7 +13,6 @@ namespace PuzzleCraft_v3.Classes
         protected double Speed;
         protected int HP;
         protected int Damage;
-        public Point ClickLocation;
 
         public static System.Windows.Forms.Timer? PlayerTimer = new();
         public static List<BaseCharacter> CharacterList = new();
@@ -141,43 +140,10 @@ namespace PuzzleCraft_v3.Classes
         #region Movement
         protected virtual void Move()
         {
-            //if (this is Player)
-            //{
-            //    if (Token.Left - Speed > ClickLocation.X)
-            //    {
-            //        PerformMove();
-            //        Token.Left = (int)Token.LocX;
-            //    }
-            //    else if (Token.Left + Speed < ClickLocation.X)
-            //    {
-            //        PerformMove();
-            //        Token.Left = (int)Token.LocX;
-            //    }
-
-            //    if (Token.Top - Speed > ClickLocation.Y)
-            //    {
-            //        PerformMove();
-            //        Token.Top = (int)Token.LocY;
-            //    }
-            //    else if (Token.Top + Speed < ClickLocation.Y)
-            //    {
-            //        PerformMove();
-            //        Token.Top = (int)Token.LocY;
-            //    }
-            //}
-            //else
-            //{
-
             Token.LocX += Token.StepX;
             Token.LocY += Token.StepY;
             Token.Left = (int)Token.LocX;
             Token.Top = (int)Token.LocY;
-
-           // }
-
-            //PerformMove();
-            //Token.Left = (int)Token.LocX;
-            //Token.Top = (int)Token.LocY;
 
             if (!hasValidPosition())
                 isDead = true;
@@ -186,7 +152,7 @@ namespace PuzzleCraft_v3.Classes
         private async Task RotateToken()
         {
             if (this is Player)
-                await CalcTrajectory(Token.Left, Token.Top, ClickLocation.X, ClickLocation.Y);
+                await CalcTrajectory(Token.Left, Token.Top, thePlayer.ClickLocation.X, thePlayer.ClickLocation.Y);
             if (this is Monster && thePlayer is not null)
                 await CalcTrajectory(Token.Left, Token.Top, thePlayer.Token.Left, thePlayer.Token.Top);
         }

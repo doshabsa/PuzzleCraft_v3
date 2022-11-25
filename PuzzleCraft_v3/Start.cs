@@ -27,6 +27,8 @@ namespace PuzzleCraft_v3
         {
             InitializeComponent();
             Player.PlayerTimer.Stop();
+            this.Location = new Point(BaseCharacter.MainForm.ClientSize.Width/2 - this.Width/2, BaseCharacter.MainForm.ClientSize.Height/2 - this.Height/2);
+            
             ResourceManager rm = Resource1.ResourceManager;
             for (int i = 0; i < NUMTOKENS; i++)
                 pcTokens.Add((Bitmap)rm.GetObject("_" + i));

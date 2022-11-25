@@ -3,15 +3,14 @@
     internal class Player : BaseCharacter
     {
         #region Properties/Fields
-        public static Player thePlayer;
-        private Point MoveLocation;
-        private bool isMoving;
+        public Point ClickLocation;
+        public static Player? thePlayer;
         #endregion
 
         #region Constructors
         public Player(Bitmap pic, string name, Point loc, Size size) : base(pic, name)
         {
-            MoveLocation = new();
+            ClickLocation = new();
             thePlayer = this;
             CharName = name;
             HP = 100;
@@ -24,37 +23,15 @@
 
         protected override void Move()
         {
-            MoveLocation = ClickLocation;
-            if(!isMoving)
-                MoveToClick();
-        }
+            if (Token.StepX > 0)
+                Token.Left += (int)(Token.StepX < ClickLocation.X - Token.Left ? Token.StepX : ClickLocation.X - Token.Left);
+            else if (Token.StepX < 0)
+                Token.Left += (int)(Token.StepX > ClickLocation.X - Token.Left ? Token.StepX : ClickLocation.X - Token.Left);
 
-        private async void MoveToClick()
-        {
-            isMoving = true;
-            while (MoveLocation.X != Token.Left || MoveLocation.Y != Token.Top)
-            {
-                await Task.Delay(5);
-
-                if (Token.StepX > 0)
-                {
-                    Token.Left += (int)(Token.StepX < MoveLocation.X - Token.Left ? Token.StepX : MoveLocation.X - Token.Left);
-                }
-                else if (Token.StepX < 0)
-                {
-                    Token.Left += (int)(Token.StepX > MoveLocation.X - Token.Left ? Token.StepX : MoveLocation.X - Token.Left);
-                }
-
-                if (Token.StepY > 0)
-                {
-                    Token.Top += (int)(Token.StepY < MoveLocation.Y - Token.Top ? Token.StepY : MoveLocation.Y - Token.Top);
-                }
-                else if (Token.StepY < 0)
-                {
-                    Token.Top += (int)(Token.StepY > MoveLocation.Y - Token.Top ? Token.StepY : MoveLocation.Y - Token.Top);
-                }
-            }
-            isMoving = false;
-        }
+            if (Token.StepY > 0)
+                Token.Top += (int)(Token.StepY < ClickLocation.Y - Token.Top ? Token.StepY : ClickLocation.Y - Token.Top);
+            else if (Token.StepY < 0)
+                Token.Top += (int)(Token.StepY > ClickLocation.Y - Token.Top ? Token.StepY : ClickLocation.Y - Token.Top);
+        } //there an issue here causeing player control to teleport/slide at random
     }
 }
