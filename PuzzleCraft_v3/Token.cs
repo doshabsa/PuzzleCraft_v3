@@ -40,7 +40,6 @@ namespace PuzzleCraft_v3
         public Token(Bitmap pic, Size newSize, Point loc, int hp)
         {
             InitializeComponent();
-            this.BackColor = Color.Beige;
             startX = loc.X;
             startY = loc.Y;
             this.Top = loc.Y;

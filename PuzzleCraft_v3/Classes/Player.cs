@@ -10,11 +10,13 @@
         #region Constructors
         public Player(Bitmap pic, string name, Point loc, Size size) : base(pic, name)
         {
+            canMove = true;
+            isSmart = true;
             ClickLocation = new();
             thePlayer = this;
             CharName = name;
             HP = 100;
-            Speed = 2;
+            Speed = 5;
             Damage = 5;
             Token = new(pic, size, loc, HP);
             CharacterList.Add(this);

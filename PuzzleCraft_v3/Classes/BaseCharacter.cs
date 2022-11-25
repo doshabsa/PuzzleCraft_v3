@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using PuzzleCraft_v3.Classes.Monsters;
 using static PuzzleCraft_v3.Classes.Player;
 
 namespace PuzzleCraft_v3.Classes
@@ -9,6 +10,8 @@ namespace PuzzleCraft_v3.Classes
         #region Properties/Fields
         public Token Token;
         protected string? CharName;
+        protected bool isSmart;
+        protected bool canMove;
         protected bool isDead;
         protected double Speed;
         protected int HP;
@@ -56,16 +59,20 @@ namespace PuzzleCraft_v3.Classes
             List<Task> Tasks = new();
             foreach (BaseCharacter c in CharacterList)
             {
-                var tmp = new Task(() => c.RotateToken());
-                Tasks.Add(tmp);
-                tmp.Start();
+                if (c.isSmart)
+                {
+                    var tmp = new Task(() => c.RotateToken());
+                    Tasks.Add(tmp);
+                    tmp.Start();
+                }
             }
 
             await Task.WhenAll(Tasks.ToArray());
 
             foreach (BaseCharacter c in CharacterList)
             {
-                c.Move();
+                if(c.canMove)
+                    c.Move();
             }
 
             CheckForCrash();
