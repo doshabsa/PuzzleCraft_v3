@@ -18,7 +18,7 @@
             HP = 100;
             Speed = 5;
             Damage = 5;
-            Token = new(pic, size, loc, HP);
+            Token = new(pic, size, loc, HP, true);
             CharacterList.Add(this);
         }
         #endregion

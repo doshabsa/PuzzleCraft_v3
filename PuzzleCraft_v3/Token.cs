@@ -9,6 +9,7 @@ namespace PuzzleCraft_v3
         private ProgressBar HealthBar;
         private PictureBox PicBox;
 
+        private bool RotationFlag;
         private double startX;
         private double startY;
         private float Angle;
@@ -37,9 +38,10 @@ namespace PuzzleCraft_v3
             }
         }
 
-        public Token(Bitmap pic, Size newSize, Point loc, int hp)
+        public Token(Bitmap pic, Size newSize, Point loc, int hp, bool rotationFlag)
         {
             InitializeComponent();
+            RotationFlag = rotationFlag;
             startX = loc.X;
             startY = loc.Y;
             this.Top = loc.Y;
@@ -66,12 +68,10 @@ namespace PuzzleCraft_v3
 
         private void SetUpPicture(Bitmap pic, int hp)
         {
-            //Image edges are cut off by the control, depending which token is selected
-            //Archer bows are bad for this
             PicBox = new();
-            PicBox.SizeMode = PictureBoxSizeMode.StretchImage;
             PicBox.Image = pic;
             PicBox.Size = new Size((int)Math.Round(this.Size.Width / 1.05), (int)Math.Round(this.Size.Height / 1.05));
+            PicBox.SizeMode = PictureBoxSizeMode.StretchImage;
             PicBox.Location = new Point(this.Width / 2 - PicBox.Width / 2, this.Height / 2 - PicBox.Height / 2);
             this.Controls.Add(PicBox);
 
@@ -98,9 +98,16 @@ namespace PuzzleCraft_v3
 
         private void Token_Paint(object sender, PaintEventArgs e)
         {
-            Image tmpImage;
-            tmpImage = RotateImage(Image, Angle+90);
-            PicBox.Image = tmpImage;
+            if (RotationFlag)
+            {
+                Image tmpImage;
+                tmpImage = RotateImage(Image, Angle + 90); //Rotates 90 because images facing up
+                PicBox.Image = tmpImage;
+            }
+            else
+            {
+                PicBox.Image = Image;
+            }
         }
     }
 }

@@ -18,7 +18,7 @@ namespace PuzzleCraft_v3.Classes.Monsters
             Damage = 1;
             MonsterImage = Resource1.raven;
             MonsterSize = new(35, 35);
-            Token = new(MonsterImage, MonsterSize, SpawnLocation(MonsterSize), HP);
+            Token = new(MonsterImage, MonsterSize, SpawnLocation(MonsterSize), HP, true);
         }
     }
 }

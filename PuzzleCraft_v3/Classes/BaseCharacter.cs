@@ -8,7 +8,7 @@ namespace PuzzleCraft_v3.Classes
     public abstract class BaseCharacter
     {
         #region Properties/Fields
-        public Token Token;
+        protected Token Token;
         protected string? CharName;
         protected bool isSmart;
         protected bool canMove;
@@ -71,7 +71,7 @@ namespace PuzzleCraft_v3.Classes
 
             foreach (BaseCharacter c in CharacterList)
             {
-                if(c.canMove)
+                if (c.canMove)
                     c.Move();
             }
 
