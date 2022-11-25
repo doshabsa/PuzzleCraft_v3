@@ -10,6 +10,7 @@ namespace PuzzleCraft_v3
         private PictureBox PicBox;
 
         private bool RotationFlag;
+        private bool isMonster;
         private double startX;
         private double startY;
         private float Angle;
@@ -20,8 +21,11 @@ namespace PuzzleCraft_v3
             get { return startX; }
             set
             {
-                if (value + this.Width > BaseCharacter.MainForm?.ClientSize.Width)
-                    startX = (int)BaseCharacter.MainForm?.ClientSize.Width - this.Width;
+                if (!isMonster)
+                {
+                    if (value + this.Width > BaseCharacter.MainForm?.ClientSize.Width)
+                        startX = (int)BaseCharacter.MainForm?.ClientSize.Width - this.Width;
+                }
                 else
                     startX = value;
             }
@@ -31,21 +35,41 @@ namespace PuzzleCraft_v3
             get { return startY; }
             set
             {
-                if (value + this.Height > BaseCharacter.MainForm?.ClientSize.Height)
-                    startY = (int)BaseCharacter.MainForm?.ClientSize.Height - this.Height;
+                if (!isMonster)
+                {
+                    if (value + this.Height > BaseCharacter.MainForm?.ClientSize.Height)
+                        startY = (int)BaseCharacter.MainForm?.ClientSize.Height - this.Height;
+                }
                 else
                     startY = value;
             }
         }
 
-        public Token(Bitmap pic, Size newSize, Point loc, int hp, bool rotationFlag)
+        public Token(Bitmap pic, Size newSize, Point loc, int hp)  //For Player
         {
             InitializeComponent();
-            RotationFlag = rotationFlag;
+            RotationFlag = true;
+            isMonster = false;
             startX = loc.X;
             startY = loc.Y;
             this.Top = loc.Y;
             this.Left = loc.X;
+            this.Size = newSize;
+            Image = pic;
+            SetUpPicture(Image, hp);
+            BaseCharacter.MainForm?.Controls.Add(this);
+        }
+
+        public Token(string name, Bitmap pic, Size newSize, Point loc, int hp, bool rotationFlag) //forMonster
+        {
+            InitializeComponent();
+            RotationFlag = rotationFlag;
+            isMonster = true;
+            startX = loc.X;
+            startY = loc.Y;
+            this.Top = loc.Y;
+            this.Left = loc.X;
+            DumbMonsterMove();
             this.Size = newSize;
             Image = pic;
             SetUpPicture(Image, hp);
@@ -66,6 +90,7 @@ namespace PuzzleCraft_v3
             this.Invalidate(false);
         }
 
+        #region Paint Events
         private void SetUpPicture(Bitmap pic, int hp)
         {
             PicBox = new();
@@ -109,5 +134,32 @@ namespace PuzzleCraft_v3
                 PicBox.Image = Image;
             }
         }
+        #endregion
+
+        #region Monster Events
+        private void DumbMonsterMove()
+        {
+            if(this.Left < BaseCharacter.MainForm.ClientSize.Width/2)
+            {
+                //move to the right
+                StepX = 1;
+            }
+            if (this.Left > BaseCharacter.MainForm.ClientSize.Width/2)
+            {
+                //move to the right
+                StepX = -1;
+            }
+            if (this.Top < BaseCharacter.MainForm.ClientSize.Height/2)
+            {
+                //move to the right
+                StepY = 1;
+            }
+            if (this.Left > BaseCharacter.MainForm.ClientSize.Width/2)
+            {
+                //move to the right
+                StepX = -1;
+            }
+        }
+        #endregion
     }
 }

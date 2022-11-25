@@ -14,10 +14,10 @@ namespace PuzzleCraft_v3.Classes.Monsters
             isSmart = false;
             HP = 1;
             Speed = 1;
-            Damage = 1;
+            Damage = 0;
             MonsterImage = Resource1.skeleton;
             MonsterSize = new(50, 50);
-            Token = new(MonsterImage, MonsterSize, SpawnLocation(MonsterSize), HP, false);
+            Token = new(name, MonsterImage, MonsterSize, SpawnLocation(MonsterSize), HP, false);
         }
     }
 }

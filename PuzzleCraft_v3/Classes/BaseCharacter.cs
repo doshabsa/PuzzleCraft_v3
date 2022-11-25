@@ -119,9 +119,9 @@ namespace PuzzleCraft_v3.Classes
                             if (i != j)
                                 if (CrashTest(CharacterList[i], CharacterList[j]))
                                 {
-                                    CharacterList[i].AdvancedCollision(
+                                    CharacterList[i].OnCollision(
                                         CharacterList[j].Damage, CharacterList[i]);
-                                    CharacterList[j].AdvancedCollision(
+                                    CharacterList[j].OnCollision(
                                         CharacterList[i].Damage, CharacterList[j]);
                                 }
             }
@@ -137,7 +137,7 @@ namespace PuzzleCraft_v3.Classes
             return true;
         }
 
-        private void AdvancedCollision(int damage, BaseCharacter otherGuy)
+        private void OnCollision(int damage, BaseCharacter otherGuy)
         {
             Health -= damage;
             if (!isDead) Token?.UpdateTokenHP(damage);

@@ -12,13 +12,13 @@ namespace PuzzleCraft_v3.Classes.Monsters
         public Raven(string name) : base(name)
         {
             canMove = true;
-            isSmart = true;
+            isSmart = false;
             HP = 1;
-            Speed = 1;
+            Speed = 10;
             Damage = 1;
             MonsterImage = Resource1.raven;
             MonsterSize = new(35, 35);
-            Token = new(MonsterImage, MonsterSize, SpawnLocation(MonsterSize), HP, true);
+            Token = new(name, MonsterImage, MonsterSize, SpawnLocation(MonsterSize), HP, true);
         }
     }
 }

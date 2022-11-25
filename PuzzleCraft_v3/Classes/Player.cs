@@ -17,9 +17,9 @@
             thePlayer = this;
             CharName = name;
             HP = 100;
-            Speed = 5;
+            Speed = 3;
             Damage = 5;
-            Token = new(pic, size, loc, HP, true);
+            Token = new(pic, size, loc, HP);
             CharacterList.Add(this);
         }
         #endregion
@@ -40,7 +40,8 @@
                     Token.Top += (int)(Token.StepY > ClickLocation.Y - Token.Top ? Token.StepY : ClickLocation.Y - Token.Top);
                 isMoving = false;
             }
-        } //there an issue here causeing player control to teleport/slide at random
+        } 
+        //there an issue here causeing player control to teleport/slide at random
         //while loop seems to help with it?
     }
 }
