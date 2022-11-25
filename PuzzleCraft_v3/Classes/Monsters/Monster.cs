@@ -29,15 +29,14 @@ namespace PuzzleCraft_v3.Classes.Monsters
         #region Methods
         public static void CreateNewMonster()
         {
-            switch (rnd.Next(0, 1))
+            switch (rnd.Next(0, 2))
             {
                 case 0:
-                    Skeleton m1 = new("skeleton");
                     Raven m0 = new("raven");
                     break;
 
                 case 1:
-                    Raven m2 = new("raven");
+                    Skeleton m1 = new("skeleton");
                     break;
             }
         }

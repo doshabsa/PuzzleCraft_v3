@@ -5,6 +5,7 @@
         #region Properties/Fields
         public Point ClickLocation;
         public static Player? thePlayer;
+        private bool isMoving;
         #endregion
 
         #region Constructors
@@ -25,15 +26,21 @@
 
         protected override void Move()
         {
-            if (Token.StepX > 0)
-                Token.Left += (int)(Token.StepX < ClickLocation.X - Token.Left ? Token.StepX : ClickLocation.X - Token.Left);
-            else if (Token.StepX < 0)
-                Token.Left += (int)(Token.StepX > ClickLocation.X - Token.Left ? Token.StepX : ClickLocation.X - Token.Left);
+            isMoving = true;
+            while (isMoving)
+            {
+                if (Token.StepX > 0)
+                    Token.Left += (int)(Token.StepX < ClickLocation.X - Token.Left ? Token.StepX : ClickLocation.X - Token.Left);
+                else if (Token.StepX < 0)
+                    Token.Left += (int)(Token.StepX > ClickLocation.X - Token.Left ? Token.StepX : ClickLocation.X - Token.Left);
 
-            if (Token.StepY > 0)
-                Token.Top += (int)(Token.StepY < ClickLocation.Y - Token.Top ? Token.StepY : ClickLocation.Y - Token.Top);
-            else if (Token.StepY < 0)
-                Token.Top += (int)(Token.StepY > ClickLocation.Y - Token.Top ? Token.StepY : ClickLocation.Y - Token.Top);
+                if (Token.StepY > 0)
+                    Token.Top += (int)(Token.StepY < ClickLocation.Y - Token.Top ? Token.StepY : ClickLocation.Y - Token.Top);
+                else if (Token.StepY < 0)
+                    Token.Top += (int)(Token.StepY > ClickLocation.Y - Token.Top ? Token.StepY : ClickLocation.Y - Token.Top);
+                isMoving = false;
+            }
         } //there an issue here causeing player control to teleport/slide at random
+        //while loop seems to help with it?
     }
 }
