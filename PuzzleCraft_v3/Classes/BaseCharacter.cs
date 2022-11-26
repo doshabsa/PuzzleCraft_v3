@@ -7,7 +7,7 @@ namespace PuzzleCraft_v3.Classes
 {
     public abstract class BaseCharacter
     {
-        #region Properties/Fields
+        #region Properties
         protected Token Token;
         protected string? CharName;
         protected bool isSmart;
@@ -20,7 +20,9 @@ namespace PuzzleCraft_v3.Classes
         public static System.Windows.Forms.Timer? PlayerTimer = new();
         public static List<BaseCharacter> CharacterList = new();
         public static Main? MainForm;
+        #endregion
 
+        #region Public Properties
         public int Health
         {
             get { return HP; }
