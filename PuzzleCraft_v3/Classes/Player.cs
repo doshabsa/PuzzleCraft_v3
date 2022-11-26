@@ -1,44 +1,50 @@
-﻿namespace PuzzleCraft_v3.Classes
+﻿using PuzzleCraft_v3.GUI;
+
+namespace PuzzleCraft_v3.Classes
 {
     internal class Player : BaseCharacter
     {
         #region Properties/Fields
-        public Point ClickLocation;
-        public static Player? thePlayer;
-        private bool isMoving;
+        public Point _ClickLocation;
+        public static Player? _thePlayer;
+        private bool _isMoving;
+        private static Backpack? _Pack;
+
+        public Backpack Pack { get { return _Pack; } }
         #endregion
 
         #region Constructors
         public Player(Bitmap pic, string name, Point loc, Size size) : base(pic, name)
         {
-            canMove = true;
-            isSmart = true;
-            ClickLocation = new();
-            thePlayer = this;
-            CharName = name;
-            HP = 100;
-            Speed = 3;
-            Damage = 5;
-            Token = new(pic, size, loc, HP);
+            _canMove = true;
+            _isSmart = true;
+            _ClickLocation = new();
+            _thePlayer = this;
+            _Name = name;
+            _HP = 100;
+            _Speed = 3;
+            _Damage = 5;
+            _Token = new(pic, size, loc, _HP);
+            _Pack = new();
             CharacterList.Add(this);
         }
         #endregion
 
         protected override void Move()
         {
-            isMoving = true;
-            while (isMoving)
+            _isMoving = true;
+            while (_isMoving)
             {
-                if (Token.StepX > 0)
-                    Token.Left += (int)(Token.StepX < ClickLocation.X - Token.Left ? Token.StepX : ClickLocation.X - Token.Left);
-                else if (Token.StepX < 0)
-                    Token.Left += (int)(Token.StepX > ClickLocation.X - Token.Left ? Token.StepX : ClickLocation.X - Token.Left);
+                if (_Token._StepX > 0)
+                    _Token.Left += (int)(_Token._StepX < _ClickLocation.X - _Token.Left ? _Token._StepX : _ClickLocation.X - _Token.Left);
+                else if (_Token._StepX < 0)
+                    _Token.Left += (int)(_Token._StepX > _ClickLocation.X - _Token.Left ? _Token._StepX : _ClickLocation.X - _Token.Left);
 
-                if (Token.StepY > 0)
-                    Token.Top += (int)(Token.StepY < ClickLocation.Y - Token.Top ? Token.StepY : ClickLocation.Y - Token.Top);
-                else if (Token.StepY < 0)
-                    Token.Top += (int)(Token.StepY > ClickLocation.Y - Token.Top ? Token.StepY : ClickLocation.Y - Token.Top);
-                isMoving = false;
+                if (_Token._StepY > 0)
+                    _Token.Top += (int)(_Token._StepY < _ClickLocation.Y - _Token.Top ? _Token._StepY : _ClickLocation.Y - _Token.Top);
+                else if (_Token._StepY < 0)
+                    _Token.Top += (int)(_Token._StepY > _ClickLocation.Y - _Token.Top ? _Token._StepY : _ClickLocation.Y - _Token.Top);
+                _isMoving = false;
             }
         } 
         //there an issue here causeing player control to teleport/slide at random

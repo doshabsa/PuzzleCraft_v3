@@ -17,17 +17,28 @@ namespace PuzzleCraft_v3
     {
         private const int NUMTOKENS = 32;
         private Random rnd = new Random();
-        private static List<Bitmap> pcTokens = new(NUMTOKENS);
-        private static List<Bitmap> tokCopy = new List<Bitmap>();
+        private static List<Bitmap> pcTokens = new();
+        private static List<Bitmap> tokCopy = new();
         private PictureBox[] boxes = new PictureBox[6];
         private Panel[] backings = new Panel[6];
         private PictureBox? selected;
 
-        public Start()
+        /*
+            SetupBoxList(this);
+    foreach (PictureBox pic in control.Controls.OfType<PictureBox>())
+        boxes.Add(pic);
+
+    foreach (Panel pnl in control.Controls.OfType<Panel>())
+        panels.Add(pnl);
+
+ */
+
+        public Start(Main mainForm)
         {
             InitializeComponent();
+            Main.MainForm = mainForm;
             Player.PlayerTimer.Stop();
-            this.Location = new Point(BaseCharacter.MainForm.ClientSize.Width/2 - this.Width/2, BaseCharacter.MainForm.ClientSize.Height/2 - this.Height/2);
+            this.Location = new Point(Main.MainForm.ClientSize.Width/2 - this.Width/2, Main.MainForm.ClientSize.Height/2 - this.Height/2);
             
             ResourceManager rm = Resource1.ResourceManager;
             for (int i = 0; i < NUMTOKENS; i++)
@@ -48,7 +59,7 @@ namespace PuzzleCraft_v3
             backings[5] = panel5;
 
             RandomizeTok();
-            BaseCharacter.MainForm.Controls.Add(this);
+            Main.MainForm.Controls.Add(this);
         }
 
         private void RandomizeTok()
@@ -70,7 +81,6 @@ namespace PuzzleCraft_v3
             if (selected != null)
             {
                 Player newPlayer = new((Bitmap)selected.Image, txtName.Text, new Point(100,100), selected.Size);
-                Backpack newPack = new();
                 Player.PlayerTimer.Start();
                 this.Dispose();
             }

@@ -1,27 +1,21 @@
-﻿using Microsoft.VisualBasic.Logging;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
+﻿using PuzzleCraft_v3.Classes.Items;
 
 namespace PuzzleCraft_v3.Classes.Monsters
 {
-    internal class Monster : BaseCharacter
+    public abstract class Monster : BaseCharacter
     {
         #region Properties/Fields
-        protected static Random rnd = new Random();
-        protected Size MonsterSize;
-        protected Bitmap MonsterImage;
+        protected static Random _rnd = new Random();
+        protected Size _MonsterSize;
+        protected Bitmap _MonsterImage;
+        private Monster thisMonster;
         #endregion
 
         #region Constructors
         public Monster(string name) : base(name)
         {
-            isDead = false;
+            _isDead = false;
+            thisMonster = this;
             CharacterList.Add(this);
         }
         #endregion
@@ -29,7 +23,7 @@ namespace PuzzleCraft_v3.Classes.Monsters
         #region Methods
         public static void CreateNewMonster()
         {
-            switch (rnd.Next(0, 1))
+            switch (_rnd.Next(0, 1))
             {
                 case 0:
                     Raven m0 = new("raven");
@@ -43,8 +37,29 @@ namespace PuzzleCraft_v3.Classes.Monsters
 
         public static Point SpawnLocation(Size newMonster)
         {
-            Point spawnPoint = new(rnd.Next(0, MainForm.ClientSize.Width - newMonster.Width), rnd.Next(0, MainForm.ClientSize.Height - newMonster.Height));
+            Point spawnPoint = new(_rnd.Next(0, Main.MainForm.ClientSize.Width - newMonster.Width), 
+                                        _rnd.Next(0, Main.MainForm.ClientSize.Height - newMonster.Height));
             return spawnPoint;
+        }
+
+        public static void DeathDrop(Monster monster)
+        {
+            string tmp = "";
+            switch (_rnd.Next(0, 1)) //Triggers random item drops
+            {
+                case 0:
+                    tmp = "arrow";
+                    break;
+
+                default:
+                    tmp = "";
+                    break;
+            }
+
+            if(tmp != "")
+            {
+                Item drop = new(tmp, new Point((int)Math.Round(monster.Token.LocX), (int)Math.Round(monster.Token.LocX)));
+            }
         }
         #endregion
     }

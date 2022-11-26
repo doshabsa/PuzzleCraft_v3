@@ -10,14 +10,14 @@ namespace PuzzleCraft_v3.Classes.Monsters
     {
         public Skeleton(string name) : base(name)
         {
-            canMove = false;
-            isSmart = false;
-            HP = 1;
-            Speed = 1;
-            Damage = 0;
-            MonsterImage = Resource1.skeleton;
-            MonsterSize = new(50, 50);
-            Token = new(name, MonsterImage, MonsterSize, SpawnLocation(MonsterSize), HP, false);
+            _canMove = false;
+            _isSmart = false;
+            _HP = 1;
+            _Speed = 1;
+            _Damage = 0;
+            _MonsterImage = Resource1.skeleton;
+            _MonsterSize = new(50, 50);
+            _Token = new(name, _MonsterImage, _MonsterSize, SpawnLocation(_MonsterSize), _HP, false);
         }
     }
 }

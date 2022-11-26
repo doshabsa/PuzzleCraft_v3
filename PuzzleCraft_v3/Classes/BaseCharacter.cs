@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using PuzzleCraft_v3.Classes.Items;
 using PuzzleCraft_v3.Classes.Monsters;
+using PuzzleCraft_v3.GUI;
 using static PuzzleCraft_v3.Classes.Player;
 
 namespace PuzzleCraft_v3.Classes
@@ -8,31 +10,34 @@ namespace PuzzleCraft_v3.Classes
     public abstract class BaseCharacter
     {
         #region Properties
-        protected Token Token;
-        protected string? CharName;
-        protected bool isSmart;
-        protected bool canMove;
-        protected bool isDead;
-        protected double Speed;
-        protected int HP;
-        protected int Damage;
+        protected Token _Token;
+        protected string? _Name;
+        protected bool _isSmart;
+        protected bool _canMove;
+        protected bool _isDead;
+        protected double _Speed;
+        protected int _HP;
+        protected int _Damage;
 
         public static System.Windows.Forms.Timer? PlayerTimer = new();
         public static List<BaseCharacter> CharacterList = new();
-        public static Main? MainForm;
         #endregion
 
         #region Public Properties
         public int Health
         {
-            get { return HP; }
+            get { return _HP; }
             set
             {
-                if (HP == 0) isDead = true;
-                else if (value < 0) HP = 0;
-                else HP = value;
+                if (_HP <= 0) _isDead = true;
+                else if (value < 0) _HP = 0;
+                else _HP = value;
             }
         }
+
+        public string? Name { get { return _Name; } }
+        public Token Token { get { return _Token; } }
+        public bool IsDead { get { return _isDead; } }
         #endregion
 
         #region Constructors
@@ -45,14 +50,14 @@ namespace PuzzleCraft_v3.Classes
 
         public BaseCharacter(string name) //For Monsters and Items
         {
-            isDead = false;
-            CharName = name;
+            _isDead = false;
+            _Name = name;
         }
 
         public BaseCharacter(Bitmap pic, string name) //For Player
         {
-            isDead = false;
-            CharName = name;
+            _isDead = false;
+            _Name = name;
         }
         #endregion
 
@@ -61,7 +66,7 @@ namespace PuzzleCraft_v3.Classes
             List<Task> Tasks = new();
             foreach (BaseCharacter c in CharacterList)
             {
-                if (c.isSmart)
+                if (c._isSmart)
                 {
                     var tmp = new Task(() => c.RotateToken());
                     Tasks.Add(tmp);
@@ -73,7 +78,7 @@ namespace PuzzleCraft_v3.Classes
 
             foreach (BaseCharacter c in CharacterList)
             {
-                if (c.canMove)
+                if (c._canMove)
                     c.Move();
             }
 
@@ -87,11 +92,11 @@ namespace PuzzleCraft_v3.Classes
         #region Tick Events
         private bool hasValidPosition()
         {
-            if (Token.Left - Token.Width > MainForm?.ClientSize.Width
-                || Token.Left < 0)
+            if (_Token.Left - _Token.Width > Main.MainForm?.ClientSize.Width
+                || _Token.Left < 0)
                 return false;
-            if (Token.Top - Token.Height > MainForm?.ClientSize.Height
-                || Token.Top < 0)
+            if (_Token.Top - _Token.Height > Main.MainForm?.ClientSize.Height
+                || _Token.Top < 0)
                 return false;
             return true;
         }
@@ -99,14 +104,21 @@ namespace PuzzleCraft_v3.Classes
         {
             List<int> isDeadList = new();
             for (int i = 0; i < CharacterList.Count; i++)
-                if (CharacterList[i].isDead) isDeadList.Add(i);
+                if (CharacterList[i]._isDead)
+                {
+                    isDeadList.Add(i);
+                    if (CharacterList[i] is Monster)
+                        Monster.DeathDrop((Monster)CharacterList[i]);
+                }
 
             for (int i = 0; i < isDeadList.Count; i++)
             {
-                MainForm.Controls.Remove(CharacterList[isDeadList[i] - i].Token);
-                CharacterList[isDeadList[i] - i].Token.Dispose();
+                Main.MainForm.Controls.Remove(CharacterList[isDeadList[i] - i]._Token);
+                CharacterList[isDeadList[i] - i]._Token.Dispose();
                 CharacterList.RemoveAt(isDeadList[i] - i);
             }
+
+            Backpack.RemoveUsedItems();
         }
         #endregion
 
@@ -122,48 +134,59 @@ namespace PuzzleCraft_v3.Classes
                                 if (CrashTest(CharacterList[i], CharacterList[j]))
                                 {
                                     CharacterList[i].OnCollision(
-                                        CharacterList[j].Damage, CharacterList[i]);
+                                        CharacterList[j]._Damage, CharacterList[i]);
                                     CharacterList[j].OnCollision(
-                                        CharacterList[i].Damage, CharacterList[j]);
+                                        CharacterList[i]._Damage, CharacterList[j]);
                                 }
+                if (Item.ItemList.Count > 0)
+                    for (int i = 0; i < Item.ItemList.Count; i++)
+                        if (CrashTest(Player._thePlayer, Item.ItemList[i]))
+                        {
+                            Player._thePlayer.OnCollision(
+                                        Player._thePlayer._Damage, Item.ItemList[i]);
+                        }
             }
             catch { }
         }
 
         private static bool CrashTest(BaseCharacter One, BaseCharacter Two)
         {
-            if (One.Token.Left + One.Token.Width < Two.Token.Left) return false;
-            if (Two.Token.Left + Two.Token.Width < One.Token.Left) return false;
-            if (One.Token.Top + One.Token.Height < Two.Token.Top) return false;
-            if (Two.Token.Top + Two.Token.Height < One.Token.Top) return false;
+            if (One._Token.Left + One._Token.Width < Two._Token.Left) return false;
+            if (Two._Token.Left + Two._Token.Width < One._Token.Left) return false;
+            if (One._Token.Top + One._Token.Height < Two._Token.Top) return false;
+            if (Two._Token.Top + Two._Token.Height < One._Token.Top) return false;
             return true;
         }
 
         private void OnCollision(int damage, BaseCharacter otherGuy)
         {
-            Health -= damage;
-            if (!isDead) Token?.UpdateTokenHP(damage);
+            if (this is Player && otherGuy is Item)
+                Inventory.PickUp((Item)otherGuy);
+            else
+                Health -= damage;
+
+            if (!_isDead) _Token?.UpdateTokenHP(this);
         }
         #endregion
 
         #region Movement
         protected virtual void Move()
         {
-            Token.LocX += Token.StepX;
-            Token.LocY += Token.StepY;
-            Token.Left = (int)Token.LocX;
-            Token.Top = (int)Token.LocY;
+            _Token.LocX += _Token._StepX;
+            _Token.LocY += _Token._StepY;
+            _Token.Left = (int)_Token.LocX;
+            _Token.Top = (int)_Token.LocY;
 
             if (!hasValidPosition())
-                isDead = true;
+                _isDead = true;
         }
 
         private async Task RotateToken()
         {
             if (this is Player)
-                await CalcTrajectory(Token.Left, Token.Top, thePlayer.ClickLocation.X, thePlayer.ClickLocation.Y);
-            if (this is Monster && thePlayer is not null)
-                await CalcTrajectory(Token.Left, Token.Top, thePlayer.Token.Left, thePlayer.Token.Top);
+                await CalcTrajectory(_Token.Left, _Token.Top, _thePlayer._ClickLocation.X, _thePlayer._ClickLocation.Y);
+            if (this is Monster && _thePlayer is not null)
+                await CalcTrajectory(_Token.Left, _Token.Top, _thePlayer._Token.Left, _thePlayer._Token.Top);
         }
 
         private async Task CalcTrajectory(int startX, int startY, int endX, int endY)
@@ -175,9 +198,9 @@ namespace PuzzleCraft_v3.Classes
                 double radians = Math.Atan2(deltaY, deltaX);
                 double angle = radians * (180 / Math.PI);
 
-                Token.UpdatePictureDirection(this, (float)angle);
-                Token.StepX = Speed * Math.Cos(radians);
-                Token.StepY = Speed * Math.Sin(radians);
+                _Token.UpdatePictureDirection(this, (float)angle);
+                _Token._StepX = _Speed * Math.Cos(radians);
+                _Token._StepY = _Speed * Math.Sin(radians);
             });
         }
         #endregion
