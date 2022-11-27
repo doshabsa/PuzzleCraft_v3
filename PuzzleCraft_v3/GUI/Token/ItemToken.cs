@@ -78,15 +78,13 @@ namespace PuzzleCraft_v3.GUI.Token
             _Image = character.Image;
             _TokenSize = character.Size;
             _CanRotate = character.CanRotate;
-            if (character is Monster) _IsMonster = true;
+            if (character is Monster) 
+                _IsMonster = true;
             if (character is Monster || character is Player)
             {
-                if (character.CanMove)
-                    _CanMove = true;
-                if (character.CanRotate)
-                    _CanRotate = true;
+                _CanMove = character.CanMove;
+                _CanRotate = character.CanRotate;
             }
-
             _StartPoint = RandomPoint();
             SetUpDynamicControls(character);
             Main.MainForm?.Controls.Add(_Panel);

@@ -29,42 +29,32 @@
         private void InitializeComponent()
         {
             this.btn_Cheat = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // btn_Cheat
             // 
-            this.btn_Cheat.Location = new System.Drawing.Point(833, 28);
+            this.btn_Cheat.Location = new System.Drawing.Point(1190, 47);
+            this.btn_Cheat.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btn_Cheat.Name = "btn_Cheat";
-            this.btn_Cheat.Size = new System.Drawing.Size(75, 23);
+            this.btn_Cheat.Size = new System.Drawing.Size(107, 38);
             this.btn_Cheat.TabIndex = 0;
             this.btn_Cheat.Text = "button1";
             this.btn_Cheat.UseVisualStyleBackColor = true;
             this.btn_Cheat.Click += new System.EventHandler(this.btn_Cheat_Click);
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Location = new System.Drawing.Point(414, 280);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(100, 50);
-            this.pictureBox1.TabIndex = 1;
-            this.pictureBox1.TabStop = false;
-            // 
             // Main
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(984, 661);
-            this.Controls.Add(this.pictureBox1);
+            this.ClientSize = new System.Drawing.Size(1406, 1102);
             this.Controls.Add(this.btn_Cheat);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "Main";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Text = "225_PuzzleCraft_v3";
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Main_MouseClick);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -72,6 +62,5 @@
         #endregion
 
         private Button btn_Cheat;
-        private PictureBox pictureBox1;
     }
 }

@@ -61,7 +61,6 @@ namespace PuzzleCraft_v3.GUI
             {
                 Location = ClosedBackpackDock,
                 Size = ClosedSize,
-                Name = "pnlBagClose",
                 BackColor = Color.OldLace,
                 BorderStyle = BorderStyle.FixedSingle,
                 Anchor = AnchorStyles.Left | AnchorStyles.Bottom

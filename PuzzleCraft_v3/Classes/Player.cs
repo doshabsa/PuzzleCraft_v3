@@ -27,6 +27,7 @@ namespace PuzzleCraft_v3.Classes
             _HP = 100;
             _Pack = new();
             _Token = new(this);
+            PlayerTimer.Start();
         }
         #endregion
 
