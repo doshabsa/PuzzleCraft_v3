@@ -17,6 +17,7 @@ namespace PuzzleCraft_v3
     {
         private const int NUMTOKENS = 32;
         private Random rnd = new Random();
+        private Bitmap ChosenPic { get { return (Bitmap)selected.BackgroundImage; } }
         private static List<Bitmap> pcTokens = new();
         private static List<Bitmap> tokCopy = new();
         private static List<Panel> PanelList = new();
@@ -63,7 +64,7 @@ namespace PuzzleCraft_v3
         {
             if (selected != null)
             {
-                //Player newPlayer = new((Bitmap)selected.Image, txtName.Text);
+                Player newPlayer = new(ChosenPic, txtName.Text);
                 this.Dispose();
             }
             else

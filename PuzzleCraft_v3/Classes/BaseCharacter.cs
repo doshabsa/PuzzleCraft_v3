@@ -12,7 +12,7 @@ namespace PuzzleCraft_v3.Classes
     {
         #region Properties
         protected Bitmap? _Image;
-        protected ItemToken _Token;
+        protected BaseToken _Token;
         protected Size _Size;
         protected string? _Name;
         protected bool _IsSmart;
@@ -26,7 +26,6 @@ namespace PuzzleCraft_v3.Classes
         protected static Random _rnd = new();
         public static System.Windows.Forms.Timer? PlayerTimer = new();
         public static List<BaseCharacter> CharacterList = new();
-        public static List<ItemToken> TokenList = new();
         #endregion
 
         #region Public Properties
@@ -42,7 +41,7 @@ namespace PuzzleCraft_v3.Classes
         }
 
         public string? Name { get { return _Name; } }
-        public ItemToken Token { get { return _Token; } }
+        public BaseToken Token { get { return _Token; } }
         public Size Size { get { return _Size; } }
         public bool IsDead { get { return _IsDead; } }
         public Bitmap Image { get { return _Image; } }
@@ -179,7 +178,7 @@ namespace PuzzleCraft_v3.Classes
         #region Token Movement
         protected virtual void Move()
         {
-            ItemToken.TakeSteps(_Token);
+            BaseToken.TakeSteps(_Token);
 
             if (!hasValidPosition())
                 _IsDead = true;

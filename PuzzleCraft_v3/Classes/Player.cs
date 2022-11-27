@@ -1,4 +1,5 @@
 ﻿using PuzzleCraft_v3.GUI;
+using PuzzleCraft_v3.GUI.Token;
 
 namespace PuzzleCraft_v3.Classes
 {
@@ -25,8 +26,8 @@ namespace PuzzleCraft_v3.Classes
             _ClickLocation = new();
             _thePlayer = this;
             _HP = 100;
-            _Pack = new();
-            _Token = new(this);
+            //_Pack = new();
+            _Token = new PlayerToken(this);
             PlayerTimer.Start();
         }
         #endregion
