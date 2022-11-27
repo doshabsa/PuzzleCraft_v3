@@ -5,11 +5,17 @@ namespace PuzzleCraft_v3
 {
     public partial class Token : UserControl
     {
+        /*
+         Issues:
+            - if token is made with a transparent background, things break (ticks, labels, monster tokens, etc.)
+            - if background is light color, token images WILL artifact. might still do this with darker bag color, not bothering with testing that
+         */
+
         #region Properties
         private Bitmap? _Image;
         private ProgressBar? _HealthBar;
         private PictureBox _PicBox;
-        private static Size _ItemSize = new Size(45,45);
+        private static Size _ItemSize = new Size(45, 45);
 
         private bool _RotationFlag;
         private bool _isMonster;
@@ -21,7 +27,6 @@ namespace PuzzleCraft_v3
         #region Public Properties
         public double _StepX { get; set; }
         public double _StepY { get; set; }
-
         public double LocX
         {
             get { return _startX; }
@@ -50,6 +55,7 @@ namespace PuzzleCraft_v3
                     _startY = value;
             }
         }
+        public Bitmap Image { get { return _Image; } }
         #endregion
 
         #region Constructors
@@ -103,7 +109,7 @@ namespace PuzzleCraft_v3
 
         public void UpdateTokenHP(BaseCharacter character)
         {
-                _HealthBar.Value = character.Health;
+            _HealthBar.Value = character.Health;
         }
 
         public void UpdatePictureDirection(BaseCharacter tmp, float angle)

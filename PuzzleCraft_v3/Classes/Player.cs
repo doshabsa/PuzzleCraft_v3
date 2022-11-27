@@ -9,8 +9,6 @@ namespace PuzzleCraft_v3.Classes
         public static Player? _thePlayer;
         private bool _isMoving;
         private static Backpack? _Pack;
-
-        public Backpack Pack { get { return _Pack; } }
         #endregion
 
         #region Constructors

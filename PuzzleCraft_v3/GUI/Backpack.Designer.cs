@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.tlpTable = new System.Windows.Forms.TableLayoutPanel();
-            this.lblClosePack = new System.Windows.Forms.Label();
             this.pic0 = new System.Windows.Forms.PictureBox();
             this.pic1 = new System.Windows.Forms.PictureBox();
             this.pic2 = new System.Windows.Forms.PictureBox();
@@ -42,6 +41,7 @@
             this.lbl3 = new System.Windows.Forms.Label();
             this.lbl4 = new System.Windows.Forms.Label();
             this.lbl5 = new System.Windows.Forms.Label();
+            this.btnCloseBag = new System.Windows.Forms.Button();
             this.tlpTable.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pic0)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pic1)).BeginInit();
@@ -53,6 +53,7 @@
             // 
             // tlpTable
             // 
+            this.tlpTable.BackColor = System.Drawing.Color.Transparent;
             this.tlpTable.ColumnCount = 10;
             this.tlpTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 1.351351F));
             this.tlpTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.16216F));
@@ -64,7 +65,6 @@
             this.tlpTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.16216F));
             this.tlpTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.16216F));
             this.tlpTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 1.351351F));
-            this.tlpTable.Controls.Add(this.lblClosePack, 1, 1);
             this.tlpTable.Controls.Add(this.pic0, 1, 2);
             this.tlpTable.Controls.Add(this.pic1, 4, 2);
             this.tlpTable.Controls.Add(this.pic2, 7, 2);
@@ -77,6 +77,7 @@
             this.tlpTable.Controls.Add(this.lbl3, 1, 9);
             this.tlpTable.Controls.Add(this.lbl4, 4, 9);
             this.tlpTable.Controls.Add(this.lbl5, 7, 9);
+            this.tlpTable.Controls.Add(this.btnCloseBag, 1, 1);
             this.tlpTable.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlpTable.Location = new System.Drawing.Point(0, 0);
             this.tlpTable.Margin = new System.Windows.Forms.Padding(4);
@@ -96,84 +97,81 @@
             this.tlpTable.Size = new System.Drawing.Size(568, 354);
             this.tlpTable.TabIndex = 0;
             // 
-            // lblClosePack
-            // 
-            this.lblClosePack.AutoSize = true;
-            this.tlpTable.SetColumnSpan(this.lblClosePack, 2);
-            this.lblClosePack.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblClosePack.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lblClosePack.Location = new System.Drawing.Point(11, 3);
-            this.lblClosePack.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblClosePack.Name = "lblClosePack";
-            this.lblClosePack.Size = new System.Drawing.Size(130, 38);
-            this.lblClosePack.TabIndex = 0;
-            this.lblClosePack.Text = "Close";
-            this.lblClosePack.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblClosePack.Click += new System.EventHandler(this.ToggleBag_Click);
-            // 
             // pic0
             // 
+            this.pic0.BackColor = System.Drawing.Color.Transparent;
             this.tlpTable.SetColumnSpan(this.pic0, 2);
             this.pic0.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pic0.Location = new System.Drawing.Point(10, 44);
             this.pic0.Name = "pic0";
             this.tlpTable.SetRowSpan(this.pic0, 3);
             this.pic0.Size = new System.Drawing.Size(132, 108);
+            this.pic0.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pic0.TabIndex = 1;
             this.pic0.TabStop = false;
             // 
             // pic1
             // 
+            this.pic1.BackColor = System.Drawing.Color.Transparent;
             this.tlpTable.SetColumnSpan(this.pic1, 2);
             this.pic1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pic1.Location = new System.Drawing.Point(217, 44);
             this.pic1.Name = "pic1";
             this.tlpTable.SetRowSpan(this.pic1, 3);
             this.pic1.Size = new System.Drawing.Size(132, 108);
+            this.pic1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pic1.TabIndex = 2;
             this.pic1.TabStop = false;
             // 
             // pic2
             // 
+            this.pic2.BackColor = System.Drawing.Color.Transparent;
             this.tlpTable.SetColumnSpan(this.pic2, 2);
             this.pic2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pic2.Location = new System.Drawing.Point(424, 44);
             this.pic2.Name = "pic2";
             this.tlpTable.SetRowSpan(this.pic2, 3);
             this.pic2.Size = new System.Drawing.Size(132, 108);
+            this.pic2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pic2.TabIndex = 3;
             this.pic2.TabStop = false;
             // 
             // pic3
             // 
+            this.pic3.BackColor = System.Drawing.Color.Transparent;
             this.tlpTable.SetColumnSpan(this.pic3, 2);
             this.pic3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pic3.Location = new System.Drawing.Point(10, 196);
             this.pic3.Name = "pic3";
             this.tlpTable.SetRowSpan(this.pic3, 3);
             this.pic3.Size = new System.Drawing.Size(132, 108);
+            this.pic3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pic3.TabIndex = 4;
             this.pic3.TabStop = false;
             // 
             // pic4
             // 
+            this.pic4.BackColor = System.Drawing.Color.Transparent;
             this.tlpTable.SetColumnSpan(this.pic4, 2);
             this.pic4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pic4.Location = new System.Drawing.Point(217, 196);
             this.pic4.Name = "pic4";
             this.tlpTable.SetRowSpan(this.pic4, 3);
             this.pic4.Size = new System.Drawing.Size(132, 108);
+            this.pic4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pic4.TabIndex = 5;
             this.pic4.TabStop = false;
             // 
             // pic5
             // 
+            this.pic5.BackColor = System.Drawing.Color.Transparent;
             this.tlpTable.SetColumnSpan(this.pic5, 2);
             this.pic5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pic5.Location = new System.Drawing.Point(424, 196);
             this.pic5.Name = "pic5";
             this.tlpTable.SetRowSpan(this.pic5, 3);
             this.pic5.Size = new System.Drawing.Size(132, 108);
+            this.pic5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pic5.TabIndex = 6;
             this.pic5.TabStop = false;
             // 
@@ -249,6 +247,20 @@
             this.lbl5.TabIndex = 12;
             this.lbl5.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
+            // btnCloseBag
+            // 
+            this.btnCloseBag.BackColor = System.Drawing.Color.OldLace;
+            this.tlpTable.SetColumnSpan(this.btnCloseBag, 2);
+            this.btnCloseBag.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnCloseBag.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCloseBag.Location = new System.Drawing.Point(10, 6);
+            this.btnCloseBag.Name = "btnCloseBag";
+            this.btnCloseBag.Size = new System.Drawing.Size(132, 32);
+            this.btnCloseBag.TabIndex = 13;
+            this.btnCloseBag.Text = "Close";
+            this.btnCloseBag.UseVisualStyleBackColor = false;
+            this.btnCloseBag.Click += new System.EventHandler(this.ToggleBag_Click);
+            // 
             // Backpack
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 19F);
@@ -276,7 +288,6 @@
         #endregion
 
         private TableLayoutPanel tlpTable;
-        private Label lblClosePack;
         private PictureBox pic0;
         private PictureBox pic1;
         private PictureBox pic2;
@@ -289,5 +300,6 @@
         private Label lbl3;
         private Label lbl4;
         private Label lbl5;
+        private Button btnCloseBag;
     }
 }
