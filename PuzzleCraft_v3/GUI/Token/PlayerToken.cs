@@ -9,7 +9,7 @@ namespace PuzzleCraft_v3.GUI.Token
 {
     internal class PlayerToken : BaseToken
     {
-        public PlayerToken(Player character)
+        public PlayerToken(BaseCharacter character) : base(character)
         {
             
         }
