@@ -1,27 +1,28 @@
 ﻿using PuzzleCraft_v3.Classes;
 using System.Drawing.Drawing2D;
 
-namespace PuzzleCraft_v3
+namespace PuzzleCraft_v3.GUI.Token
 {
-    public partial class Token : UserControl
+    public class ItemToken
     {
+
         /*
-         Issues:
-            - if token is made with a transparent background, things break (ticks, labels, monster tokens, etc.)
-            - if background is light color, token images WILL artifact. might still do this with darker bag color, not bothering with testing that
-         */
+        Issues:
+           - if token is made with a transparent background, things break (ticks, labels, monster tokens, etc.)
+           - if background is light color, token images WILL artifact. might still do this with darker bag color, not bothering with testing that
+        */
 
         #region Properties
-        private Bitmap? _Image;
-        private ProgressBar? _HealthBar;
-        private PictureBox _PicBox;
-        private static Size _ItemSize = new Size(45, 45);
-
-        private bool _RotationFlag;
-        private bool _isMonster;
-        private double _startX;
-        private double _startY;
-        private float _Angle;
+        protected Bitmap? _Image;
+        protected Panel _Panel;
+        protected PictureBox _PicBox;
+        protected ProgressBar? _HealthBar;
+        protected static Size _ItemSize = new Size(45, 45);
+        protected bool _RotationFlag;
+        protected bool _isMonster;
+        protected double _startX;
+        protected double _startY;
+        protected float _Angle;
         #endregion
 
         #region Public Properties
@@ -34,8 +35,8 @@ namespace PuzzleCraft_v3
             {
                 if (!_isMonster)
                 {
-                    if (value + this.Width > Main.MainForm?.ClientSize.Width)
-                        _startX = (int)Main.MainForm?.ClientSize.Width - this.Width;
+                    if (value + _ItemSize.Width > Main.MainForm?.ClientSize.Width)
+                        _startX = (int)Main.MainForm?.ClientSize.Width - _ItemSize.Width;
                 }
                 else
                     _startX = value;
@@ -48,8 +49,8 @@ namespace PuzzleCraft_v3
             {
                 if (!_isMonster)
                 {
-                    if (value + this.Height > Main.MainForm?.ClientSize.Height)
-                        _startY = (int)Main.MainForm?.ClientSize.Height - this.Height;
+                    if (value + _ItemSize.Height > Main.MainForm?.ClientSize.Height)
+                        _startY = (int)Main.MainForm?.ClientSize.Height - _ItemSize.Height;
                 }
                 else
                     _startY = value;
@@ -59,51 +60,48 @@ namespace PuzzleCraft_v3
         #endregion
 
         #region Constructors
-        public Token(Bitmap pic, Size newSize, Point loc, int hp)  //For Player
+        public ItemToken(Bitmap pic, Size newSize, Point loc, int hp)  //For Player
         {
-            InitializeComponent();
             _RotationFlag = true;
             _isMonster = false;
             _startX = loc.X;
             _startY = loc.Y;
-            this.Top = loc.Y;
-            this.Left = loc.X;
-            this.Size = newSize;
+            _PicBox.Top = loc.Y;
+            _PicBox.Left = loc.X;
+            _PicBox.Size = newSize;
             _Image = pic;
             SetUpPicture(_Image, hp);
-            Main.MainForm?.Controls.Add(this);
+            Main.MainForm?.Controls.Add(_PicBox);
         }
 
-        public Token(string name, Bitmap pic, Size newSize, Point loc, int hp, bool rotationFlag) //For Monster
+        public ItemToken(string name, Bitmap pic, Size newSize, Point loc, int hp, bool rotationFlag) //For Monster
         {
-            InitializeComponent();
             _RotationFlag = rotationFlag;
             _isMonster = true;
             _startX = loc.X;
             _startY = loc.Y;
-            this.Top = loc.Y;
-            this.Left = loc.X;
+            _PicBox.Top = loc.Y;
+            _PicBox.Left = loc.X;
             DumbMonsterMove();
-            this.Size = newSize;
+            _PicBox.Size = newSize;
             _Image = pic;
             SetUpPicture(_Image, hp);
-            Main.MainForm?.Controls.Add(this);
+            Main.MainForm?.Controls.Add(_PicBox);
         }
 
-        public Token(string name, Bitmap? pic, Point loc)  //For Item
+        public ItemToken(string name, Bitmap? pic, Point loc)  //For Item
         {
-            InitializeComponent();
             _RotationFlag = false;
             _isMonster = false;
             _startX = loc.X;
             _startY = loc.Y;
-            this.Top = loc.Y;
-            this.Left = loc.X;
-            this.Size = _ItemSize;
+            _PicBox.Top = loc.Y;
+            _PicBox.Left = loc.X;
+            _PicBox.Size = _ItemSize;
             _Image = pic;
             int hp = 0;
             SetUpPicture(_Image, hp);
-            Main.MainForm?.Controls.Add(this);
+            Main.MainForm?.Controls.Add(_PicBox);
         }
         #endregion
 
@@ -115,7 +113,7 @@ namespace PuzzleCraft_v3
         public void UpdatePictureDirection(BaseCharacter tmp, float angle)
         {
             _Angle = angle;
-            this.Invalidate(false);
+            _PicBox.Invalidate(false);
         }
 
         #region Paint Events
@@ -123,10 +121,10 @@ namespace PuzzleCraft_v3
         {
             _PicBox = new();
             _PicBox.Image = pic;
-            _PicBox.Size = new Size((int)Math.Round(this.Size.Width / 1.05), (int)Math.Round(this.Size.Height / 1.05));
+            _PicBox.Size = new Size((int)Math.Round(_PicBox.Size.Width / 1.05), (int)Math.Round(this.Size.Height / 1.05));
             _PicBox.SizeMode = PictureBoxSizeMode.StretchImage;
-            _PicBox.Location = new Point(this.Width / 2 - _PicBox.Width / 2, this.Height / 2 - _PicBox.Height / 2);
-            this.Controls.Add(_PicBox);
+            _PicBox.Location = new Point(_PicBox.Width / 2 - _PicBox.Width / 2, _PicBox.Height / 2 - _PicBox.Height / 2);
+            Main.MainForm?.Controls.Add(_PicBox);
 
             if (hp != 0)
             {
@@ -134,7 +132,7 @@ namespace PuzzleCraft_v3
                 _HealthBar.Height = 3;
                 _HealthBar.Maximum = hp;
                 _HealthBar.Value = hp;
-                this.Controls.Add(_HealthBar);
+                Main.MainForm?.Controls.Add(_HealthBar);
                 _HealthBar.BringToFront();
             }
         }
@@ -170,10 +168,10 @@ namespace PuzzleCraft_v3
         #region Monster Events
         private void DumbMonsterMove()
         {
-            if (this.Left < Main.MainForm.ClientSize.Width / 2) { _StepX = 1; }
-            if (this.Left > Main.MainForm.ClientSize.Width / 2) { _StepX = -1; }
-            if (this.Top < Main.MainForm.ClientSize.Height / 2) { _StepY = 1; }
-            if (this.Left > Main.MainForm.ClientSize.Width / 2) { _StepX = -1; }
+            if (_PicBox.Left < Main.MainForm.ClientSize.Width / 2) { _StepX = 1; }
+            if (_PicBox.Left > Main.MainForm.ClientSize.Width / 2) { _StepX = -1; }
+            if (_PicBox.Top < Main.MainForm.ClientSize.Height / 2) { _StepY = 1; }
+            if (_PicBox.Left > Main.MainForm.ClientSize.Width / 2) { _StepX = -1; }
         }
         #endregion
     }
