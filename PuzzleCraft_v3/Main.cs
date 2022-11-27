@@ -23,7 +23,7 @@ namespace PuzzleCraft_v3
 
         private void btn_Cheat_Click(object sender, EventArgs e)
         {
-            Item test = new("arrow", new Point(400, 400));
+            
         }
     }
 }

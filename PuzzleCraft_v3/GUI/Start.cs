@@ -80,7 +80,7 @@ namespace PuzzleCraft_v3
         {
             if (selected != null)
             {
-                Player newPlayer = new((Bitmap)selected.Image, txtName.Text, new Point(100,100), selected.Size);
+                Player newPlayer = new((Bitmap)selected.Image, txtName.Text);
                 Player.PlayerTimer.Start();
                 this.Dispose();
             }

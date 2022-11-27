@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PuzzleCraft_v3.GUI.Token;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,16 +10,19 @@ namespace PuzzleCraft_v3.Classes.Monsters
 {
     internal class Raven : Monster
     {
-        public Raven(string name) : base(name)
+        public Raven()
         {
-            _canMove = true;
-            _isSmart = true;
+            _Name = "raven";
+            _CanMove = true;
+            _IsSmart = true;
+            _CanRotate = true;
+            _IsDead = false;
             _HP = 1;
             _Speed = 2;
             _Damage = 1;
-            _MonsterImage = Resource1.raven;
-            _MonsterSize = new(35, 35);
-            _Token = new(name, _MonsterImage, _MonsterSize, SpawnLocation(_MonsterSize), _HP, true);
+            _Image = Resource1.raven;
+            _Size = new(35, 35);
+            _Token = new(this);
         }
     }
 }

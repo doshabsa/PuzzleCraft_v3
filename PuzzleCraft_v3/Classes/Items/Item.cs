@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using PuzzleCraft_v3.Classes;
 using PuzzleCraft_v3.Classes.Monsters;
+using PuzzleCraft_v3.GUI.Token;
 
 namespace PuzzleCraft_v3.Classes.Items
 {
@@ -18,37 +19,37 @@ namespace PuzzleCraft_v3.Classes.Items
             ItemList = new();
         }
 
-        public Item(string name, Point loc) : base(name)
+        public Item()
         {
-            _Name = name;
-            _HP = 1;
-            _Damage = 0;
-            _canMove = false;
-            _isDead = false;
-            _isSmart = false;
-            _Token = FetchToken(name, loc);
-            ItemList.Add(this);
+            //_Name = name;
+            //_HP = 1;
+            //_Damage = 0;
+            //_CanMove = false;
+            //_IsDead = false;
+            //_IsSmart = false;
+            //_Token = FetchToken(name, loc);
+            //ItemList.Add(this);
         }
         #endregion
 
-        #region Methods
-        private Token FetchToken(string name, Point loc)
-        {
-            Token itemToken = new(name, GetImage(name), loc);
-            return itemToken;
-        }
+        //#region Methods
+        //private ItemToken FetchToken(string name, Point loc)
+        //{
+        //    ItemToken itemToken = new(name, GetImage(name), loc);
+        //    return itemToken;
+        //}
 
-        private Bitmap? GetImage(string name)
-        {
-            Bitmap? pic = null;
-            switch (name)
-            {
-                case "arrow":
-                    pic = new(Resource1.arrow);
-                    break;
-            }
-            return pic;
-        }
-        #endregion
+        //private Bitmap? GetImage(string name)
+        //{
+        //    Bitmap? pic = null;
+        //    switch (name)
+        //    {
+        //        case "arrow":
+        //            pic = new(Resource1.arrow);
+        //            break;
+        //    }
+        //    return pic;
+        //}
+        //#endregion
     }
 }

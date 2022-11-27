@@ -8,16 +8,16 @@ namespace PuzzleCraft_v3.Classes.Monsters
 {
     internal class Skeleton : Monster
     {
-        public Skeleton(string name) : base(name)
+        public Skeleton()
         {
-            _canMove = false;
-            _isSmart = false;
+            _CanMove = false;
+            _IsSmart = false;
             _HP = 1;
             _Speed = 1;
             _Damage = 0;
-            _MonsterImage = Resource1.skeleton;
-            _MonsterSize = new(50, 50);
-            _Token = new(name, _MonsterImage, _MonsterSize, SpawnLocation(_MonsterSize), _HP, false);
+            _Image = Resource1.skeleton;
+            _TokenSize = new(50, 50);
+            _Token = new(this);
         }
     }
 }

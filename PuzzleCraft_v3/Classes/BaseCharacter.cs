@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using PuzzleCraft_v3.Classes.Items;
 using PuzzleCraft_v3.Classes.Monsters;
 using PuzzleCraft_v3.GUI;
+using PuzzleCraft_v3.GUI.Token;
 using static PuzzleCraft_v3.Classes.Player;
 
 namespace PuzzleCraft_v3.Classes
@@ -10,17 +11,22 @@ namespace PuzzleCraft_v3.Classes
     public abstract class BaseCharacter
     {
         #region Properties
-        protected Token _Token;
+        protected Bitmap? _Image;
+        protected ItemToken _Token;
+        protected Size _Size;
         protected string? _Name;
-        protected bool _isSmart;
-        protected bool _canMove;
-        protected bool _isDead;
+        protected bool _IsSmart;
+        protected bool _CanMove;
+        protected bool _CanRotate;
+        protected bool _IsDead;
         protected double _Speed;
         protected int _HP;
         protected int _Damage;
 
+        protected static Random _rnd = new();
         public static System.Windows.Forms.Timer? PlayerTimer = new();
         public static List<BaseCharacter> CharacterList = new();
+        public static List<ItemToken> TokenList = new();
         #endregion
 
         #region Public Properties
@@ -29,15 +35,20 @@ namespace PuzzleCraft_v3.Classes
             get { return _HP; }
             set
             {
-                if (_HP <= 0) _isDead = true;
+                if (_HP <= 0) _IsDead = true;
                 else if (value < 0) _HP = 0;
                 else _HP = value;
             }
         }
 
         public string? Name { get { return _Name; } }
-        public Token Token { get { return _Token; } }
-        public bool IsDead { get { return _isDead; } }
+        public ItemToken Token { get { return _Token; } }
+        public Size Size { get { return _Size; } }
+        public bool IsDead { get { return _IsDead; } }
+        public Bitmap Image { get { return _Image; } }
+        public bool CanMove { get { return _CanMove; } }
+        public bool CanRotate { get { return _CanRotate; } }
+        public bool IsSmart { get { return _IsSmart; } }
         #endregion
 
         #region Constructors
@@ -48,25 +59,20 @@ namespace PuzzleCraft_v3.Classes
             PlayerTimer.Enabled = true;
         }
 
-        public BaseCharacter(string name) //For Monsters and Items
+        public BaseCharacter()
         {
-            _isDead = false;
-            _Name = name;
-        }
-
-        public BaseCharacter(Bitmap pic, string name) //For Player
-        {
-            _isDead = false;
-            _Name = name;
+            _IsDead = false;
+            CharacterList.Add(this);
         }
         #endregion
 
+        #region Statics
         private static async void PlayerTimer_Tick(object? sender, EventArgs e)
         {
             List<Task> Tasks = new();
             foreach (BaseCharacter c in CharacterList)
             {
-                if (c._isSmart)
+                if (c._IsSmart)
                 {
                     var tmp = new Task(() => c.RotateToken());
                     Tasks.Add(tmp);
@@ -78,7 +84,7 @@ namespace PuzzleCraft_v3.Classes
 
             foreach (BaseCharacter c in CharacterList)
             {
-                if (c._canMove)
+                if (c._CanMove)
                     c.Move();
             }
 
@@ -88,15 +94,16 @@ namespace PuzzleCraft_v3.Classes
             if (CharacterList.Count < 2)
                 Monster.CreateNewMonster();
         }
+        #endregion
 
         #region Tick Events
         private bool hasValidPosition()
         {
-            if (_Token.Left - _Token.Width > Main.MainForm?.ClientSize.Width
-                || _Token.Left < 0)
+            if (_Token.Panel.Left - _Token.Panel.Width > Main.MainForm?.ClientSize.Width
+                || _Token.Panel.Left < 0)
                 return false;
-            if (_Token.Top - _Token.Height > Main.MainForm?.ClientSize.Height
-                || _Token.Top < 0)
+            if (_Token.Panel.Top - _Token.Panel.Height > Main.MainForm?.ClientSize.Height
+                || _Token.Panel.Top < 0)
                 return false;
             return true;
         }
@@ -104,17 +111,17 @@ namespace PuzzleCraft_v3.Classes
         {
             List<int> isDeadList = new();
             for (int i = 0; i < CharacterList.Count; i++)
-                if (CharacterList[i]._isDead)
+                if (CharacterList[i]._IsDead)
                 {
                     isDeadList.Add(i);
-                    if (CharacterList[i] is Monster)
-                        Monster.DeathDrop((Monster)CharacterList[i]);
+                    //if (CharacterList[i] is Monster)
+                        //Monster.DeathDrop((Monster)CharacterList[i]);
                 }
 
             for (int i = 0; i < isDeadList.Count; i++)
             {
-                Main.MainForm.Controls.Remove(CharacterList[isDeadList[i] - i]._Token);
-                CharacterList[isDeadList[i] - i]._Token.Dispose();
+                Main.MainForm.Controls.Remove(CharacterList[isDeadList[i] - i]._Token.Panel);
+                CharacterList[isDeadList[i] - i]._Token.Panel.Dispose();
                 CharacterList.RemoveAt(isDeadList[i] - i);
             }
 
@@ -151,10 +158,10 @@ namespace PuzzleCraft_v3.Classes
 
         private static bool CrashTest(BaseCharacter One, BaseCharacter Two)
         {
-            if (One._Token.Left + One._Token.Width < Two._Token.Left) return false;
-            if (Two._Token.Left + Two._Token.Width < One._Token.Left) return false;
-            if (One._Token.Top + One._Token.Height < Two._Token.Top) return false;
-            if (Two._Token.Top + Two._Token.Height < One._Token.Top) return false;
+            if (One._Token.Panel.Left + One._Token.Size.Width < Two._Token.Panel.Left) return false;
+            if (Two._Token.Panel.Left + Two._Token.Size.Width < One._Token.Panel.Left) return false;
+            if (One._Token.Panel.Top + One._Token.Size.Height < Two._Token.Panel.Top) return false;
+            if (Two._Token.Panel.Top + Two._Token.Size.Height < One._Token.Panel.Top) return false;
             return true;
         }
 
@@ -165,28 +172,25 @@ namespace PuzzleCraft_v3.Classes
             else
                 Health -= damage;
 
-            if (!_isDead) _Token?.UpdateTokenHP(this);
+            if (!_IsDead) _Token?.UpdateTokenHP(this);
         }
         #endregion
 
-        #region Movement
+        #region Token Movement
         protected virtual void Move()
         {
-            _Token.LocX += _Token._StepX;
-            _Token.LocY += _Token._StepY;
-            _Token.Left = (int)_Token.LocX;
-            _Token.Top = (int)_Token.LocY;
+            ItemToken.TakeSteps(_Token);
 
             if (!hasValidPosition())
-                _isDead = true;
+                _IsDead = true;
         }
 
         private async Task RotateToken()
         {
             if (this is Player)
-                await CalcTrajectory(_Token.Left, _Token.Top, _thePlayer._ClickLocation.X, _thePlayer._ClickLocation.Y);
+                await CalcTrajectory(_Token.Panel.Left, _Token.Panel.Top, _thePlayer._ClickLocation.X, _thePlayer._ClickLocation.Y);
             if (this is Monster && _thePlayer is not null)
-                await CalcTrajectory(_Token.Left, _Token.Top, _thePlayer._Token.Left, _thePlayer._Token.Top);
+                await CalcTrajectory(_Token.Panel.Left, _Token.Panel.Top, _thePlayer._Token.Panel.Left, _thePlayer._Token.Panel.Top);
         }
 
         private async Task CalcTrajectory(int startX, int startY, int endX, int endY)
