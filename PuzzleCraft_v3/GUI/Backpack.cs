@@ -108,18 +108,18 @@ namespace PuzzleCraft_v3.GUI
 
         private static void UpdateImages(int tmp)
         {
-            for(int i = 0; i < 6; i++)
-            {
-                BoxList[i].Image = null;
-                LabelList[i].Text = null;
-            }
+            //for(int i = 0; i < 6; i++)
+            //{
+            //    BoxList[i].Image = null;
+            //    LabelList[i].Text = null;
+            //}
 
-            for (int i = 0; i < tmp; i++)
-            {
-                BoxList[i].Image = Inventory.InventoryList[i].Token.Image;
-                BoxList[i].BackColor = Color.Transparent;
-                LabelList[i].Text = Inventory.InventoryList[i].Name.ToString();
-            }
+            //for (int i = 0; i < tmp; i++)
+            //{
+            //    BoxList[i].Image = Inventory.InventoryList[i].Token.Image;
+            //    BoxList[i].BackColor = Color.Transparent;
+            //    LabelList[i].Text = Inventory.InventoryList[i].Name.ToString();
+            //}
         }
         #endregion
         #endregion

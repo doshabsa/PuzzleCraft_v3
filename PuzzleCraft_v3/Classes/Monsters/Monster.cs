@@ -5,13 +5,6 @@ namespace PuzzleCraft_v3.Classes.Monsters
 {
     public abstract class Monster : BaseCharacter
     {
-        #region Properties
-        #endregion
-
-        #region Public Properties
-        public Bitmap Image { get { return _Image; } }
-        #endregion
-
         #region Constructors
         public Monster() : base()
         {

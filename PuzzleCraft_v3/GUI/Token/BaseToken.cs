@@ -4,9 +4,8 @@ using System.Drawing.Drawing2D;
 
 namespace PuzzleCraft_v3.GUI.Token
 {
-    public abstract class BaseToken
+    public class BaseToken
     {
-
         /*
         Issues:
            - if token is made with a transparent background, things break (ticks, labels, monster tokens, etc.)
@@ -76,10 +75,9 @@ namespace PuzzleCraft_v3.GUI.Token
             _Character = character;
             _StartPoint = RandomPoint();
             SetUpDynamicControls();
+            TokenList.Add(this);
             Main.MainForm?.Controls.Add(_Panel);
         }
-        #endregion
-
         private Point RandomPoint()
         {
             Point tmp = new(_rnd.Next(0, Main.MainForm.ClientSize.Width - Size.Width),
@@ -87,25 +85,6 @@ namespace PuzzleCraft_v3.GUI.Token
             _startX = _StartPoint.X;
             _startY = _StartPoint.Y;
             return tmp;
-        }
-
-        public static void TakeSteps(BaseToken token)
-        {
-            token.LocX += token._StepX;
-            token.LocY += token._StepY;
-            token._Panel.Left = (int)token.LocX;
-            token._Panel.Top = (int)token.LocY;
-        }
-
-        public void UpdateTokenHP(BaseCharacter character)
-        {
-            _HealthBar.Value = character.Health;
-        }
-
-        public void UpdatePictureDirection(BaseCharacter tmp, float angle)
-        {
-            _Angle = angle;
-            _PicBox.Invalidate(false);
         }
         #region Dynamic Controls
         private void SetUpDynamicControls()
@@ -122,7 +101,7 @@ namespace PuzzleCraft_v3.GUI.Token
             _PicBox.BackColor = Color.Transparent;
             _PicBox.SizeMode = PictureBoxSizeMode.StretchImage;
             _PicBox.Paint += Token_Paint;
-            //_PicBox.Location = new Point((int)_startX, (int)_startY);
+            _PicBox.Location = new Point((int)_startX, (int)_startY);
             _Panel.Controls.Add(_PicBox);
 
             if (_Character is Monster || _Character is Player)
@@ -137,12 +116,58 @@ namespace PuzzleCraft_v3.GUI.Token
             }
         }
         #endregion
+        #endregion
+
+        public void UpdateTokenHP(BaseCharacter character)
+        {
+            _HealthBar.Value = character.Health;
+        }
+
+
+        public static void Demo(BaseToken token)
+        {
+            token._PicBox.Invalidate(true);
+        }
+
+        public void UpdatePictureDirection(float angle)
+        {
+            _Angle = angle;
+            _PicBox.Image = RotateImage(Image, _Angle);
+            TakeSteps(this);
+        }
+
+        public static void TakeSteps(BaseToken token)
+        {
+            if (token._Character is Monster)
+            {
+                token.LocX += token._StepX;
+                token.LocY += token._StepY;
+                token._Panel.Left = (int)token.LocX;
+                token._Panel.Top = (int)token.LocY;
+            }
+            else if (token._Character is Player)
+            {
+                bool _isMoving = true;
+                while (_isMoving)
+                {
+                    if (token._StepX > 0)
+                        token.Panel.Left += (int)(token._StepX < Player._thePlayer._ClickLocation.X - token.Panel.Left ? token._StepX : Player._thePlayer._ClickLocation.X - token.Panel.Left);
+                    else if (token._StepX < 0)
+                        token.Panel.Left += (int)(token._StepX > Player._thePlayer._ClickLocation.X - token.Panel.Left ? token._StepX : Player._thePlayer._ClickLocation.X - token.Panel.Left);
+
+                    if (token._StepY > 0)
+                        token.Panel.Top += (int)(token._StepY < Player._thePlayer._ClickLocation.Y - token.Panel.Top ? token._StepY : Player._thePlayer._ClickLocation.Y - token.Panel.Top);
+                    else if (token._StepY < 0)
+                        token.Panel.Top += (int)(token._StepY > Player._thePlayer._ClickLocation.Y - token.Panel.Top ? token._StepY : Player._thePlayer._ClickLocation.Y - token.Panel.Top);
+                    _isMoving = false;
+                }
+            }
+        }
 
         #region Paint Events
-
-        private static Image RotateImage(Image? img, float rotationAngle)
+        private static Image RotateImage(Image img, float rotationAngle)
         {
-            Bitmap bmp = new Bitmap(img.Width, img.Height);
+            Bitmap bmp = new Bitmap(img.Size.Width, img.Height);
             Graphics gfx = Graphics.FromImage(bmp);
             gfx.TranslateTransform((float)bmp.Width / 2, (float)bmp.Height / 2);
             gfx.RotateTransform(rotationAngle);
@@ -155,12 +180,30 @@ namespace PuzzleCraft_v3.GUI.Token
 
         private void Token_Paint(object sender, PaintEventArgs e)
         {
-            if (CanRotate)
-            {
-                Image tmpImage;
-                tmpImage = RotateImage(Image, _Angle + 90); //Rotates 90 because images facing up
-                _PicBox.Image = tmpImage;
-            }
+            DetermineTrajectory(this);
+        }
+
+        private static void DetermineTrajectory(BaseToken token)
+        {
+            if (token._Character is Player)
+                token.CalcTrajectory(token.Panel.Left, token.Panel.Top, Player._thePlayer._ClickLocation.X, Player._thePlayer._ClickLocation.Y);
+            if (token._Character is Monster && Player._thePlayer is not null)
+                token.CalcTrajectory(token.Panel.Left, token.Panel.Top, Player._thePlayer.Token.Panel.Left, Player._thePlayer.Token.Panel.Top);
+        }
+
+        public void CalcTrajectory(int startX, int startY, int endX, int endY)
+        {
+            //await Task.Run(() =>
+            //{
+            double deltaX = endX - startX;
+            double deltaY = endY - startY;
+            double radians = Math.Atan2(deltaY, deltaX);
+            double angle = radians * (180 / Math.PI);
+
+            this.UpdatePictureDirection((float)angle);
+            this._StepX = _Character.Speed * Math.Cos(radians);
+            this._StepY = _Character.Speed * Math.Sin(radians);
+            // });
         }
         #endregion
 

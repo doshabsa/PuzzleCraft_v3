@@ -11,7 +11,7 @@ namespace PuzzleCraft_v3.Classes
     public abstract class BaseCharacter
     {
         #region Properties
-        protected Bitmap? _Image;
+        protected Bitmap _Image;
         protected BaseToken _Token;
         protected Size _Size;
         protected string? _Name;
@@ -43,6 +43,7 @@ namespace PuzzleCraft_v3.Classes
         public string? Name { get { return _Name; } }
         public BaseToken Token { get { return _Token; } }
         public Size Size { get { return _Size; } }
+        public double Speed { get { return _Speed; } }
         public bool IsDead { get { return _IsDead; } }
         public Bitmap Image { get { return _Image; } }
         public bool CanMove { get { return _CanMove; } }
@@ -65,26 +66,14 @@ namespace PuzzleCraft_v3.Classes
         }
         #endregion
 
-        #region Statics
+        #region Static
         private static async void PlayerTimer_Tick(object? sender, EventArgs e)
         {
-            List<Task> Tasks = new();
-            foreach (BaseCharacter c in CharacterList)
-            {
-                if (c._IsSmart)
-                {
-                    var tmp = new Task(() => c.RotateToken());
-                    Tasks.Add(tmp);
-                    tmp.Start();
-                }
-            }
-
-            await Task.WhenAll(Tasks.ToArray());
 
             foreach (BaseCharacter c in CharacterList)
             {
-                if (c._CanMove)
-                    c.Move();
+                if(c.CanMove)
+                    BaseToken.Demo(c.Token);
             }
 
             CheckForCrash();
@@ -176,36 +165,7 @@ namespace PuzzleCraft_v3.Classes
         #endregion
 
         #region Token Movement
-        protected virtual void Move()
-        {
-            BaseToken.TakeSteps(_Token);
 
-            if (!hasValidPosition())
-                _IsDead = true;
-        }
-
-        private async Task RotateToken()
-        {
-            if (this is Player)
-                await CalcTrajectory(_Token.Panel.Left, _Token.Panel.Top, _thePlayer._ClickLocation.X, _thePlayer._ClickLocation.Y);
-            if (this is Monster && _thePlayer is not null)
-                await CalcTrajectory(_Token.Panel.Left, _Token.Panel.Top, _thePlayer._Token.Panel.Left, _thePlayer._Token.Panel.Top);
-        }
-
-        private async Task CalcTrajectory(int startX, int startY, int endX, int endY)
-        {
-            await Task.Run(() =>
-            {
-                double deltaX = endX - startX;
-                double deltaY = endY - startY;
-                double radians = Math.Atan2(deltaY, deltaX);
-                double angle = radians * (180 / Math.PI);
-
-                _Token.UpdatePictureDirection(this, (float)angle);
-                _Token._StepX = _Speed * Math.Cos(radians);
-                _Token._StepY = _Speed * Math.Sin(radians);
-            });
-        }
         #endregion
     }
 }

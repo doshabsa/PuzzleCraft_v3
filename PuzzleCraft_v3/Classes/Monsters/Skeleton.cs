@@ -16,7 +16,7 @@ namespace PuzzleCraft_v3.Classes.Monsters
             _Speed = 1;
             _Damage = 0;
             _Image = Resource1.skeleton;
-            _TokenSize = new(50, 50);
+            _Size = new(50, 50);
             _Token = new(this);
         }
     }
