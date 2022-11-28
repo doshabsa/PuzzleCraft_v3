@@ -69,11 +69,22 @@ namespace PuzzleCraft_v3.Classes
         #region Static
         private static async void PlayerTimer_Tick(object? sender, EventArgs e)
         {
+            List<Task> Tasks = new();
+            foreach (BaseCharacter c in CharacterList)
+            {
+                if (c._IsSmart)
+                {
+                    var tmp = new Task(() => c.RotateToken());
+                    Tasks.Add(tmp);
+                    tmp.Start();
+                }
+            }
+            await Task.WhenAll(Tasks.ToArray());
 
             foreach (BaseCharacter c in CharacterList)
             {
-                if(c.CanMove)
-                    BaseToken.Demo(c.Token);
+                if (c._CanMove)
+                    c.Move();
             }
 
             CheckForCrash();
@@ -103,7 +114,7 @@ namespace PuzzleCraft_v3.Classes
                 {
                     isDeadList.Add(i);
                     //if (CharacterList[i] is Monster)
-                        //Monster.DeathDrop((Monster)CharacterList[i]);
+                    //Monster.DeathDrop((Monster)CharacterList[i]);
                 }
 
             for (int i = 0; i < isDeadList.Count; i++)
@@ -165,7 +176,35 @@ namespace PuzzleCraft_v3.Classes
         #endregion
 
         #region Token Movement
+        protected virtual void Move()
+        {
+            BaseToken.TakeSteps(_Token);
 
+            if (!hasValidPosition())
+                _IsDead = true;
+        }
+
+        private async Task RotateToken()
+        {
+            if (this is Player)
+                await CalcTrajectory(_Token.Panel.Left, _Token.Panel.Top, _thePlayer._ClickLocation.X, _thePlayer._ClickLocation.Y);
+            if (this is Monster && _thePlayer is not null)
+                await CalcTrajectory(_Token.Panel.Left, _Token.Panel.Top, _thePlayer._Token.Panel.Left, _thePlayer._Token.Panel.Top);
+        }
+
+        private async Task CalcTrajectory(int startX, int startY, int endX, int endY)
+        {
+            await Task.Run(() =>
+            {
+                double deltaX = endX - startX;
+                double deltaY = endY - startY;
+                double radians = Math.Atan2(deltaY, deltaX);
+                double angle = radians * (180 / Math.PI);
+                _Token.UpdatePictureDirection(this, (float)angle);
+                _Token._StepX = _Speed * Math.Cos(radians);
+                _Token._StepY = _Speed * Math.Sin(radians);
+            });
+        }
         #endregion
     }
 }
