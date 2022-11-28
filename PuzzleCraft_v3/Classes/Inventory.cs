@@ -26,12 +26,12 @@ namespace PuzzleCraft_v3.Classes
             {
                 Item.ItemList.Remove(newItem);
                 InventoryList.Add(newItem);
-                Main.MainForm?.Controls.Remove(newItem.Token.Panel);
+                Main.MainForm?.Controls.Remove(newItem.Token);
             }
             else
             {
                 Item.ItemList.Remove(newItem);
-                newItem.Token.Panel.Dispose();
+                newItem.Token.Dispose();
             }
         }
     }

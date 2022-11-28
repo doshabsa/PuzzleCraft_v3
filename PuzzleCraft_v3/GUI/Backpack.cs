@@ -97,7 +97,7 @@ namespace PuzzleCraft_v3.GUI
                 if (i.IsDead)
                 {
                     Inventory.InventoryList.Remove(i);
-                    i.Token.Panel.Dispose();
+                    i.Token.Dispose();
                 }
             }
 

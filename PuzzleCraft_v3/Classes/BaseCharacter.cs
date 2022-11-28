@@ -12,7 +12,7 @@ namespace PuzzleCraft_v3.Classes
     {
         #region Properties
         protected Bitmap _Image;
-        protected BaseToken _Token;
+        protected DemoToken _Token; //DEMO
         protected Size _Size;
         protected string? _Name;
         protected bool _IsSmart;
@@ -39,16 +39,69 @@ namespace PuzzleCraft_v3.Classes
                 else _HP = value;
             }
         }
-
-        public string? Name { get { return _Name; } }
-        public BaseToken Token { get { return _Token; } }
-        public Size Size { get { return _Size; } }
-        public double Speed { get { return _Speed; } }
-        public bool IsDead { get { return _IsDead; } }
-        public Bitmap Image { get { return _Image; } }
-        public bool CanMove { get { return _CanMove; } }
-        public bool CanRotate { get { return _CanRotate; } }
-        public bool IsSmart { get { return _IsSmart; } }
+        public string? Name
+        {
+            get
+            {
+                return _Name;
+            }
+        }
+        public DemoToken Token //DEMO
+        {
+            get
+            {
+                return _Token;
+            }
+        }
+        public Size Size
+        {
+            get
+            {
+                return _Size;
+            }
+        }
+        public double Speed 
+        { 
+            get 
+            { 
+                return _Speed; 
+            } 
+        }
+        public bool IsDead 
+        { 
+            get 
+            { 
+                return _IsDead; 
+            } 
+        }
+        public Bitmap Image 
+        { 
+            get 
+            { 
+                return _Image; 
+            } 
+        }
+        public bool CanMove 
+        { 
+            get 
+            { 
+                return _CanMove; 
+            } 
+        }
+        public bool CanRotate 
+        { 
+            get 
+            { 
+                return _CanRotate; 
+            } 
+        }
+        public bool IsSmart 
+        { 
+            get 
+            { 
+                return _IsSmart; 
+            } 
+        }
         #endregion
 
         #region Constructors
@@ -96,13 +149,13 @@ namespace PuzzleCraft_v3.Classes
         #endregion
 
         #region Tick Events
-        private bool hasValidPosition()
+        private bool hasValidPosition() //DEMO
         {
-            if (_Token.Panel.Left - _Token.Panel.Width > Main.MainForm?.ClientSize.Width
-                || _Token.Panel.Left < 0)
+            if (_Token.Left - _Token.Width > Main.MainForm?.ClientSize.Width
+                || _Token.Left < 0)
                 return false;
-            if (_Token.Panel.Top - _Token.Panel.Height > Main.MainForm?.ClientSize.Height
-                || _Token.Panel.Top < 0)
+            if (_Token.Top - _Token.Height > Main.MainForm?.ClientSize.Height
+                || _Token.Top < 0)
                 return false;
             return true;
         }
@@ -119,8 +172,8 @@ namespace PuzzleCraft_v3.Classes
 
             for (int i = 0; i < isDeadList.Count; i++)
             {
-                Main.MainForm.Controls.Remove(CharacterList[isDeadList[i] - i]._Token.Panel);
-                CharacterList[isDeadList[i] - i]._Token.Panel.Dispose();
+                Main.MainForm.Controls.Remove(CharacterList[isDeadList[i] - i]._Token);
+                CharacterList[isDeadList[i] - i]._Token.Dispose();
                 CharacterList.RemoveAt(isDeadList[i] - i);
             }
 
@@ -157,10 +210,10 @@ namespace PuzzleCraft_v3.Classes
 
         private static bool CrashTest(BaseCharacter One, BaseCharacter Two)
         {
-            if (One._Token.Panel.Left + One._Token.Size.Width < Two._Token.Panel.Left) return false;
-            if (Two._Token.Panel.Left + Two._Token.Size.Width < One._Token.Panel.Left) return false;
-            if (One._Token.Panel.Top + One._Token.Size.Height < Two._Token.Panel.Top) return false;
-            if (Two._Token.Panel.Top + Two._Token.Size.Height < One._Token.Panel.Top) return false;
+            if (One._Token.Left + One._Token.Size.Width < Two._Token.Left) return false;
+            if (Two._Token.Left + Two._Token.Size.Width < One._Token.Left) return false;
+            if (One._Token.Top + One._Token.Size.Height < Two._Token.Top) return false;
+            if (Two._Token.Top + Two._Token.Size.Height < One._Token.Top) return false;
             return true;
         }
 
@@ -178,7 +231,10 @@ namespace PuzzleCraft_v3.Classes
         #region Token Movement
         protected virtual void Move()
         {
-            BaseToken.TakeSteps(_Token);
+            Token.LocX += Token._StepX;
+            Token.LocY += Token._StepY;
+            Token.Left = (int)Token.LocX;
+            Token.Top = (int)Token.LocY;
 
             if (!hasValidPosition())
                 _IsDead = true;
@@ -187,9 +243,9 @@ namespace PuzzleCraft_v3.Classes
         private async Task RotateToken()
         {
             if (this is Player)
-                await CalcTrajectory(_Token.Panel.Left, _Token.Panel.Top, _thePlayer._ClickLocation.X, _thePlayer._ClickLocation.Y);
+                await CalcTrajectory(_Token.Left, _Token.Top, _thePlayer._ClickLocation.X, _thePlayer._ClickLocation.Y);
             if (this is Monster && _thePlayer is not null)
-                await CalcTrajectory(_Token.Panel.Left, _Token.Panel.Top, _thePlayer._Token.Panel.Left, _thePlayer._Token.Panel.Top);
+                await CalcTrajectory(_Token.Left, _Token.Top, _thePlayer._Token.Left, _thePlayer._Token.Top);
         }
 
         private async Task CalcTrajectory(int startX, int startY, int endX, int endY)
