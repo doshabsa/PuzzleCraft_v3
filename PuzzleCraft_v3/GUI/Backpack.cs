@@ -1,49 +1,54 @@
 ﻿using PuzzleCraft_v3.Classes;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PuzzleCraft_v3.GUI
 {
-    internal partial class Backpack : UserControl
+    public partial class Backpack : UserControl
     {
-        private static Panel OpenedBag;
+        #region Controls
         private static Panel ClosedBag;
-        private static Label lblOpenBag;
         private static Label lblCloseBag;
-        private static Size OpenBagSize = new Size(380, 210);
         private static Size ClosedSize = new Size(110, 30);
-        private static Point ClosedBackpackDock = new(3, 627);
-        private static Point OpenedBackpackDock = new(3, 447);
+        private static Point ClosedBackpackDock = new Point(3, 3);
+        private static List<PictureBox> BoxList;
+        #endregion
 
-        public Backpack()
+        static Backpack()
         {
-            this.Font = new Font("Arial", 12);
-            SetupCloseBag();
-            SetupOpenBag();
+            BoxList = new();
         }
 
+        #region Constructor
+        public Backpack()
+        {
+            InitializeComponent();
+            this.Font = new Font("Arial", 12);
+            SetupBoxList(tlpTable);
+            SetupCloseBag();
+            this.Visible = false;
+            this.Location = ClosedBackpackDock;
+            Main.MainForm?.Controls.Add(this);
+        }
+        #endregion
+
+        #region Methods
+
+        #region Controls
         private void ToggleBag_Click(object? sender, EventArgs e)
         {
-            if (lblOpenBag.Visible)
+            if (Player.PlayerTimer?.Enabled == true)
             {
-                Player.PlayerTimer.Start();
-                OpenedBag.Visible = false;
-                ClosedBag.Visible = true;
-                ClosedBag.BringToFront();
+                this.Show();
+                Player.PlayerTimer.Stop();
+                ClosedBag.Hide();
+                this.BringToFront();
             }
             else
             {
-                Player.PlayerTimer.Stop();
-                OpenedBag.Visible = true;
-                ClosedBag.Visible = false;
-                OpenedBag.BringToFront();
+                Player.PlayerTimer.Start();
+                this.Hide();
+                ClosedBag.Show();
+                ClosedBag.BringToFront();
             }
         }
 
@@ -72,40 +77,37 @@ namespace PuzzleCraft_v3.GUI
             lblCloseBag.Click += ToggleBag_Click;
         }
 
-        private void SetupOpenBag()
+        private void SetupBoxList(Control control)
         {
-            OpenedBag = new()
+            foreach (PictureBox pic in control.Controls.OfType<PictureBox>())
             {
-                Location = OpenedBackpackDock,
-                Size = OpenBagSize,
-                Name = "pnlBagOpen",
-                BackColor = Color.OldLace,
-                BorderStyle = BorderStyle.FixedSingle,
-                Visible = false,
-                Anchor = AnchorStyles.Left | AnchorStyles.Bottom
-            };
-            Main.MainForm.Controls.Add(OpenedBag);
-
-            lblOpenBag = new();
-            lblOpenBag.Location = new Point(ClosedBag.Width / 2 - lblCloseBag.Width / 2, 184);
-            lblOpenBag.Name = "lblOpenBag";
-            lblOpenBag.Text = "Backpack";
-            lblOpenBag.BackColor = Color.OldLace;
-            lblOpenBag.Font = new Font(this.Font, FontStyle.Bold);
-            lblOpenBag.ForeColor = Color.DarkGoldenrod;
-            lblOpenBag.TextAlign = ContentAlignment.MiddleCenter;
-            OpenedBag.Controls.Add(lblOpenBag);
-            lblOpenBag.Click += ToggleBag_Click;
+                BoxList.Add(pic);
+            }
         }
 
-        public static void GameReset()
-        {
-            //Code to reset all items in the pack
-        }
+        #endregion
 
-        private static void AlterInventory(string ItemName, int Value, bool AddOrRemove)
-        {
-            //Code to add or remove from the pack
-        }
+        #region Item Display
+        //public static void RemoveUsedItems()
+        //{
+        //    foreach (Item i in Inventory.InventoryList)
+        //    {
+        //        if (i.IsDead)
+        //        {
+        //            Inventory.InventoryList.Remove(i);
+        //            i.Token.Dispose();
+        //        }
+        //    }
+        //}
+
+        //private static void UpdateImages()
+        //{
+        //    for (int i = 0; i < Inventory.InventoryList.Count; i++)
+        //    {
+
+        //    }
+        //}
+        #endregion
+        #endregion
     }
 }

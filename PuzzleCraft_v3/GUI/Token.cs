@@ -8,6 +8,8 @@ namespace PuzzleCraft_v3.GUI
         private Bitmap Image;
         private ProgressBar HealthBar;
         private PictureBox PicBox;
+        private Point StartPoint;
+        private static Random rnd = new Random();
 
         private double startX;
         private double startY;
@@ -37,18 +39,26 @@ namespace PuzzleCraft_v3.GUI
             }
         }
 
-        public Token(Bitmap pic, Size newSize, Point loc, int hp)
+        public Token(BaseCharacter character)
         {
             InitializeComponent();
-            this.BackColor = Color.Beige;
-            startX = loc.X;
-            startY = loc.Y;
-            this.Top = loc.Y;
-            this.Left = loc.X;
-            this.Size = newSize;
-            Image = pic;
-            SetUpPicture(Image, hp);
+            //Transparent background breaks the game?
+            StartPoint = SpawnLocation(character.TokenSize);
+            startX = StartPoint.X;
+            startY = StartPoint.Y;
+            Image = character.Bitmap;
+            this.Top = (int)startY;
+            this.Left = (int)startX;
+            this.Size = character.TokenSize;
+            SetUpPicture(character.Bitmap, character.Health);
             Main.MainForm?.Controls.Add(this);
+        }
+
+        public static Point SpawnLocation(Size newMonster)
+        {
+            Point spawnPoint = new(rnd.Next(0, Main.MainForm.ClientSize.Width - newMonster.Width),
+                                        rnd.Next(0, Main.MainForm.ClientSize.Height - newMonster.Height));
+            return spawnPoint;
         }
 
         public void UpdateTokenHP(int damage)

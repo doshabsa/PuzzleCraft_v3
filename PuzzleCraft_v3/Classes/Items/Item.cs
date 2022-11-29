@@ -1,26 +1,56 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿//using System;
+//using System.Collections.Generic;
+//using System.Linq;
+//using System.Text;
+//using System.Threading.Tasks;
+//using System.Xml.Linq;
+//using PuzzleCraft_v3.Classes;
+//using PuzzleCraft_v3.Classes.Monsters;
+//using PuzzleCraft_v3.GUI;
 
-namespace PuzzleCraft_v3.Classes
-{
-    internal class Item : BaseCharacter
-    {
-        #region Properties/Fields
-        //private List<Image>? ListItemTokens;
-        #endregion
+//namespace PuzzleCraft_v3.Classes.Items
+//{
+//    public class Item : BaseCharacter
+//    {
+//        public static List<Item> ItemList;
 
-        #region Constructors
-        public Item(string name) : base(name)
-        {
+//        #region Constructor
+//        static Item()
+//        {
+//            ItemList = new();
+//        }
 
-        }
-        #endregion
+//        public Item(string name, Point loc) : base(name)
+//        {
+//            _Name = name;
+//            _HP = 1;
+//            _Damage = 0;
+//            _canMove = false;
+//            _isDead = false;
+//            _isSmart = false;
+//            _Token = FetchToken(name, loc);
+//            ItemList.Add(this);
+//        }
+//        #endregion
 
-        #region Methods
+//        #region Methods
+//        private Token FetchToken(string name, Point loc)
+//        {
+//            Token itemToken = new(name, GetImage(name), loc);
+//            return itemToken;
+//        }
 
-        #endregion
-    }
-}
+//        private Bitmap? GetImage(string name)
+//        {
+//            Bitmap? pic = null;
+//            switch (name)
+//            {
+//                case "arrow":
+//                    pic = new(Resource1.arrow);
+//                    break;
+//            }
+//            return pic;
+//        }
+//        #endregion
+//    }
+//}

@@ -16,9 +16,9 @@ namespace PuzzleCraft_v3
 
         private void Main_MouseClick(object sender, MouseEventArgs e)
         {
-            if (_thePlayer is null) { /* do nothing, there is no player */ }
+            if (_ThePlayer is null) { /* do nothing, there is no player */ }
             else
-                _thePlayer.NewLocation = e.Location;
+                _ThePlayer._ClickLocation = e.Location;
         }
 
         private void btn_Cheat_Click(object sender, EventArgs e)
