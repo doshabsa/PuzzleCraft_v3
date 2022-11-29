@@ -18,7 +18,7 @@ namespace PuzzleCraft_v3.Classes
             _CanMove = true;
             _IsSmart = true;
             _ClickLocation = new();
-            _TokenSize = new(100,100);
+            _TokenSize = new(100, 100);
             _ThePlayer = this;
             _Bitmap = pic;
             _Name = name;
@@ -32,22 +32,15 @@ namespace PuzzleCraft_v3.Classes
 
         protected override void MoveToken()
         {
-            //if (value + this.Width > Main.MainForm?.ClientSize.Width)
-            //    _startX = (int?)Main.MainForm?.ClientSize.Width ?? 0 - this.Width;
-            //else
-            //    _startX = value;
-
             if (_Token.StepX > 0)
-                    _Token.Left += (int)(_Token.StepX < _ClickLocation.X - _Token.Left ? _Token.StepX : _ClickLocation.X - _Token.Left);
-                else if (_Token.StepX < 0)
-                    _Token.Left += (int)(_Token.StepX > _ClickLocation.X - _Token.Left ? _Token.StepX : _ClickLocation.X - _Token.Left);
+                _Token.Left += (int)(_Token.StepX < _ClickLocation.X - _Token.Left ? _Token.StepX : _ClickLocation.X - _Token.Left);
+            else if (_Token.StepX < 0)
+                _Token.Left += (int)(_Token.StepX > _ClickLocation.X - _Token.Left ? _Token.StepX : _ClickLocation.X - _Token.Left);
 
-                if (_Token.StepY > 0)
-                    _Token.Top += (int)(_Token.StepY < _ClickLocation.Y - _Token.Top ? _Token.StepY : _ClickLocation.Y - _Token.Top);
-                else if (_Token.StepY < 0)
-                    _Token.Top += (int)(_Token.StepY > _ClickLocation.Y - _Token.Top ? _Token.StepY : _ClickLocation.Y - _Token.Top);
-               // _isMoving = false;
-            //}
+            if (_Token.StepY > 0)
+                _Token.Top += (int)(_Token.StepY < _ClickLocation.Y - _Token.Top ? _Token.StepY : _ClickLocation.Y - _Token.Top);
+            else if (_Token.StepY < 0)
+                _Token.Top += (int)(_Token.StepY > _ClickLocation.Y - _Token.Top ? _Token.StepY : _ClickLocation.Y - _Token.Top);
         }
         #endregion
     }

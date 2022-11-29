@@ -219,6 +219,16 @@ namespace PuzzleCraft_v3.Classes
             Token.Left = (int)Token.LocX;
             Token.Top = (int)Token.LocY;
 
+            //if (Token.LocX + Token.Width > Main.MainForm?.ClientSize.Width)
+            //    Token.LocX = (int)Main.MainForm?.ClientSize.Width - Token.Width;
+            //if (Token.LocY + Token.Height > Main.MainForm?.ClientSize.Width)
+            //    Token.LocY = (int)Main.MainForm?.ClientSize.Height - Token.Height;
+
+            //if (Token.Left + Token.Width > Main.MainForm.Width)
+            //    Token.Left = Main.MainForm.Width - Token.Width;
+            //if (Token.Top + Token.Height > Main.MainForm.Height)
+            //    Token.Top = Main.MainForm.Height - Token.Height;
+
             if (!hasValidPosition())
                 _IsDead = true;
         }

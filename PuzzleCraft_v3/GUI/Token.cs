@@ -5,6 +5,10 @@ using System.Drawing.Drawing2D;
 
 namespace PuzzleCraft_v3.GUI
 {
+    /*
+     Token will face right by default when not moving
+     */
+
     public partial class Token : UserControl
     {
         private BaseCharacter _Character;
@@ -30,35 +34,47 @@ namespace PuzzleCraft_v3.GUI
             set;
         }
         public double LocX
-        {
-            get { return _startX; }
-            set
-            {
-                //if (!_IsMonster)
-                //{
-                //    if (value + this.Width > Main.MainForm?.ClientSize.Width)
-                //        _startX = (int?)Main.MainForm?.ClientSize.Width ?? 0 - this.Width;
-                //    else
-                //        _startX = value;
-                //}
-                //else
-                    _startX = value;
-            }
+        { get;set;
+            //get { return _startX; }
+            //set
+            //{
+            //    if(_Character is Player)
+            //    {
+            //        if (value + this.Width > Main.MainForm?.ClientSize.Width)
+            //            _startX = (int)Main.MainForm?.ClientSize.Width - this.Width;
+            //        else
+            //            _startX = value;
+            //    }
+            //    else if (_Character is Monster)
+            //    {
+            //        _startX = value;
+            //    }
+            //    //else
+            //    //    _startX = value;
+            //}
         }
         public double LocY
         {
-            get { return _startY; }
-            set
-            {
-                //if (!_IsMonster)
-                //{
-                //    if (value + this.Height > Main.MainForm?.ClientSize.Height)
-                //        _startY = (int)Main.MainForm?.ClientSize.Height - this.Height;
-                //}
-                //else
-                    _startY = value;
-            }
+            get; set;
+            //get { return _startY; }
+            //set
+            //{
+            //    if (_Character is Player)
+            //    {
+            //        if (value + this.Height > Main.MainForm?.ClientSize.Height)
+            //            _startY = (int)Main.MainForm?.ClientSize.Height - this.Height;
+            //        else
+            //            _startY = value;
+            //    }
+            //    else if(_Character is Monster)
+            //    {
+            //        _startY = value;
+            //    }
+            //    //else
+            //    //    _startY = value;
+            //}
         }
+
         public Bitmap Bitmap
         {
             get { return _Bitmap; }
