@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.DataFormats;
 using PuzzleCraft_v3.Classes;
+using PuzzleCraft_v3.GUI;
 
 namespace PuzzleCraft_v3
 {
@@ -17,33 +18,36 @@ namespace PuzzleCraft_v3
     {
         private const int NUMTOKENS = 32;
         private Random rnd = new Random();
-        private Bitmap ChosenPic { get { return (Bitmap)selected.BackgroundImage; } }
-        private static List<Bitmap> pcTokens = new();
-        private static List<Bitmap> tokCopy = new();
-        private static List<Panel> PanelList = new();
-        private Panel? selected;
+        private static List<Bitmap> pcTokens = new(NUMTOKENS);
+        private static List<Bitmap> tokCopy = new List<Bitmap>();
+        private PictureBox[] boxes = new PictureBox[6];
+        private Panel[] backings = new Panel[6];
+        private PictureBox? selected;
 
-        public Start(Main mainForm)
+        public Start()
         {
             InitializeComponent();
-            Main.MainForm = mainForm;
             Player.PlayerTimer.Stop();
-            this.Location = new Point(Main.MainForm.ClientSize.Width / 2 - this.Width / 2, Main.MainForm.ClientSize.Height / 2 - this.Height / 2);
-
             ResourceManager rm = Resource1.ResourceManager;
             for (int i = 0; i < NUMTOKENS; i++)
                 pcTokens.Add((Bitmap)rm.GetObject("_" + i));
 
-            SetUp(tplTable);
+            boxes[0] = pictureBox0;
+            boxes[1] = pictureBox1;
+            boxes[2] = pictureBox2;
+            boxes[3] = pictureBox3;
+            boxes[4] = pictureBox4;
+            boxes[5] = pictureBox5;
+
+            backings[0] = panel0;
+            backings[1] = panel1;
+            backings[2] = panel2;
+            backings[3] = panel3;
+            backings[4] = panel4;
+            backings[5] = panel5;
 
             RandomizeTok();
             Main.MainForm.Controls.Add(this);
-        }
-
-        private void SetUp(Control control)
-        {
-            foreach (Panel panel in control.Controls.OfType<Panel>())
-                PanelList.Add(panel);
         }
 
         private void RandomizeTok()
@@ -52,10 +56,10 @@ namespace PuzzleCraft_v3
             foreach (Bitmap pic in pcTokens)
                 tokCopy.Add(pic);
 
-            for (int pb = 0; pb < PanelList.Count; pb++)
+            for (int pb = 0; pb < boxes.Length; pb++)
             {
                 int selectImage = rnd.Next(0, tokCopy.Count);
-                PanelList[pb].BackgroundImage = tokCopy[selectImage];
+                boxes[pb].Image = tokCopy[selectImage];
                 tokCopy.RemoveAt(selectImage);
             }
         }
@@ -64,7 +68,9 @@ namespace PuzzleCraft_v3
         {
             if (selected != null)
             {
-                Player newPlayer = new(ChosenPic, txtName.Text);
+                Player newPlayer = new((Bitmap)selected.Image, txtName.Text, selected.Location, selected.Size);
+                //Backpack newPack = new();
+                Player.PlayerTimer.Start();
                 this.Dispose();
             }
             else
@@ -78,19 +84,19 @@ namespace PuzzleCraft_v3
             RandomizeTok();
         }
 
-        private void Panel_Select(object sender, EventArgs e)
+        private void PictureBox_Select(object sender, EventArgs e)
         {
-            selected = (Panel)sender;
+            selected = (PictureBox)sender;
             UpdateTokens();
         }
 
         private void UpdateTokens()
         {
-            for (int i = 0; i < PanelList.Count; i++)
+            for (int i = 0; i < 6; i++)
             {
-                PanelList[i].BackColor = this.BackColor;
-                if (selected == PanelList[i])
-                    PanelList[i].BackColor = Color.White;
+                backings[i].BackColor = SystemColors.Control;
+                if (selected == boxes[i])
+                    backings[i].BackColor = Color.White;
             }
         }
     }

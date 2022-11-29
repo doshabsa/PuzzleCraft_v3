@@ -1,37 +1,22 @@
-﻿using PuzzleCraft_v3.GUI;
-using PuzzleCraft_v3.GUI.Token;
-
-namespace PuzzleCraft_v3.Classes
+﻿namespace PuzzleCraft_v3.Classes
 {
     internal class Player : BaseCharacter
     {
         #region Properties/Fields
-        public Point _ClickLocation;
-        public static Player? _thePlayer;
-        private bool _isMoving;
-        private static Backpack? _Pack;
+        public static Player _thePlayer;
         #endregion
 
         #region Constructors
-        public Player(Bitmap pic, string name)
+        public Player(Bitmap pic, string name, Point loc, Size size) : base(pic, name)
         {
-            _Name = name;
-            _CanMove = true;
-            _IsSmart = true;
-            _CanRotate = true;
-            _Speed = 2;
-            _Damage = 3;
-            _Image = pic;
-            _Size = new(100, 100);
-            _ClickLocation = new();
             _thePlayer = this;
-            _HP = 100;
-            _Pack = new();
-            _Token = new(this);
-            PlayerTimer.Start();
+            CharName = name;
+            HP = 100;
+            Speed = 2;
+            Damage = 5;
+            Token = new(pic, size, loc, HP);
+            CharacterList.Add(this);
         }
         #endregion
-        //there an issue here causeing player control to teleport/slide at random
-        //while loop seems to help with it?
     }
 }

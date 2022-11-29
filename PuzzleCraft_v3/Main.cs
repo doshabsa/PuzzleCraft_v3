@@ -1,5 +1,4 @@
 using PuzzleCraft_v3.Classes;
-using PuzzleCraft_v3.Classes.Items;
 using static PuzzleCraft_v3.Classes.Player;
 
 namespace PuzzleCraft_v3
@@ -11,19 +10,20 @@ namespace PuzzleCraft_v3
         public Main()
         {
             InitializeComponent();
-            Start newGame = new(this);
+            MainForm  = this;
+            Start newGame = new();
         }
 
         private void Main_MouseClick(object sender, MouseEventArgs e)
         {
             if (_thePlayer is null) { /* do nothing, there is no player */ }
             else
-                _thePlayer._ClickLocation = e.Location;
+                _thePlayer.NewLocation = e.Location;
         }
 
         private void btn_Cheat_Click(object sender, EventArgs e)
         {
-            
+
         }
     }
 }
