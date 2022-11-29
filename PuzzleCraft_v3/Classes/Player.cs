@@ -14,6 +14,7 @@ namespace PuzzleCraft_v3.Classes
         #region Constructors
         public Player(Bitmap pic, string name) : base(pic, name)
         {
+            _IsMonster = false;
             _CanMove = true;
             _IsSmart = true;
             _ClickLocation = new();
@@ -25,16 +26,18 @@ namespace PuzzleCraft_v3.Classes
             _Speed = 3;
             _Damage = 5;
             _Token = new(this);
-            //_Pack = new();
+            _Pack = new();
             CharacterList.Add(this);
         }
 
         protected override void MoveToken()
         {
-            _isMoving = true;
-            while (_isMoving)
-            {
-                if (_Token.StepX > 0)
+            //if (value + this.Width > Main.MainForm?.ClientSize.Width)
+            //    _startX = (int?)Main.MainForm?.ClientSize.Width ?? 0 - this.Width;
+            //else
+            //    _startX = value;
+
+            if (_Token.StepX > 0)
                     _Token.Left += (int)(_Token.StepX < _ClickLocation.X - _Token.Left ? _Token.StepX : _ClickLocation.X - _Token.Left);
                 else if (_Token.StepX < 0)
                     _Token.Left += (int)(_Token.StepX > _ClickLocation.X - _Token.Left ? _Token.StepX : _ClickLocation.X - _Token.Left);
@@ -43,8 +46,8 @@ namespace PuzzleCraft_v3.Classes
                     _Token.Top += (int)(_Token.StepY < _ClickLocation.Y - _Token.Top ? _Token.StepY : _ClickLocation.Y - _Token.Top);
                 else if (_Token.StepY < 0)
                     _Token.Top += (int)(_Token.StepY > _ClickLocation.Y - _Token.Top ? _Token.StepY : _ClickLocation.Y - _Token.Top);
-                _isMoving = false;
-            }
+               // _isMoving = false;
+            //}
         }
         #endregion
     }

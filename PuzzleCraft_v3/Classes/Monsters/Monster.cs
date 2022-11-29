@@ -1,11 +1,5 @@
-﻿using PuzzleCraft_v3.Classes.Monsters;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
+﻿using PuzzleCraft_v3.Classes.Items;
+using PuzzleCraft_v3.Classes.Monsters;
 
 namespace PuzzleCraft_v3.Classes
 {
@@ -35,6 +29,23 @@ namespace PuzzleCraft_v3.Classes
                     Skeleton m1 = new();
                     break;
             }
+        }
+
+        public static void DeathDrop(Monster monster)
+        {
+            string tmp = "";
+            switch (rnd.Next(0, 1)) //Triggers random item drops
+            {
+                case 0:
+                    tmp = "arrow";
+                    break;
+
+                default:
+                    tmp = "";
+                    break;
+            }
+
+            Item drop = new(tmp);
         }
         #endregion
     }

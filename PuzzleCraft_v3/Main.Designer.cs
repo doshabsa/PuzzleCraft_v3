@@ -33,10 +33,9 @@
             // 
             // btn_Cheat
             // 
-            this.btn_Cheat.Location = new System.Drawing.Point(1190, 47);
-            this.btn_Cheat.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btn_Cheat.Location = new System.Drawing.Point(833, 28);
             this.btn_Cheat.Name = "btn_Cheat";
-            this.btn_Cheat.Size = new System.Drawing.Size(107, 38);
+            this.btn_Cheat.Size = new System.Drawing.Size(75, 23);
             this.btn_Cheat.TabIndex = 0;
             this.btn_Cheat.Text = "button1";
             this.btn_Cheat.UseVisualStyleBackColor = true;
@@ -44,13 +43,12 @@
             // 
             // Main
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(1406, 1102);
+            this.ClientSize = new System.Drawing.Size(984, 611);
             this.Controls.Add(this.btn_Cheat);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "Main";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Text = "225_PuzzleCraft_v3";

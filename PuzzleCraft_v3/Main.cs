@@ -1,4 +1,5 @@
 using PuzzleCraft_v3.Classes;
+using PuzzleCraft_v3.Classes.Items;
 using static PuzzleCraft_v3.Classes.Player;
 
 namespace PuzzleCraft_v3
@@ -23,7 +24,7 @@ namespace PuzzleCraft_v3
 
         private void btn_Cheat_Click(object sender, EventArgs e)
         {
-
+            Item drop = new("arrow");
         }
     }
 }

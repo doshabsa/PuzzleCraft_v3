@@ -1,4 +1,4 @@
-﻿using PuzzleCraft_v3.GUI;
+﻿ using PuzzleCraft_v3.GUI;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -13,6 +13,7 @@ namespace PuzzleCraft_v3.Classes.Monsters
     {
         public Raven() : base()
         {
+            _IsMonster = true;
             _CanMove = true;
             _IsSmart = true;
             _TokenSize = new(50, 50);

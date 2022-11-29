@@ -1,4 +1,5 @@
-﻿using PuzzleCraft_v3.GUI;
+﻿using PuzzleCraft_v3.Classes.Items;
+using PuzzleCraft_v3.GUI;
 using System;
 using System.Collections.Generic;
 using static PuzzleCraft_v3.Classes.Player;
@@ -19,6 +20,7 @@ namespace PuzzleCraft_v3.Classes
         protected int _HP;
         protected int _Damage;
         protected Backpack _Pack;
+        protected bool _IsMonster;
 
         protected static Random rnd = new Random();
         public static System.Windows.Forms.Timer? PlayerTimer = new();
@@ -75,6 +77,13 @@ namespace PuzzleCraft_v3.Classes
                 return _IsDead;
             }
         }
+        public bool IsMonster
+        {
+            get
+            {
+                return _IsMonster;
+            }
+        }
         #endregion
 
         #region Constructors
@@ -116,6 +125,7 @@ namespace PuzzleCraft_v3.Classes
             }
 
             CheckForCrash();
+            Backpack.RemoveUsedItems();
             RemoveTheDead();
 
             if (CharacterList.Count < 2)
@@ -159,11 +169,15 @@ namespace PuzzleCraft_v3.Classes
                             if (i != j)
                                 if (CrashTest(CharacterList[i], CharacterList[j]))
                                 {
-                                    CharacterList[i].AdvancedCollision(
-                                        CharacterList[j].Damage, CharacterList[i]);
-                                    CharacterList[j].AdvancedCollision(
-                                        CharacterList[i].Damage, CharacterList[j]);
+                                    CharacterList[i].OnCollision(
+                                        CharacterList[j]._Damage, CharacterList[i]);
+                                    CharacterList[j].OnCollision(
+                                        CharacterList[i]._Damage, CharacterList[j]);
                                 }
+                if (Item.ItemList.Count > 0)
+                    for (int i = 0; i < Item.ItemList.Count; i++)
+                        if (CrashTest(Player._ThePlayer, Item.ItemList[i]))
+                            Player._ThePlayer.OnCollision(Player._ThePlayer._Damage, Item.ItemList[i]);
             }
             catch { }
         }
@@ -177,10 +191,14 @@ namespace PuzzleCraft_v3.Classes
             return true;
         }
 
-        private void AdvancedCollision(int damage, BaseCharacter otherGuy)
+        private void OnCollision(int damage, BaseCharacter otherGuy)
         {
-            Health -= damage;
-            if (!_IsDead) Token?.UpdateTokenHP(damage);
+            if (this is Player && otherGuy is Item)
+                Inventory.PickUp((Item)otherGuy);
+            else
+                Health -= damage;
+
+            if (!_IsDead) _Token?.UpdateTokenHP(damage);
         }
         #endregion
 

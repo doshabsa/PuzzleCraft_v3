@@ -13,6 +13,7 @@ namespace PuzzleCraft_v3.Classes.Monsters
     {
         public Skeleton() : base()
         {
+            _IsMonster = true;
             _CanMove = false;
             _IsSmart = false;
             _Bitmap = Resource1.skeleton;

@@ -1,56 +1,98 @@
 ﻿using PuzzleCraft_v3.Classes;
+using PuzzleCraft_v3.Classes.Items;
+using System.Drawing;
 using System.Drawing.Drawing2D;
 
 namespace PuzzleCraft_v3.GUI
 {
     public partial class Token : UserControl
     {
-        private Bitmap Image;
+        private BaseCharacter _Character;
+        private Bitmap _Bitmap;
         private ProgressBar HealthBar;
         private PictureBox PicBox;
         private Point StartPoint;
+        private bool _IsMonster;
         private static Random rnd = new Random();
-
-        private double startX;
-        private double startY;
+        private double _startX;
+        private double _startY;
         private float Angle;
-        public double StepX { get; set; }
-        public double StepY { get; set; }
+
+        #region Public Propteries
+        public double StepX
+        {
+            get;
+            set;
+        }
+        public double StepY
+        {
+            get;
+            set;
+        }
         public double LocX
         {
-            get { return startX; }
+            get { return _startX; }
             set
             {
-                if (value + this.Width > Main.MainForm?.ClientSize.Width)
-                    startX = (int)Main.MainForm?.ClientSize.Width - this.Width;
-                else
-                    startX = value;
+                //if (!_IsMonster)
+                //{
+                //    if (value + this.Width > Main.MainForm?.ClientSize.Width)
+                //        _startX = (int?)Main.MainForm?.ClientSize.Width ?? 0 - this.Width;
+                //    else
+                //        _startX = value;
+                //}
+                //else
+                    _startX = value;
             }
         }
         public double LocY
         {
-            get { return startY; }
+            get { return _startY; }
             set
             {
-                if (value + this.Height > Main.MainForm?.ClientSize.Height)
-                    startY = (int)Main.MainForm?.ClientSize.Height - this.Height;
-                else
-                    startY = value;
+                //if (!_IsMonster)
+                //{
+                //    if (value + this.Height > Main.MainForm?.ClientSize.Height)
+                //        _startY = (int)Main.MainForm?.ClientSize.Height - this.Height;
+                //}
+                //else
+                    _startY = value;
             }
         }
+        public Bitmap Bitmap
+        {
+            get { return _Bitmap; }
+        }
+        #endregion
 
         public Token(BaseCharacter character)
         {
             InitializeComponent();
+            _Character = character;
+            _IsMonster = _Character.IsMonster;
             //Transparent background breaks the game?
-            StartPoint = SpawnLocation(character.TokenSize);
-            startX = StartPoint.X;
-            startY = StartPoint.Y;
-            Image = character.Bitmap;
-            this.Top = (int)startY;
-            this.Left = (int)startX;
-            this.Size = character.TokenSize;
-            SetUpPicture(character.Bitmap, character.Health);
+            StartPoint = SpawnLocation(_Character.TokenSize);
+            _startX = StartPoint.X;
+            _startY = StartPoint.Y;
+            _Bitmap = _Character.Bitmap;
+            this.Top = (int)_startY;
+            this.Left = (int)_startX;
+            this.Size = _Character.TokenSize;
+            SetUpPicture(_Character);
+            Main.MainForm?.Controls.Add(this);
+        }
+
+        public Token(Item item)
+        {
+            InitializeComponent();
+            StartPoint = SpawnLocation(item.TokenSize);
+            _startX = StartPoint.X;
+            _startY = StartPoint.Y;
+            _Bitmap = item.Bitmap;
+            this.Top = (int)_startY;
+            this.Left = (int)_startX;
+            this.Size = item.TokenSize;
+            SetUpPicture(item);
             Main.MainForm?.Controls.Add(this);
         }
 
@@ -75,19 +117,19 @@ namespace PuzzleCraft_v3.GUI
             this.Invalidate(false);
         }
 
-        private void SetUpPicture(Bitmap pic, int hp)
+        private void SetUpPicture(BaseCharacter character)
         {
             PicBox = new();
             PicBox.SizeMode = PictureBoxSizeMode.StretchImage;
-            PicBox.Image = pic;
-            PicBox.Size = new Size((int)Math.Round(this.Size.Width / 1.05), (int)Math.Round(this.Size.Height / 1.05));
-            PicBox.Location = new Point(this.Width / 2 - PicBox.Width / 2, this.Height / 2 - PicBox.Height / 2);
+            PicBox.Image = character.Bitmap;
+            PicBox.Size = new Size((int)Math.Round(character.TokenSize.Width / 1.05), (int)Math.Round(character.TokenSize.Height / 1.05));
+            PicBox.Location = new Point(character.TokenSize.Width / 2 - PicBox.Width / 2, character.TokenSize.Height / 2 - PicBox.Height / 2);
             this.Controls.Add(PicBox);
 
             HealthBar = new ProgressBar();
             HealthBar.Height = 3;
-            HealthBar.Maximum = hp;
-            HealthBar.Value = hp;
+            HealthBar.Maximum = character.Health;
+            HealthBar.Value = character.Health;
             this.Controls.Add(HealthBar);
             HealthBar.BringToFront();
         }
@@ -108,7 +150,7 @@ namespace PuzzleCraft_v3.GUI
         private void Token_Paint(object sender, PaintEventArgs e)
         {
             Image tmpImage;
-            tmpImage = RotateImage(Image, Angle + 90);
+            tmpImage = RotateImage(_Bitmap, Angle + 90);
             PicBox.Image = tmpImage;
         }
     }
