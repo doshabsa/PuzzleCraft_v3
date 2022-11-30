@@ -20,6 +20,7 @@ namespace PuzzleCraft_v3.Classes
         protected int _HP;
         protected int _Damage;
         protected Backpack _Pack;
+        public bool Moving;
 
         protected static Random rnd = new Random();
         public static System.Windows.Forms.Timer? PlayerTimer = new();
@@ -205,22 +206,24 @@ namespace PuzzleCraft_v3.Classes
 
         protected virtual void MoveToken()
         {
-            Token.LocX += Token.StepX;
-            Token.LocY += Token.StepY;
+                Token.LocX += Token.StepX;
+                Token.LocY += Token.StepY;
+                Token.Left = (int)Token.LocX;
+                Token.Top = (int)Token.LocY;
 
             //if (this is Player)
             //{
-            //    if (Token.Left <= (int)_ThePlayer._ClickLocation.X - _Token.StepX || Token.Left >= (int)_ThePlayer._ClickLocation.X + _Token.StepX)
+            //    if (Token.Left <= (int)_ClickLocation.X - _Token.StepX || Token.Left >= (int)_ClickLocation.X + _Token.StepX)
             //        Token.Left = (int)Token.LocX;
-            //    if (Token.Top <= (int)_ThePlayer._ClickLocation.Y - _Token.StepY || Token.Top >= (int)_ThePlayer._ClickLocation.Y + _Token.StepY)
+            //    if (Token.Top <= (int)_ClickLocation.Y - _Token.StepY || Token.Top >= (int)_ClickLocation.Y + _Token.StepY)
             //        Token.Top = (int)Token.LocY;
             //}
             //else if (this is Monster)
             //{
-                //Token.LocX += Token.StepX;
-                //Token.LocY += Token.StepY;
-                Token.Left = (int)Token.LocX;
-                Token.Top = (int)Token.LocY;
+            //    Token.LocX += Token.StepX;
+            //    Token.LocY += Token.StepY;
+            //    Token.Left = (int)Token.LocX;
+            //    Token.Top = (int)Token.LocY;
             //}
 
             if (!hasValidPosition())

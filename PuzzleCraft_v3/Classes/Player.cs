@@ -8,7 +8,7 @@ namespace PuzzleCraft_v3.Classes
         #region Properties/Fields
         public static Player _ThePlayer;
         public static Point _ClickLocation;
-        private bool _isMoving;
+        public bool _isMoving;
         #endregion
 
         static Player()
@@ -32,8 +32,6 @@ namespace PuzzleCraft_v3.Classes
             _Token = new(this);
             _Pack = new();
             CharacterList.Add(this);
-            
-            //Operation obj = new operation(Program.Addition);
         }
 
         private static void UpdateLocation(Point e)

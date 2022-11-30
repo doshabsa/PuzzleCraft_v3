@@ -52,7 +52,6 @@
             this.Name = "Main";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Text = "225_PuzzleCraft_v3";
-            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Main_MouseClick);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Main_MouseDown);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Main_MouseMove);
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Main_MouseUp);

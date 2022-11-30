@@ -70,7 +70,7 @@ namespace PuzzleCraft_v3
             {
                 Player newPlayer = new((Bitmap)selected.Image, txtName.Text);
                 //Backpack newPack = new();
-                //Player.PlayerTimer.Start();
+                Player.PlayerTimer.Start();
                 this.Dispose();
             }
             else

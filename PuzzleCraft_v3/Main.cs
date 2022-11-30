@@ -33,23 +33,25 @@ namespace PuzzleCraft_v3
 
         private void Main_MouseDown(object sender, MouseEventArgs e)
         {
-            PlayGame = true;
+            _ThePlayer._isMoving = true;
+            _ClickLocation = e.Location;
         }
 
         private void OnGameLive(Point e)
         {
-            GameLive?.Invoke(e);
+            //GameLive?.Invoke(e);
         }
 
         private void Main_MouseUp(object sender, MouseEventArgs e)
         {
-            PlayGame = false;
+            _ThePlayer._isMoving = false;
+            Player._ClickLocation = new Point((int)Player._ThePlayer.Token.LocX, (int)Player._ThePlayer.Token.LocY);
         }
 
         private void Main_MouseMove(object sender, MouseEventArgs e)
         {
-            if(PlayGame)
-                OnGameLive(e.Location);
+            if (_ThePlayer != null && _ThePlayer._isMoving)
+                _ClickLocation = e.Location;
         }
     }
 }
