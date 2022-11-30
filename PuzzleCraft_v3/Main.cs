@@ -10,6 +10,7 @@ namespace PuzzleCraft_v3
     {
         public static Main? MainForm;
         public static event Notify GameLive;
+        public static bool PlayGame = false;
 
         public Main()
         {
@@ -22,7 +23,7 @@ namespace PuzzleCraft_v3
         {
             if (_ThePlayer is null) { /* do nothing, there is no player */ }
             else
-                _ThePlayer._ClickLocation = e.Location;
+                _ClickLocation = e.Location;
         }
 
         private void btn_Cheat_Click(object sender, EventArgs e)
@@ -32,15 +33,23 @@ namespace PuzzleCraft_v3
 
         private void Main_MouseDown(object sender, MouseEventArgs e)
         {
-            while (true)
-            {
-                OnGameLive(e.Location);
-            }
+            PlayGame = true;
         }
 
         private void OnGameLive(Point e)
         {
             GameLive?.Invoke(e);
+        }
+
+        private void Main_MouseUp(object sender, MouseEventArgs e)
+        {
+            PlayGame = false;
+        }
+
+        private void Main_MouseMove(object sender, MouseEventArgs e)
+        {
+            if(PlayGame)
+                OnGameLive(e.Location);
         }
     }
 }

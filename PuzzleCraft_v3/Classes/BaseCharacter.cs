@@ -198,7 +198,7 @@ namespace PuzzleCraft_v3.Classes
         private async Task RotateToken()
         {
             if (this is Player)
-                await CalcTrajectory(Token.Left, Token.Top, _ThePlayer._ClickLocation.X, _ThePlayer._ClickLocation.Y);
+                await CalcTrajectory(Token.Left, Token.Top, Player._ClickLocation.X, Player._ClickLocation.Y);
             if (this is Monster && _ThePlayer is not null)
                 await CalcTrajectory(Token.Left, Token.Top, _ThePlayer.Token.Left, _ThePlayer.Token.Top);
         }
