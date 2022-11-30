@@ -20,7 +20,6 @@ namespace PuzzleCraft_v3.Classes
         protected int _HP;
         protected int _Damage;
         protected Backpack _Pack;
-        protected bool _IsMonster;
 
         protected static Random rnd = new Random();
         public static System.Windows.Forms.Timer? PlayerTimer = new();
@@ -75,13 +74,6 @@ namespace PuzzleCraft_v3.Classes
             get
             {
                 return _IsDead;
-            }
-        }
-        public bool IsMonster
-        {
-            get
-            {
-                return _IsMonster;
             }
         }
         #endregion
@@ -209,25 +201,27 @@ namespace PuzzleCraft_v3.Classes
                 await CalcTrajectory(Token.Left, Token.Top, _ThePlayer._ClickLocation.X, _ThePlayer._ClickLocation.Y);
             if (this is Monster && _ThePlayer is not null)
                 await CalcTrajectory(Token.Left, Token.Top, _ThePlayer.Token.Left, _ThePlayer.Token.Top);
-
-            Token.LocX += Token.StepX;
-            Token.LocY += Token.StepY;
         }
 
         protected virtual void MoveToken()
         {
-            Token.Left = (int)Token.LocX;
-            Token.Top = (int)Token.LocY;
+            Token.LocX += Token.StepX;
+            Token.LocY += Token.StepY;
 
-            //if (Token.LocX + Token.Width > Main.MainForm?.ClientSize.Width)
-            //    Token.LocX = (int)Main.MainForm?.ClientSize.Width - Token.Width;
-            //if (Token.LocY + Token.Height > Main.MainForm?.ClientSize.Width)
-            //    Token.LocY = (int)Main.MainForm?.ClientSize.Height - Token.Height;
-
-            //if (Token.Left + Token.Width > Main.MainForm.Width)
-            //    Token.Left = Main.MainForm.Width - Token.Width;
-            //if (Token.Top + Token.Height > Main.MainForm.Height)
-            //    Token.Top = Main.MainForm.Height - Token.Height;
+            //if (this is Player)
+            //{
+            //    if (Token.Left <= (int)_ThePlayer._ClickLocation.X - _Token.StepX || Token.Left >= (int)_ThePlayer._ClickLocation.X + _Token.StepX)
+            //        Token.Left = (int)Token.LocX;
+            //    if (Token.Top <= (int)_ThePlayer._ClickLocation.Y - _Token.StepY || Token.Top >= (int)_ThePlayer._ClickLocation.Y + _Token.StepY)
+            //        Token.Top = (int)Token.LocY;
+            //}
+            //else if (this is Monster)
+            //{
+                //Token.LocX += Token.StepX;
+                //Token.LocY += Token.StepY;
+                Token.Left = (int)Token.LocX;
+                Token.Top = (int)Token.LocY;
+            //}
 
             if (!hasValidPosition())
                 _IsDead = true;
@@ -242,7 +236,7 @@ namespace PuzzleCraft_v3.Classes
                 double radians = Math.Atan2(deltaY, deltaX);
                 double angle = radians * (180 / Math.PI);
 
-                Token.UpdatePictureDirection(this, (float)angle);
+                Token.UpdatePictureDirection((float)angle);
                 Token.StepX = _Speed * Math.Cos(radians);
                 Token.StepY = _Speed * Math.Sin(radians);
             });

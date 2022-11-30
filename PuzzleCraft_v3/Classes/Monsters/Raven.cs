@@ -13,7 +13,6 @@ namespace PuzzleCraft_v3.Classes.Monsters
     {
         public Raven() : base()
         {
-            _IsMonster = true;
             _CanMove = true;
             _IsSmart = true;
             _TokenSize = new(50, 50);

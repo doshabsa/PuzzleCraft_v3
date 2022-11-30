@@ -34,45 +34,40 @@ namespace PuzzleCraft_v3.GUI
             set;
         }
         public double LocX
-        { get;set;
-            //get { return _startX; }
-            //set
-            //{
-            //    if(_Character is Player)
-            //    {
-            //        if (value + this.Width > Main.MainForm?.ClientSize.Width)
-            //            _startX = (int)Main.MainForm?.ClientSize.Width - this.Width;
-            //        else
-            //            _startX = value;
-            //    }
-            //    else if (_Character is Monster)
-            //    {
-            //        _startX = value;
-            //    }
-            //    //else
-            //    //    _startX = value;
-            //}
+        {
+            get { return _startX; }
+            set
+            {
+                if (_Character is Player)
+                {
+                    if (value + this.Width > Main.MainForm?.ClientSize.Width)
+                        this.Left = (int)Main.MainForm?.ClientSize.Width - this.Width;
+                    else
+                        this.Left = (int)value;
+                }
+                else if (_Character is Monster)
+                {
+                    _startX = value;
+                }
+            }
         }
         public double LocY
         {
-            get; set;
-            //get { return _startY; }
-            //set
-            //{
-            //    if (_Character is Player)
-            //    {
-            //        if (value + this.Height > Main.MainForm?.ClientSize.Height)
-            //            _startY = (int)Main.MainForm?.ClientSize.Height - this.Height;
-            //        else
-            //            _startY = value;
-            //    }
-            //    else if(_Character is Monster)
-            //    {
-            //        _startY = value;
-            //    }
-            //    //else
-            //    //    _startY = value;
-            //}
+            get { return _startY; }
+            set
+            {
+                if (_Character is Player)
+                {
+                    if (value + this.Height > Main.MainForm?.ClientSize.Height)
+                        this.Left = (int)Main.MainForm?.ClientSize.Height - this.Height;
+                    else
+                        this.Left = (int)value;
+                }
+                else if (_Character is Monster)
+                {
+                    _startY = value;
+                }
+            }
         }
 
         public Bitmap Bitmap
@@ -85,7 +80,8 @@ namespace PuzzleCraft_v3.GUI
         {
             InitializeComponent();
             _Character = character;
-            _IsMonster = _Character.IsMonster;
+            //if(character is Monster)
+            //    _IsMonster = true;
             //Transparent background breaks the game?
             StartPoint = SpawnLocation(_Character.TokenSize);
             _startX = StartPoint.X;
@@ -127,11 +123,6 @@ namespace PuzzleCraft_v3.GUI
                 HealthBar.Value -= damage;
         }
 
-        public void UpdatePictureDirection(BaseCharacter tmp, float angle)
-        {
-            Angle = angle;
-            this.Invalidate(false);
-        }
 
         private void SetUpPicture(BaseCharacter character)
         {
@@ -148,6 +139,11 @@ namespace PuzzleCraft_v3.GUI
             HealthBar.Value = character.Health;
             this.Controls.Add(HealthBar);
             HealthBar.BringToFront();
+        }
+        public void UpdatePictureDirection(float angle)
+        {
+            Angle = angle;
+            this.Invalidate(false);
         }
 
         private static Image RotateImage(Image img, float rotationAngle)

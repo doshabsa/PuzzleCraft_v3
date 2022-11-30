@@ -14,7 +14,6 @@ namespace PuzzleCraft_v3.Classes
         #region Constructors
         public Player(Bitmap pic, string name) : base(pic, name)
         {
-            _IsMonster = false;
             _CanMove = true;
             _IsSmart = true;
             _ClickLocation = new();
@@ -23,24 +22,39 @@ namespace PuzzleCraft_v3.Classes
             _Bitmap = pic;
             _Name = name;
             _HP = 100;
-            _Speed = 3;
+            _Speed = 1;
             _Damage = 5;
             _Token = new(this);
             _Pack = new();
             CharacterList.Add(this);
         }
 
-        protected override void MoveToken()
+        protected async override void MoveToken()
         {
-            if (_Token.StepX > 0)
-                _Token.Left += (int)(_Token.StepX < _ClickLocation.X - _Token.Left ? _Token.StepX : _ClickLocation.X - _Token.Left);
-            else if (_Token.StepX < 0)
-                _Token.Left += (int)(_Token.StepX > _ClickLocation.X - _Token.Left ? _Token.StepX : _ClickLocation.X - _Token.Left);
+            _isMoving = true;
+            while (_ClickLocation.X != Token.Left || Token.LocY != Token.Top)
+            {
+                await Task.Delay(5);
 
-            if (_Token.StepY > 0)
-                _Token.Top += (int)(_Token.StepY < _ClickLocation.Y - _Token.Top ? _Token.StepY : _ClickLocation.Y - _Token.Top);
-            else if (_Token.StepY < 0)
-                _Token.Top += (int)(_Token.StepY > _ClickLocation.Y - _Token.Top ? _Token.StepY : _ClickLocation.Y - _Token.Top);
+                if (Token.StepX > 0)
+                {
+                    Token.Left += (int)(Token.StepX < _ClickLocation.X - Token.Left ? Token.StepX : _ClickLocation.X - Token.Left);
+                }
+                else if (Token.StepX < 0)
+                {
+                    Token.Left += (int)(Token.StepX > _ClickLocation.X - Token.Left ? Token.StepX : _ClickLocation.X - Token.Left);
+                }
+
+                if (Token.StepY > 0)
+                {
+                    Token.Top += (int)(Token.StepY < _ClickLocation.Y - Token.Top ? Token.StepY : _ClickLocation.Y - Token.Top);
+                }
+                else if (Token.StepY < 0)
+                {
+                    Token.Top += (int)(Token.StepY > _ClickLocation.Y - Token.Top ? Token.StepY : _ClickLocation.Y - Token.Top);
+                }
+            }
+            _isMoving = false;
         }
         #endregion
     }
