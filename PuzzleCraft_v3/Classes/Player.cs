@@ -22,20 +22,18 @@ namespace PuzzleCraft_v3.Classes
             _Bitmap = pic;
             _Name = name;
             _HP = 100;
-            _Speed = 1;
+            _Speed = 3;
             _Damage = 5;
             _Token = new(this);
             _Pack = new();
             CharacterList.Add(this);
         }
 
-        protected async override void MoveToken()
+        protected override void MoveToken()
         {
             _isMoving = true;
             while (_ClickLocation.X != Token.Left || Token.LocY != Token.Top)
             {
-                await Task.Delay(5);
-
                 if (Token.StepX > 0)
                 {
                     Token.Left += (int)(Token.StepX < _ClickLocation.X - Token.Left ? Token.StepX : _ClickLocation.X - Token.Left);
@@ -53,6 +51,8 @@ namespace PuzzleCraft_v3.Classes
                 {
                     Token.Top += (int)(Token.StepY > _ClickLocation.Y - Token.Top ? Token.StepY : _ClickLocation.Y - Token.Top);
                 }
+
+                if(Token.Left - _Token.StepX >= _ClickLocation.X || Token.LocY != Token.Top)
             }
             _isMoving = false;
         }
