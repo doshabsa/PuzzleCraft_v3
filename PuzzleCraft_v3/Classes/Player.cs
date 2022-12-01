@@ -5,15 +5,13 @@ namespace PuzzleCraft_v3.Classes
 {
     internal class Player : BaseCharacter
     {
-        #region Properties/Fields
+        #region Fields
         public static Player _ThePlayer;
-        public static Point _ClickLocation;
-        public bool _isMoving;
         #endregion
 
         static Player()
         {
-            Main.GameLive += UpdateLocation;
+
         }
 
         #region Constructors
@@ -21,7 +19,6 @@ namespace PuzzleCraft_v3.Classes
         {
             _CanMove = true;
             _IsSmart = true;
-            _ClickLocation = new();
             _TokenSize = new(100, 100);
             _ThePlayer = this;
             _Bitmap = pic;
@@ -33,30 +30,27 @@ namespace PuzzleCraft_v3.Classes
             _Pack = new();
             CharacterList.Add(this);
         }
+        #endregion
 
-        private static void UpdateLocation(Point e)
-        {
-            _ClickLocation = e;
-        }
-
+        #region Methods
         protected override void MoveToken()
         {
             if (Token.StepX > 0)
             {
-                Token.Left += (int)(Token.StepX < _ClickLocation.X - Token.Left ? Token.StepX : _ClickLocation.X - Token.Left);
+                Token.Left += (int)(Token.StepX < Main.ClickLocation.X - Token.Left ? Token.StepX : Main.ClickLocation.X - Token.Left);
             }
             else if (Token.StepX < 0)
             {
-                Token.Left += (int)(Token.StepX > _ClickLocation.X - Token.Left ? Token.StepX : _ClickLocation.X - Token.Left);
+                Token.Left += (int)(Token.StepX > Main.ClickLocation.X - Token.Left ? Token.StepX : Main.ClickLocation.X - Token.Left);
             }
 
             if (Token.StepY > 0)
             {
-                Token.Top += (int)(Token.StepY < _ClickLocation.Y - Token.Top ? Token.StepY : _ClickLocation.Y - Token.Top);
+                Token.Top += (int)(Token.StepY < Main.ClickLocation.Y - Token.Top ? Token.StepY : Main.ClickLocation.Y - Token.Top);
             }
             else if (Token.StepY < 0)
             {
-                Token.Top += (int)(Token.StepY > _ClickLocation.Y - Token.Top ? Token.StepY : _ClickLocation.Y - Token.Top);
+                Token.Top += (int)(Token.StepY > Main.ClickLocation.Y - Token.Top ? Token.StepY : Main.ClickLocation.Y - Token.Top);
             }
         }
         #endregion

@@ -69,8 +69,6 @@ namespace PuzzleCraft_v3
             if (selected != null)
             {
                 Player newPlayer = new((Bitmap)selected.Image, txtName.Text);
-                //Backpack newPack = new();
-                Player.PlayerTimer.Start();
                 this.Dispose();
             }
             else

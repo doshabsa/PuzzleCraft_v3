@@ -15,8 +15,6 @@ namespace PuzzleCraft_v3.GUI
         private Bitmap _Bitmap;
         private ProgressBar HealthBar;
         private PictureBox PicBox;
-        private Point StartPoint;
-        private bool _IsMonster;
         private static Random rnd = new Random();
         private double _startX;
         private double _startY;
@@ -80,10 +78,8 @@ namespace PuzzleCraft_v3.GUI
         {
             InitializeComponent();
             _Character = character;
-            //if(character is Monster)
-            //    _IsMonster = true;
             //Transparent background breaks the game?
-            StartPoint = SpawnLocation(_Character.TokenSize);
+            Point StartPoint = SpawnLocation(_Character.TokenSize);
             _startX = StartPoint.X;
             _startY = StartPoint.Y;
             _Bitmap = _Character.Bitmap;
@@ -97,7 +93,7 @@ namespace PuzzleCraft_v3.GUI
         public Token(Item item)
         {
             InitializeComponent();
-            StartPoint = SpawnLocation(item.TokenSize);
+            Point StartPoint = SpawnLocation(item.TokenSize);
             _startX = StartPoint.X;
             _startY = StartPoint.Y;
             _Bitmap = item.Bitmap;
@@ -108,10 +104,10 @@ namespace PuzzleCraft_v3.GUI
             Main.MainForm?.Controls.Add(this);
         }
 
-        public static Point SpawnLocation(Size newMonster)
+        public static Point SpawnLocation(Size newToken)
         {
-            Point spawnPoint = new(rnd.Next(0, Main.MainForm.ClientSize.Width - newMonster.Width),
-                                        rnd.Next(0, Main.MainForm.ClientSize.Height - newMonster.Height));
+            Point spawnPoint = new(rnd.Next(0, Main.MainForm.ClientSize.Width - newToken.Width),
+                                        rnd.Next(0, Main.MainForm.ClientSize.Height - newToken.Height));
             return spawnPoint;
         }
 
@@ -140,6 +136,7 @@ namespace PuzzleCraft_v3.GUI
             this.Controls.Add(HealthBar);
             HealthBar.BringToFront();
         }
+
         public void UpdatePictureDirection(float angle)
         {
             Angle = angle;
@@ -148,8 +145,6 @@ namespace PuzzleCraft_v3.GUI
 
         private static Image RotateImage(Image img, float rotationAngle)
         {
-            if (Player._ThePlayer._isMoving)
-            {
                 Bitmap bmp = new Bitmap(img.Width, img.Height);
                 Graphics gfx = Graphics.FromImage(bmp);
                 gfx.TranslateTransform((float)bmp.Width / 2, (float)bmp.Height / 2);
@@ -159,16 +154,16 @@ namespace PuzzleCraft_v3.GUI
                 gfx.DrawImage(img, new Point(0, 0));
                 gfx.Dispose();
                 return bmp;
-            }
-            else
-                return img;
         }
 
         private void Token_Paint(object sender, PaintEventArgs e)
         {
-            Image tmpImage;
-            tmpImage = RotateImage(_Bitmap, Angle + 90);
-            PicBox.Image = tmpImage;
+            if (Main.PlayGame)
+            {
+                Image tmpImage;
+                tmpImage = RotateImage(_Bitmap, Angle + 90);
+                PicBox.Image = tmpImage;
+            }
         }
     }
 }

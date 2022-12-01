@@ -5,7 +5,7 @@ namespace PuzzleCraft_v3.Classes
 {
     public abstract class Monster : BaseCharacter
     {
-        #region Properties/Fields
+        #region Fields
         protected bool isSmart;
         #endregion
 

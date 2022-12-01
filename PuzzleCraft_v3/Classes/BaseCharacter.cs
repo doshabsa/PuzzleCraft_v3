@@ -8,7 +8,7 @@ namespace PuzzleCraft_v3.Classes
 {
     public abstract class BaseCharacter
     {
-        #region Properties
+        #region Fields
         protected Token _Token;
         protected Bitmap _Bitmap;
         protected Size _TokenSize;
@@ -105,12 +105,13 @@ namespace PuzzleCraft_v3.Classes
             List<Task> Tasks = new();
             foreach (BaseCharacter c in CharacterList)
             {
-                var tmp = new Task(() => c.RotateToken());
-                Tasks.Add(tmp);
-                tmp.Start();
-            }
+                c.RotateToken();
+                    //var tmp = new Task(() => c.RotateToken());
+                    //Tasks.Add(tmp);
+                    //tmp.Start();
+            }          
 
-            await Task.WhenAll(Tasks.ToArray());
+            //await Task.WhenAll(Tasks.ToArray());
 
             foreach (BaseCharacter c in CharacterList)
             {
@@ -136,6 +137,7 @@ namespace PuzzleCraft_v3.Classes
                 return false;
             return true;
         }
+
         private static void RemoveTheDead()
         {
             List<int> _IsDeadList = new();
@@ -196,20 +198,20 @@ namespace PuzzleCraft_v3.Classes
         #endregion
 
         #region Movement
-        private async Task RotateToken()
+        private void RotateToken()
         {
             if (this is Player)
-                await CalcTrajectory(Token.Left, Token.Top, Player._ClickLocation.X, Player._ClickLocation.Y);
+                CalcTrajectory(Token.Left, Token.Top, Main.ClickLocation.X, Main.ClickLocation.Y);
             if (this is Monster && _ThePlayer is not null)
-                await CalcTrajectory(Token.Left, Token.Top, _ThePlayer.Token.Left, _ThePlayer.Token.Top);
+                CalcTrajectory(Token.Left, Token.Top, _ThePlayer.Token.Left, _ThePlayer.Token.Top);
         }
 
         protected virtual void MoveToken()
         {
-                Token.LocX += Token.StepX;
-                Token.LocY += Token.StepY;
-                Token.Left = (int)Token.LocX;
-                Token.Top = (int)Token.LocY;
+            Token.LocX += Token.StepX;
+            Token.LocY += Token.StepY;
+            Token.Left = (int)Token.LocX;
+            Token.Top = (int)Token.LocY;
 
             //if (this is Player)
             //{
@@ -230,10 +232,10 @@ namespace PuzzleCraft_v3.Classes
                 _IsDead = true;
         }
 
-        private async Task CalcTrajectory(int startX, int startY, int endX, int endY)
+        private void CalcTrajectory(int startX, int startY, int endX, int endY)
         {
-            await Task.Run(() =>
-            {
+            //await Task.Run(() =>
+            //{
                 double deltaX = endX - startX;
                 double deltaY = endY - startY;
                 double radians = Math.Atan2(deltaY, deltaX);
@@ -242,7 +244,7 @@ namespace PuzzleCraft_v3.Classes
                 Token.UpdatePictureDirection((float)angle);
                 Token.StepX = _Speed * Math.Cos(radians);
                 Token.StepY = _Speed * Math.Sin(radians);
-            });
+            //});
         }
         #endregion
     }
