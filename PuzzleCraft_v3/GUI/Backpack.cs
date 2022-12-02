@@ -6,7 +6,7 @@ namespace PuzzleCraft_v3.GUI
 {
     public partial class Backpack : UserControl
     {
-        #region Controls
+        #region Fields
         private static Panel ClosedBag;
         private static Label lblCloseBag;
         private static Size ClosedSize = new Size(110, 30);
@@ -14,6 +14,7 @@ namespace PuzzleCraft_v3.GUI
         private static List<PictureBox> BoxList;
         private static List<Label> LabelList;
         private bool IsVisible = false;
+        private PictureBox? selected;
         #endregion
 
         static Backpack()
@@ -36,7 +37,7 @@ namespace PuzzleCraft_v3.GUI
 
         #region Methods
 
-        #region Controls
+        #region Editing Controls
         public void ToggleBag()
         {
             if (!IsVisible)
@@ -52,30 +53,6 @@ namespace PuzzleCraft_v3.GUI
             }
         }
 
-        //Delete if unneeded
-        private void SetupCloseBag()
-        {
-            ClosedBag = new()
-            {
-                Location = ClosedBackpackDock,
-                Size = ClosedSize,
-                BackColor = Color.OldLace,
-                BorderStyle = BorderStyle.FixedSingle,
-                Anchor = AnchorStyles.Left | AnchorStyles.Bottom
-            };
-            Main.MainForm.Controls.Add(ClosedBag);
-
-            lblCloseBag = new();
-            lblCloseBag.Location = new Point(ClosedBag.Width / 2 - lblCloseBag.Width / 2, 4);
-            lblCloseBag.Name = "lblCloseBag";
-            lblCloseBag.Text = "Backpack";
-            lblCloseBag.BackColor = Color.OldLace;
-            lblCloseBag.Font = new Font(this.Font, FontStyle.Bold);
-            lblCloseBag.ForeColor = Color.DarkGoldenrod;
-            lblCloseBag.TextAlign = ContentAlignment.MiddleCenter;
-            ClosedBag.Controls.Add(lblCloseBag);
-        }
-
         private void SetupLists(Control control)
         {
             foreach (PictureBox pic in control.Controls.OfType<PictureBox>())
@@ -87,23 +64,7 @@ namespace PuzzleCraft_v3.GUI
         #endregion
 
         #region Item Display
-        public static void RemoveUsedItems()
-        {
-            foreach (Item i in Inventory.InventoryList)
-            {
-                if (i.IsDead)
-                {
-                    Inventory.InventoryList.Remove(i);
-                    i.Token.Dispose();
-                }
-            }
-
-            int tmp = Inventory.InventoryList.Count;
-            if (tmp > 0)
-                UpdateImages(tmp);
-        }
-
-        private static void UpdateImages(int tmp)
+        public static void UpdateItems()
         {
             for (int i = 0; i < 6; i++)
             {
@@ -111,11 +72,34 @@ namespace PuzzleCraft_v3.GUI
                 LabelList[i].Text = null;
             }
 
-            for (int i = 0; i < tmp; i++)
+            for (int i = 0; i < Inventory.InventoryList.Count; i++)
             {
                 BoxList[i].Image = Inventory.InventoryList[i].Token.Bitmap;
                 BoxList[i].BackColor = Color.Transparent;
-                LabelList[i].Text = Inventory.InventoryList[i].Name.ToString();
+                LabelList[i].Text = Inventory.InventoryList[i].Name;
+            }
+        }
+        #endregion
+
+        #region Item Use
+        private void PictureBox_Select(object sender, EventArgs e)
+        {
+            selected = (PictureBox)sender;
+            UseItem();
+        }
+
+        private void UseItem()
+        {
+            for (int i = 0; i < BoxList.Count; i++)
+            {
+                if (selected == BoxList[i])
+                {
+                    Inventory.InventoryList[i].Token.Dispose();
+                    Inventory.InventoryList[i].IsDead = true;
+                    Inventory.InventoryList.RemoveAt(i);
+                    BoxList[i].Image = null;
+                    LabelList[i].Text = null;
+                }
             }
         }
         #endregion

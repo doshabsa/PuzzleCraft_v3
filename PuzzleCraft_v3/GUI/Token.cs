@@ -67,10 +67,13 @@ namespace PuzzleCraft_v3.GUI
                 }
             }
         }
-
         public Bitmap Bitmap
         {
             get { return _Bitmap; }
+        }
+        public BaseCharacter Character
+        {
+            get { return _Character; }
         }
         #endregion
 

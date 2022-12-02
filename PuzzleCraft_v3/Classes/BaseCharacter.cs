@@ -33,7 +33,8 @@ namespace PuzzleCraft_v3.Classes
             get { return _HP; }
             set
             {
-                if (_HP <= 0) _IsDead = true;
+                if (_HP <= 0) 
+                    _IsDead = true;
                 else if (value < 0) _HP = 0;
                 else _HP = value;
             }
@@ -72,9 +73,11 @@ namespace PuzzleCraft_v3.Classes
         }
         public bool IsDead
         {
-            get
+            get { return _IsDead; }
+            set
             {
-                return _IsDead;
+                if (this is Item)
+                    _IsDead = value;
             }
         }
         #endregion
@@ -109,7 +112,7 @@ namespace PuzzleCraft_v3.Classes
                 c.MoveToken();
 
             CheckForCrash();
-            Backpack.RemoveUsedItems();
+            Backpack.UpdateItems();
             RemoveTheDead();
 
             if (CharacterList.Count < 2)

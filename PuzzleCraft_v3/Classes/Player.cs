@@ -26,7 +26,7 @@ namespace PuzzleCraft_v3.Classes
         {
             _CanMove = true;
             _IsSmart = true;
-            _TokenSize = new(100, 100);
+            _TokenSize = new(60, 60);
             _ThePlayer = this;
             _Bitmap = pic;
             _Name = name;

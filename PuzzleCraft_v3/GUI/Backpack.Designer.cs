@@ -107,6 +107,7 @@
             this.pic0.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pic0.TabIndex = 1;
             this.pic0.TabStop = false;
+            this.pic0.Click += new System.EventHandler(this.PictureBox_Select);
             // 
             // pic1
             // 
@@ -120,6 +121,7 @@
             this.pic1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pic1.TabIndex = 2;
             this.pic1.TabStop = false;
+            this.pic1.Click += new System.EventHandler(this.PictureBox_Select);
             // 
             // pic2
             // 
@@ -133,6 +135,7 @@
             this.pic2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pic2.TabIndex = 3;
             this.pic2.TabStop = false;
+            this.pic2.Click += new System.EventHandler(this.PictureBox_Select);
             // 
             // pic3
             // 
@@ -146,6 +149,7 @@
             this.pic3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pic3.TabIndex = 4;
             this.pic3.TabStop = false;
+            this.pic3.Click += new System.EventHandler(this.PictureBox_Select);
             // 
             // pic4
             // 
@@ -159,6 +163,7 @@
             this.pic4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pic4.TabIndex = 5;
             this.pic4.TabStop = false;
+            this.pic4.Click += new System.EventHandler(this.PictureBox_Select);
             // 
             // pic5
             // 
@@ -172,6 +177,7 @@
             this.pic5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pic5.TabIndex = 6;
             this.pic5.TabStop = false;
+            this.pic5.Click += new System.EventHandler(this.PictureBox_Select);
             // 
             // lbl0
             // 

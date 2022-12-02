@@ -5,13 +5,6 @@ namespace PuzzleCraft_v3.Classes
     static class Inventory
     {
         public static List<Item> InventoryList;
-        //public static int ItemCount 
-        //{ 
-        //    get 
-        //    { 
-        //        return InventoryList.Count;
-        //    } 
-        //}
 
         static Inventory()
         {
