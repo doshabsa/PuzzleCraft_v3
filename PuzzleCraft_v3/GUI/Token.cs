@@ -114,6 +114,9 @@ namespace PuzzleCraft_v3.GUI
         public Token(Item item, Point location)
         {
             InitializeComponent();
+            this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
+            this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
+            this.SetStyle(ControlStyles.UserPaint, true);
             _startX = location.X;
             _startY = location.Y;
             _Bitmap = item.Bitmap;

@@ -32,6 +32,7 @@
             // 
             // Token
             // 
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.Name = "Token";
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Token_Paint);
             this.ResumeLayout(false);

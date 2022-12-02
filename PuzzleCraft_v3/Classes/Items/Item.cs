@@ -28,8 +28,8 @@ namespace PuzzleCraft_v3.Classes.Items
                     Arrow arrow = new(loc, name);
                     break;
 
-                case "":
-                    Skeleton m1 = new();
+                case "bone":
+                    Bone b1 = new(loc, name);
                     break;
             }
         }

@@ -17,9 +17,16 @@ namespace PuzzleCraft_v3
         public Main()
         {
             InitializeComponent();
+            this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
+            this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
+            this.SetStyle(ControlStyles.UserPaint, true);
             MainForm = this;
             Start newGame = new();
             newGame.ShowPack += PackButtonVisible;
+        }
+        private void PackButtonVisible()
+        {
+            btnBackpack.Visible = true;
         }
 
         private void Main_MouseDown(object sender, MouseEventArgs e)
@@ -30,11 +37,6 @@ namespace PuzzleCraft_v3
                 PlayGame = true;
                 ClickLocation = e.Location;
             }
-        }
-
-        private void PackButtonVisible()
-        {
-            btnBackpack.Visible = true;
         }
 
         private void Main_MouseUp(object sender, MouseEventArgs e)
@@ -63,12 +65,6 @@ namespace PuzzleCraft_v3
             }
             else
                 btnBackpack.Text = "Open Pack";
-        }
-
-        private void button1_Click_1(object sender, EventArgs e)
-        {
-            _ThePlayer.Health = 0;
-            _ThePlayer.Token?.UpdateTokenHP(_ThePlayer);
         }
     }
 }

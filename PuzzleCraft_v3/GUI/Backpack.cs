@@ -28,7 +28,7 @@ namespace PuzzleCraft_v3.GUI
             this.Font = new Font("Arial", 12);
             SetupLists(tlpTable);
             this.Visible = false;
-            this.Location = new Point(3,3);
+            this.Location = new Point(3, 3);
             Main.MainForm?.Controls.Add(this);
         }
         #endregion
@@ -90,7 +90,7 @@ namespace PuzzleCraft_v3.GUI
         {
             for (int i = 0; i < BoxList.Count; i++)
             {
-                if (selected == BoxList[i])
+                if (selected == BoxList[i] && BoxList[i].Image != null)
                 {
                     Inventory.InventoryList[i].UseItem();
                     Inventory.InventoryList[i].Token.Dispose();
