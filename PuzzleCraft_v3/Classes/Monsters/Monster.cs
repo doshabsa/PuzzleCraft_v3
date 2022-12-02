@@ -7,6 +7,10 @@ namespace PuzzleCraft_v3.Classes
     {
         #region Fields
         protected bool isSmart;
+        protected string _ItemDrop0;
+        protected string _ItemDrop1;
+        protected string _ItemDrop2;
+        protected string _ItemDrop3;
         #endregion
 
         #region Constructors
@@ -33,19 +37,26 @@ namespace PuzzleCraft_v3.Classes
 
         public static void DeathDrop(Monster monster)
         {
-            string tmp = "";
-            switch (rnd.Next(0, 1)) //Triggers random item drops
+            int newDrop = rnd.Next(0, 4);
+
+            switch (newDrop)
             {
                 case 0:
-                    tmp = "arrow";
+                    Item item0 = new(monster.Token.Location, monster._ItemDrop0);
                     break;
 
-                default:
-                    tmp = "";
+                case 1:
+                    Item item1 = new(monster.Token.Location, monster._ItemDrop1);
+                    break;
+
+                case 2:
+                    Item item2 = new(monster.Token.Location, monster._ItemDrop2);
+                    break;
+
+                case 3:
+                    Item item3 = new(monster.Token.Location, monster._ItemDrop3);
                     break;
             }
-
-            Item drop = new(tmp);
         }
         #endregion
     }

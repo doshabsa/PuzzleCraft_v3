@@ -1,4 +1,6 @@
-﻿namespace PuzzleCraft_v3.Classes.Items
+﻿using System.Reflection;
+
+namespace PuzzleCraft_v3.Classes.Items
 {
     public class Item : BaseCharacter
     {
@@ -10,32 +12,31 @@
             ItemList = new();
         }
 
-        public Item(string name)
+        public Item(Point location, string name)
         {
-            _Bitmap = GetImage(name);
-            _TokenSize = new Size(40, 40);
-            _Name = name;
-            _HP = 1;
-            _Damage = 0;
-            _CanMove = false;
-            _IsDead = false;
-            _IsSmart = false;
-            _Token = new(this);
-            ItemList.Add(this);
+            if(name != null)
+            {
+                _Bitmap = GetImage(name);
+                _TokenSize = new Size(40, 40);
+                _Name = name;
+                _HP = 1;
+                _Damage = 0;
+                _CanMove = false;
+                _IsDead = false;
+                _IsSmart = false;
+                _Token = new(this, location);
+                ItemList.Add(this);
+            }
+            //else let this dispose, as no item was dropped
         }
         #endregion
 
         #region Methods
-        //Rather than new images, static ones likely could be used (making GC work this time tho)
-        private Bitmap GetImage(string name)
+        //This is the most excitng thing ever; made my spawn drops x99999999 times easier to manage!
+        private Bitmap? GetImage(string name)
         {
-            Bitmap? pic = null;
-            switch (name)
-            {
-                case "arrow":
-                    pic = new(Resource1.arrow);
-                    break;
-            }
+            object? DesiredItem = Resource1.ResourceManager.GetObject(name);
+            Bitmap? pic = (Bitmap)DesiredItem;
             return pic;
         }
         #endregion

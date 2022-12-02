@@ -90,12 +90,12 @@ namespace PuzzleCraft_v3.GUI
             Main.MainForm?.Controls.Add(this);
         }
 
-        public Token(Item item)
+        //Item spawn location is the same location as where a monster died
+        public Token(Item item, Point location)
         {
             InitializeComponent();
-            Point StartPoint = SpawnLocation(item.TokenSize);
-            _startX = StartPoint.X;
-            _startY = StartPoint.Y;
+            _startX = location.X;
+            _startY = location.Y;
             _Bitmap = item.Bitmap;
             this.Top = (int)_startY;
             this.Left = (int)_startX;
@@ -104,6 +104,7 @@ namespace PuzzleCraft_v3.GUI
             Main.MainForm?.Controls.Add(this);
         }
 
+        //Monster and Player spawn locations are randomized
         public static Point SpawnLocation(Size newToken)
         {
             Point spawnPoint = new(rnd.Next(0, Main.MainForm.ClientSize.Width - newToken.Width),

@@ -132,7 +132,12 @@ namespace PuzzleCraft_v3.Classes
         {
             List<int> _IsDeadList = new();
             for (int i = 0; i < CharacterList.Count; i++)
-                if (CharacterList[i]._IsDead) _IsDeadList.Add(i);
+                if (CharacterList[i]._IsDead)
+                {
+                    _IsDeadList.Add(i);
+                    if (CharacterList[i] is Monster)
+                        Monster.DeathDrop((Monster)CharacterList[i]);
+                }
 
             for (int i = 0; i < _IsDeadList.Count; i++)
             {
