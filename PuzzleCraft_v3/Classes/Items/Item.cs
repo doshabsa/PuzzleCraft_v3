@@ -12,7 +12,7 @@ namespace PuzzleCraft_v3.Classes.Items
             ItemList = new();
         }
 
-        public Item(Point location, string name)
+        public Item(Point location, string? name)
         {
             if(name != null)
             {
@@ -33,7 +33,7 @@ namespace PuzzleCraft_v3.Classes.Items
 
         #region Methods
         //This is the most excitng thing ever; made my spawn drops x99999999 times easier to manage!
-        private Bitmap? GetImage(string name)
+        private Bitmap? GetImage(string? name)
         {
             object? DesiredItem = Resource1.ResourceManager.GetObject(name);
             Bitmap? pic = (Bitmap)DesiredItem;

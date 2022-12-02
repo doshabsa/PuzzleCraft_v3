@@ -7,10 +7,10 @@ namespace PuzzleCraft_v3.Classes
     {
         #region Fields
         protected bool isSmart;
-        protected string _ItemDrop0;
-        protected string _ItemDrop1;
-        protected string _ItemDrop2;
-        protected string _ItemDrop3;
+        protected string? _ItemDrop0;
+        protected string? _ItemDrop1;
+        protected string? _ItemDrop2;
+        protected string? _ItemDrop3;
         #endregion
 
         #region Constructors
