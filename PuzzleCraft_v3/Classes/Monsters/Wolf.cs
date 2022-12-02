@@ -9,22 +9,23 @@ using System.Xml.Linq;
 
 namespace PuzzleCraft_v3.Classes.Monsters
 {
-    internal class Skeleton : Monster
+    internal class Wolf : Monster
     {
-        public Skeleton() : base()
+        public Wolf() : base()
         {
             _ItemDrop0 = null;
             _ItemDrop1 = null;
             _ItemDrop2 = null;
             _ItemDrop3 = null;
 
-            _Name = "skeleton";
-            _CanMove = false;
-            _IsSmart = false;
+            _Name = "wolf";
+            _CanMove = true;
+            _IsSmart = true;
+            _TokenSize = new(50, 50);
             _Bitmap = GetImage(_Name);
             _HP = 1;
-            _Speed = 0;
-            _Damage = 0;
+            _Speed = 1;
+            _Damage = 1;
             _Token = new(this);
             CharacterList.Add(this);
         }

@@ -106,7 +106,6 @@ namespace PuzzleCraft_v3.GUI
             this.Left = (int)_startX;
             this.Size = item.TokenSize;
             SetUpPicture(item);
-            SetUpPicture(_Character);
             SpawnAngle();
             PicBox.Image = RotateImage(_Bitmap, Angle + 90);
             Main.MainForm?.Controls.Add(this);

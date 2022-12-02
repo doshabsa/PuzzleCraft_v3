@@ -9,10 +9,6 @@ namespace PuzzleCraft_v3.GUI
         //Backpack items cause random background discolouration 
         //within the backpack over time (is beige in color)
         #region Fields
-        private static Panel ClosedBag;
-        private static Label lblCloseBag;
-        private static Size ClosedSize = new Size(110, 30);
-        private static Point ClosedBackpackDock = new Point(3, 3);
         private static List<PictureBox> BoxList;
         private static List<Label> LabelList;
         private bool IsVisible = false;
@@ -32,7 +28,7 @@ namespace PuzzleCraft_v3.GUI
             this.Font = new Font("Arial", 12);
             SetupLists(tlpTable);
             this.Visible = false;
-            this.Location = ClosedBackpackDock;
+            this.Location = new Point(3,3);
             Main.MainForm?.Controls.Add(this);
         }
         #endregion
@@ -87,15 +83,16 @@ namespace PuzzleCraft_v3.GUI
         private void PictureBox_Select(object sender, EventArgs e)
         {
             selected = (PictureBox)sender;
-            UseItem();
+            RemoveItem();
         }
 
-        private void UseItem()
+        private void RemoveItem()
         {
             for (int i = 0; i < BoxList.Count; i++)
             {
                 if (selected == BoxList[i])
                 {
+                    Inventory.InventoryList[i].UseItem();
                     Inventory.InventoryList[i].Token.Dispose();
                     Inventory.InventoryList[i].IsDead = true;
                     Inventory.InventoryList.RemoveAt(i);

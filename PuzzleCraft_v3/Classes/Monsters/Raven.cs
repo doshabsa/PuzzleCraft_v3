@@ -18,11 +18,11 @@ namespace PuzzleCraft_v3.Classes.Monsters
             _ItemDrop2 = null;
             _ItemDrop3 = null;
 
+            _Name = "raven";
             _CanMove = true;
             _IsSmart = true;
             _TokenSize = new(50, 50);
-            _Bitmap = Resource1.raven;
-            _Name = "Raven";
+            _Bitmap = GetImage(_Name);
             _HP = 1;
             _Speed = 1;
             _Damage = 1;

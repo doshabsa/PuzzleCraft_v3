@@ -101,6 +101,13 @@ namespace PuzzleCraft_v3.Classes
             _Bitmap = pic;
             _Name = name;
         }
+
+        protected Bitmap? GetImage(string? name)
+        {
+            object? DesiredItem = Resource1.ResourceManager.GetObject(name);
+            Bitmap? pic = (Bitmap)DesiredItem;
+            return pic;
+        }
         #endregion
 
         private static void PlayerTimer_Tick(object? sender, EventArgs e)
@@ -139,7 +146,10 @@ namespace PuzzleCraft_v3.Classes
                 {
                     _IsDeadList.Add(i);
                     if (CharacterList[i] is Monster)
-                        Monster.DeathDrop((Monster)CharacterList[i]);
+                    {
+                        (Point, string?) tmp = Monster.DeathDrop((Monster)CharacterList[i]);
+                        Item.CreateNewItem(tmp.Item1, tmp.Item2);
+                    }
                 }
 
             for (int i = 0; i < _IsDeadList.Count; i++)

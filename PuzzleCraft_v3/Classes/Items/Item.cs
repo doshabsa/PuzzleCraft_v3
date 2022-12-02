@@ -1,4 +1,7 @@
-﻿using System.Reflection;
+﻿using Microsoft.VisualBasic.Logging;
+using PuzzleCraft_v3.Classes.Monsters;
+using System.Reflection;
+using System.Xml.Linq;
 
 namespace PuzzleCraft_v3.Classes.Items
 {
@@ -12,32 +15,35 @@ namespace PuzzleCraft_v3.Classes.Items
             ItemList = new();
         }
 
+        public Item()
+        {
+
+        }
+
         public Item(Point location, string? name)
         {
-            if(name != null)
+            
+        }
+
+        public static void CreateNewItem(Point loc, string? name)
+        {
+            switch (name)
             {
-                _Bitmap = GetImage(name);
-                _TokenSize = new Size(40, 40);
-                _Name = name;
-                _HP = 1;
-                _Damage = 0;
-                _CanMove = false;
-                _IsDead = false;
-                _IsSmart = false;
-                _Token = new(this, location);
-                ItemList.Add(this);
+                case "arrow":
+                    Arrow arrow = new(loc, name);
+                    break;
+
+                case "":
+                    Skeleton m1 = new();
+                    break;
             }
-            //else let this dispose, as no item was dropped
         }
         #endregion
 
         #region Methods
-        //This is the most excitng thing ever; made my spawn drops x99999999 times easier to manage!
-        private Bitmap? GetImage(string? name)
+        public virtual void UseItem()
         {
-            object? DesiredItem = Resource1.ResourceManager.GetObject(name);
-            Bitmap? pic = (Bitmap)DesiredItem;
-            return pic;
+            //code to determine item effects on use
         }
         #endregion
     }
