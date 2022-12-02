@@ -6,6 +6,8 @@ namespace PuzzleCraft_v3.GUI
 {
     public partial class Backpack : UserControl
     {
+        //Backpack items cause random background discolouration 
+        //within the backpack over time (is beige in color)
         #region Fields
         private static Panel ClosedBag;
         private static Label lblCloseBag;
