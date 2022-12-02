@@ -24,6 +24,10 @@ namespace PuzzleCraft_v3.Classes.Items
         {
             switch (name)
             {
+                case "dead":
+
+                    break;
+
                 case "arrow":
                     Arrow arrow = new(loc, name);
                     break;

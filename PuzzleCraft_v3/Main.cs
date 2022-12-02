@@ -66,5 +66,11 @@ namespace PuzzleCraft_v3
             else
                 btnBackpack.Text = "Open Pack";
         }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            _ThePlayer.Health -= 10;
+            _ThePlayer.Token.UpdateTokenHP(_ThePlayer);
+        }
     }
 }

@@ -98,6 +98,7 @@ namespace PuzzleCraft_v3.GUI
                     Inventory.InventoryList.RemoveAt(i);
                     BoxList[i].Image = null;
                     LabelList[i].Text = null;
+                    UpdateItems();
                 }
             }
         }

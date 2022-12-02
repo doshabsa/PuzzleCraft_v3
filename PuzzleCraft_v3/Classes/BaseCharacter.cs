@@ -94,11 +94,6 @@ namespace PuzzleCraft_v3.Classes
             {
                 if (this is Item)
                     _IsDead = value;
-                if (this is Player)
-                {
-                    _IsDead = value;
-                    Token.Bitmap = Resource1.dead;
-                }
             }
         }
         #endregion
@@ -167,8 +162,14 @@ namespace PuzzleCraft_v3.Classes
             for (int i = 0; i < CharacterList.Count; i++)
                 if (CharacterList[i]._IsDead)
                 {
-                    _IsDeadList.Add(i);
-                    if (CharacterList[i] is Monster)
+                    if(CharacterList[i] != _ThePlayer)
+                        _IsDeadList.Add(i);
+
+                    if (CharacterList[i] is Player)
+                    {
+                        Player.GameOver();
+                    }
+                    else if (CharacterList[i] is Monster)
                     {
                         (Point, string?) tmp = Monster.DeathDrop((Monster)CharacterList[i]);
                         Item.CreateNewItem(tmp.Item1, tmp.Item2);

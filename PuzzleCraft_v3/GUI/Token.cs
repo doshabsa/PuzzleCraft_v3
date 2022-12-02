@@ -78,8 +78,9 @@ namespace PuzzleCraft_v3.GUI
             {
                 if (_Character is Player)
                 {
-                    _Bitmap = value;                    
+                    _Bitmap = value;
                     PicBox.Image = RotateImage(_Bitmap, Angle + 90);
+                    Player.PlayerTimer.Stop();
                 }
             }
         }
@@ -156,11 +157,11 @@ namespace PuzzleCraft_v3.GUI
             {
                 HealthBar.Value = 0;
                 character.IsDead = true;
-                if (character is Player)
-                {
-                    character.Token.Bitmap = Resource1.dead;
-                    Player.PlayerTimer.Stop();
-                }
+                //if (character is Player)
+                //{
+                //    character.Token.Bitmap = Resource1.dead;
+                //    PicBox.Image = RotateImage(_Bitmap, Angle +90);
+                //}
             }
         }
 

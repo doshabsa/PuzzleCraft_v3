@@ -1,4 +1,5 @@
 ﻿using PuzzleCraft_v3.GUI;
+using System.Threading;
 using System.Xml.Linq;
 
 namespace PuzzleCraft_v3.Classes
@@ -59,6 +60,11 @@ namespace PuzzleCraft_v3.Classes
             {
                 Token.Top += (int)(Token.StepY > Main.ClickLocation.Y - Token.Top ? Token.StepY : Main.ClickLocation.Y - Token.Top);
             }
+        }
+
+        public static void GameOver()
+        {
+            _ThePlayer.Token.Bitmap = Resource1.dead;
         }
         #endregion
     }

@@ -25,7 +25,7 @@ namespace PuzzleCraft_v3.Classes.Monsters
             _Bitmap = GetImage(_Name);
             _HP = 10;
             _Speed = 2;
-            _Damage = 5;
+            _Damage = 10;
             _Token = new(this);
             CharacterList.Add(this);
         }
