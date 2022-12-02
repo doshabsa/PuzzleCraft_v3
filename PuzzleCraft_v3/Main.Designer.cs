@@ -28,18 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btn_Cheat = new System.Windows.Forms.Button();
+            this.btnBackpack = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // btn_Cheat
+            // btnBackpack
             // 
-            this.btn_Cheat.Location = new System.Drawing.Point(833, 28);
-            this.btn_Cheat.Name = "btn_Cheat";
-            this.btn_Cheat.Size = new System.Drawing.Size(75, 23);
-            this.btn_Cheat.TabIndex = 0;
-            this.btn_Cheat.Text = "button1";
-            this.btn_Cheat.UseVisualStyleBackColor = true;
-            this.btn_Cheat.Click += new System.EventHandler(this.btn_Cheat_Click);
+            this.btnBackpack.BackColor = System.Drawing.Color.OldLace;
+            this.btnBackpack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBackpack.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnBackpack.ForeColor = System.Drawing.Color.DarkGoldenrod;
+            this.btnBackpack.Location = new System.Drawing.Point(12, 12);
+            this.btnBackpack.Name = "btnBackpack";
+            this.btnBackpack.Size = new System.Drawing.Size(109, 33);
+            this.btnBackpack.TabIndex = 0;
+            this.btnBackpack.Text = "Open Pack";
+            this.btnBackpack.UseVisualStyleBackColor = false;
+            this.btnBackpack.Click += new System.EventHandler(this.button1_Click);
             // 
             // Main
             // 
@@ -47,7 +51,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(984, 611);
-            this.Controls.Add(this.btn_Cheat);
+            this.Controls.Add(this.btnBackpack);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "Main";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
@@ -61,6 +65,6 @@
 
         #endregion
 
-        private Button btn_Cheat;
+        private Button btnBackpack;
     }
 }

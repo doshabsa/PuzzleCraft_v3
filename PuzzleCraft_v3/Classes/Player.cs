@@ -7,6 +7,13 @@ namespace PuzzleCraft_v3.Classes
     {
         #region Fields
         public static Player _ThePlayer;
+        public Backpack Pack 
+        { 
+            get 
+            { 
+                return _Pack;
+            } 
+        }
         #endregion
 
         static Player()

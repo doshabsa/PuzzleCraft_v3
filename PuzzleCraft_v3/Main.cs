@@ -1,5 +1,6 @@
 using PuzzleCraft_v3.Classes;
 using PuzzleCraft_v3.Classes.Items;
+using PuzzleCraft_v3.GUI;
 using static PuzzleCraft_v3.Classes.Player;
 
 namespace PuzzleCraft_v3
@@ -9,7 +10,6 @@ namespace PuzzleCraft_v3
     public partial class Main : Form
     {
         public static Main? MainForm;
-        public static event Notify GameLive;
         public static Point ClickLocation;
         public static bool PlayGame = false;
 
@@ -18,11 +18,6 @@ namespace PuzzleCraft_v3
             InitializeComponent();
             MainForm = this;
             Start newGame = new();
-        }
-
-        private void btn_Cheat_Click(object sender, EventArgs e)
-        {
-            Item drop = new("arrow");
         }
 
         private void Main_MouseDown(object sender, MouseEventArgs e)
@@ -49,6 +44,18 @@ namespace PuzzleCraft_v3
         {
             if (_ThePlayer != null && Main.PlayGame)
                 ClickLocation = e.Location;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Player._ThePlayer.Pack.ToggleBag();
+            if (btnBackpack.Text == "Open Pack")
+            {
+                btnBackpack.Text = "Close Pack";
+                btnBackpack.BringToFront();
+            }
+            else
+                btnBackpack.Text = "Open Pack";
         }
     }
 }

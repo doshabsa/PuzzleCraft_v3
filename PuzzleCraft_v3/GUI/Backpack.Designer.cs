@@ -41,7 +41,6 @@
             this.lbl3 = new System.Windows.Forms.Label();
             this.lbl4 = new System.Windows.Forms.Label();
             this.lbl5 = new System.Windows.Forms.Label();
-            this.btnCloseBag = new System.Windows.Forms.Button();
             this.tlpTable.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pic0)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pic1)).BeginInit();
@@ -77,7 +76,6 @@
             this.tlpTable.Controls.Add(this.lbl3, 1, 9);
             this.tlpTable.Controls.Add(this.lbl4, 4, 9);
             this.tlpTable.Controls.Add(this.lbl5, 7, 9);
-            this.tlpTable.Controls.Add(this.btnCloseBag, 1, 1);
             this.tlpTable.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlpTable.Location = new System.Drawing.Point(0, 0);
             this.tlpTable.Margin = new System.Windows.Forms.Padding(4);
@@ -247,20 +245,6 @@
             this.lbl5.TabIndex = 12;
             this.lbl5.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // btnCloseBag
-            // 
-            this.btnCloseBag.BackColor = System.Drawing.Color.OldLace;
-            this.tlpTable.SetColumnSpan(this.btnCloseBag, 2);
-            this.btnCloseBag.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnCloseBag.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCloseBag.Location = new System.Drawing.Point(10, 6);
-            this.btnCloseBag.Name = "btnCloseBag";
-            this.btnCloseBag.Size = new System.Drawing.Size(132, 32);
-            this.btnCloseBag.TabIndex = 13;
-            this.btnCloseBag.Text = "Close";
-            this.btnCloseBag.UseVisualStyleBackColor = false;
-            this.btnCloseBag.Click += new System.EventHandler(this.ToggleBag_Click);
-            // 
             // Backpack
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 19F);
@@ -300,6 +284,5 @@
         private Label lbl3;
         private Label lbl4;
         private Label lbl5;
-        private Button btnCloseBag;
     }
 }

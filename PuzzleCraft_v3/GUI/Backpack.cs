@@ -13,6 +13,7 @@ namespace PuzzleCraft_v3.GUI
         private static Point ClosedBackpackDock = new Point(3, 3);
         private static List<PictureBox> BoxList;
         private static List<Label> LabelList;
+        private bool IsVisible = false;
         #endregion
 
         static Backpack()
@@ -27,7 +28,6 @@ namespace PuzzleCraft_v3.GUI
             InitializeComponent();
             this.Font = new Font("Arial", 12);
             SetupLists(tlpTable);
-            SetupCloseBag();
             this.Visible = false;
             this.Location = ClosedBackpackDock;
             Main.MainForm?.Controls.Add(this);
@@ -37,24 +37,22 @@ namespace PuzzleCraft_v3.GUI
         #region Methods
 
         #region Controls
-        private void ToggleBag_Click(object? sender, EventArgs e)
+        public void ToggleBag()
         {
-            if (Player.PlayerTimer?.Enabled == true)
+            if (!IsVisible)
             {
+                IsVisible = true;
                 this.Show();
-                Player.PlayerTimer.Stop();
-                ClosedBag.Hide();
                 this.BringToFront();
             }
             else
             {
-                Player.PlayerTimer.Start();
+                IsVisible = false;
                 this.Hide();
-                ClosedBag.Show();
-                ClosedBag.BringToFront();
             }
         }
 
+        //Delete if unneeded
         private void SetupCloseBag()
         {
             ClosedBag = new()
@@ -76,7 +74,6 @@ namespace PuzzleCraft_v3.GUI
             lblCloseBag.ForeColor = Color.DarkGoldenrod;
             lblCloseBag.TextAlign = ContentAlignment.MiddleCenter;
             ClosedBag.Controls.Add(lblCloseBag);
-            lblCloseBag.Click += ToggleBag_Click;
         }
 
         private void SetupLists(Control control)
