@@ -18,6 +18,7 @@ namespace PuzzleCraft_v3
             InitializeComponent();
             MainForm = this;
             Start newGame = new();
+            newGame.ShowPack += PackButtonVisible;
         }
 
         private void Main_MouseDown(object sender, MouseEventArgs e)
@@ -28,6 +29,11 @@ namespace PuzzleCraft_v3
                 PlayGame = true;
                 ClickLocation = e.Location;
             }
+        }
+
+        private void PackButtonVisible()
+        {
+            btnBackpack.Visible = true;
         }
 
         private void Main_MouseUp(object sender, MouseEventArgs e)

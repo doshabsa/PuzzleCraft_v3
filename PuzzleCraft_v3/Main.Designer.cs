@@ -43,6 +43,7 @@
             this.btnBackpack.TabIndex = 0;
             this.btnBackpack.Text = "Open Pack";
             this.btnBackpack.UseVisualStyleBackColor = false;
+            this.btnBackpack.Visible = false;
             this.btnBackpack.Click += new System.EventHandler(this.button1_Click);
             // 
             // Main

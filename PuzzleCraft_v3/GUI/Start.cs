@@ -16,6 +16,9 @@ namespace PuzzleCraft_v3
 {
     public partial class Start : UserControl
     {
+        public delegate void GameStart();
+        public GameStart ShowPack;
+
         private const int NUMTOKENS = 32;
         private Random rnd = new Random();
         private static List<Bitmap> pcTokens = new();
@@ -30,9 +33,7 @@ namespace PuzzleCraft_v3
             ResourceManager rm = Resource1.ResourceManager;
             for (int i = 0; i < NUMTOKENS; i++)
                 pcTokens.Add((Bitmap)rm.GetObject("_" + i));
-
             SetUp(tplTable);
-
             RandomizeTok();
             Main.MainForm.Controls.Add(this);
         }
@@ -64,6 +65,7 @@ namespace PuzzleCraft_v3
                 Player newPlayer = new((Bitmap)selected.Image, txtName.Text);
                 Raven m1 = new();
                 Player.PlayerTimer.Stop();
+                ShowPack();
                 this.Dispose();
             }
             else

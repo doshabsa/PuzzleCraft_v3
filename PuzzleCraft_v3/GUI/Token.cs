@@ -90,6 +90,8 @@ namespace PuzzleCraft_v3.GUI
             this.Left = (int)_startX;
             this.Size = _Character.TokenSize;
             SetUpPicture(_Character);
+            SpawnAngle();
+            PicBox.Image = RotateImage(_Bitmap, Angle + 90);
             Main.MainForm?.Controls.Add(this);
         }
 
@@ -104,6 +106,9 @@ namespace PuzzleCraft_v3.GUI
             this.Left = (int)_startX;
             this.Size = item.TokenSize;
             SetUpPicture(item);
+            SetUpPicture(_Character);
+            SpawnAngle();
+            PicBox.Image = RotateImage(_Bitmap, Angle + 90);
             Main.MainForm?.Controls.Add(this);
         }
 
@@ -113,6 +118,17 @@ namespace PuzzleCraft_v3.GUI
             Point spawnPoint = new(rnd.Next(0, Main.MainForm.ClientSize.Width - newToken.Width),
                                         rnd.Next(0, Main.MainForm.ClientSize.Height - newToken.Height));
             return spawnPoint;
+        }
+
+        //Randomizes image angle at spawn
+        private void SpawnAngle()
+        {
+            float tmp = rnd.Next(0, 360);
+            if (tmp > 179)
+                Angle = tmp / 2 * -1;
+            else
+                Angle = tmp;
+            this.Invalidate(false);
         }
 
         public void UpdateTokenHP(int damage)
@@ -149,15 +165,15 @@ namespace PuzzleCraft_v3.GUI
 
         private static Image RotateImage(Image img, float rotationAngle)
         {
-                Bitmap bmp = new Bitmap(img.Width, img.Height);
-                Graphics gfx = Graphics.FromImage(bmp);
-                gfx.TranslateTransform((float)bmp.Width / 2, (float)bmp.Height / 2);
-                gfx.RotateTransform(rotationAngle);
-                gfx.TranslateTransform(-(float)bmp.Width / 2, -(float)bmp.Height / 2);
-                gfx.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                gfx.DrawImage(img, new Point(0, 0));
-                gfx.Dispose();
-                return bmp;
+            Bitmap bmp = new Bitmap(img.Width, img.Height);
+            Graphics gfx = Graphics.FromImage(bmp);
+            gfx.TranslateTransform((float)bmp.Width / 2, (float)bmp.Height / 2);
+            gfx.RotateTransform(rotationAngle);
+            gfx.TranslateTransform(-(float)bmp.Width / 2, -(float)bmp.Height / 2);
+            gfx.InterpolationMode = InterpolationMode.HighQualityBicubic;
+            gfx.DrawImage(img, new Point(0, 0));
+            gfx.Dispose();
+            return bmp;
         }
 
         private void Token_Paint(object sender, PaintEventArgs e)
