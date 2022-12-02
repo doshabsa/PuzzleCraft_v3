@@ -13,10 +13,10 @@ namespace PuzzleCraft_v3.Classes.Monsters
     {
         public Raven() : base()
         {
-            _ItemDrop0 = null;
-            _ItemDrop1 = null;
-            _ItemDrop2 = null;
-            _ItemDrop3 = null;
+            _ItemDrop0 = "arrow";
+            _ItemDrop1 = "arrow";
+            _ItemDrop2 = "arrow";
+            _ItemDrop3 = "arrow";
 
             _Name = "raven";
             _CanMove = true;

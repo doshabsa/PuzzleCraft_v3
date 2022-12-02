@@ -33,7 +33,7 @@ namespace PuzzleCraft_v3.Classes
             get { return _HP; }
             set
             {
-                if (_HP <= 0) 
+                if (_HP <= 0)
                     _IsDead = true;
                 else if (value < 0) _HP = 0;
                 else _HP = value;
@@ -69,6 +69,20 @@ namespace PuzzleCraft_v3.Classes
             get
             {
                 return _Damage;
+            }
+        }
+        public bool CanMove
+        {
+            get
+            {
+                return _CanMove;
+            }
+        }
+        public bool IsSmart
+        {
+            get
+            {
+                return _IsSmart;
             }
         }
         public bool IsDead
@@ -113,10 +127,12 @@ namespace PuzzleCraft_v3.Classes
         private static void PlayerTimer_Tick(object? sender, EventArgs e)
         {
             foreach (BaseCharacter c in CharacterList)
-                c.RotateToken();
+                if(c._IsSmart)
+                    c.RotateToken();
 
             foreach (BaseCharacter c in CharacterList)
-                c.MoveToken();
+                if(c._CanMove)
+                    c.MoveToken();
 
             CheckForCrash();
             Backpack.UpdateItems();

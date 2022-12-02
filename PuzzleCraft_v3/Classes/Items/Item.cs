@@ -5,7 +5,7 @@ using System.Xml.Linq;
 
 namespace PuzzleCraft_v3.Classes.Items
 {
-    public class Item : BaseCharacter
+    public abstract class Item : BaseCharacter
     {
         public static List<Item> ItemList;
 
@@ -13,11 +13,6 @@ namespace PuzzleCraft_v3.Classes.Items
         static Item()
         {
             ItemList = new();
-        }
-
-        public Item()
-        {
-
         }
 
         public Item(Point location, string? name)

@@ -1,5 +1,6 @@
 ﻿using PuzzleCraft_v3.Classes;
 using PuzzleCraft_v3.Classes.Items;
+using PuzzleCraft_v3.Classes.Monsters;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 
@@ -90,8 +91,11 @@ namespace PuzzleCraft_v3.GUI
             this.Left = (int)_startX;
             this.Size = _Character.TokenSize;
             SetUpPicture(_Character);
-            SpawnAngle();
-            PicBox.Image = RotateImage(_Bitmap, Angle + 90);
+            if (character.IsSmart)
+            {
+                SpawnAngle();
+                PicBox.Image = RotateImage(_Bitmap, Angle + 90);
+            }
             Main.MainForm?.Controls.Add(this);
         }
 
@@ -177,7 +181,7 @@ namespace PuzzleCraft_v3.GUI
 
         private void Token_Paint(object sender, PaintEventArgs e)
         {
-            if (Main.PlayGame)
+            if (Main.PlayGame && _Character is not Skeleton)
             {
                 Image tmpImage;
                 tmpImage = RotateImage(_Bitmap, Angle + 90);

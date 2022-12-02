@@ -1,5 +1,6 @@
 using PuzzleCraft_v3.Classes;
 using PuzzleCraft_v3.Classes.Items;
+using PuzzleCraft_v3.Classes.Monsters;
 using PuzzleCraft_v3.GUI;
 using static PuzzleCraft_v3.Classes.Player;
 
@@ -62,6 +63,11 @@ namespace PuzzleCraft_v3
             }
             else
                 btnBackpack.Text = "Open Pack";
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            Skeleton s1 = new();
         }
     }
 }
