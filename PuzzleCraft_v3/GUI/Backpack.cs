@@ -33,8 +33,6 @@ namespace PuzzleCraft_v3.GUI
         }
         #endregion
 
-        #region Methods
-
         #region Editing Controls
         public void ToggleBag()
         {
@@ -102,7 +100,6 @@ namespace PuzzleCraft_v3.GUI
                 }
             }
         }
-        #endregion
         #endregion
     }
 }
