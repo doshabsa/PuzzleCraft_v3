@@ -70,7 +70,18 @@ namespace PuzzleCraft_v3.GUI
         }
         public Bitmap Bitmap
         {
-            get { return _Bitmap; }
+            get
+            {
+                return _Bitmap;
+            }
+            set
+            {
+                if (_Character is Player)
+                {
+                    _Bitmap = value;                    
+                    PicBox.Image = RotateImage(_Bitmap, Angle + 90);
+                }
+            }
         }
         public BaseCharacter Character
         {
@@ -134,12 +145,20 @@ namespace PuzzleCraft_v3.GUI
             this.Invalidate(false);
         }
 
-        public void UpdateTokenHP(int damage)
+        public void UpdateTokenHP(BaseCharacter character)
         {
-            if (damage > HealthBar.Value)
+            if(character.Health > 0)
+                HealthBar.Value = character.Health;
+            else if (character.Health <= 0)
+            {
                 HealthBar.Value = 0;
-            else
-                HealthBar.Value -= damage;
+                character.IsDead = true;
+                if (character is Player)
+                {
+                    character.Token.Bitmap = Resource1.dead;
+                    Player.PlayerTimer.Stop();
+                }
+            }
         }
 
 

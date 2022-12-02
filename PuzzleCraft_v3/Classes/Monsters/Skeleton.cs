@@ -13,10 +13,10 @@ namespace PuzzleCraft_v3.Classes.Monsters
     {
         public Skeleton() : base()
         {
-            _ItemDrop0 = "arrow";
-            _ItemDrop1 = "arrow";
-            _ItemDrop2 = "arrow";
-            _ItemDrop3 = "arrow";
+            _ItemDrop0 = "bone";
+            _ItemDrop1 = "bone";
+            _ItemDrop2 = "bone";
+            _ItemDrop3 = "bone";
 
             _Name = "skeleton";
             _CanMove = false;

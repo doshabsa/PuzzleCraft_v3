@@ -24,7 +24,7 @@ namespace PuzzleCraft_v3
 
         private void Main_MouseDown(object sender, MouseEventArgs e)
         {
-            if (_ThePlayer != null)
+            if (_ThePlayer != null && !_ThePlayer.IsDead)
             {
                 Player.PlayerTimer.Start();
                 PlayGame = true;
@@ -39,7 +39,7 @@ namespace PuzzleCraft_v3
 
         private void Main_MouseUp(object sender, MouseEventArgs e)
         {
-            if (_ThePlayer != null)
+            if (_ThePlayer != null && !_ThePlayer.IsDead)
             {
                 Player.PlayerTimer.Stop();
                 PlayGame = false;
@@ -49,7 +49,7 @@ namespace PuzzleCraft_v3
 
         private void Main_MouseMove(object sender, MouseEventArgs e)
         {
-            if (_ThePlayer != null && Main.PlayGame)
+            if (_ThePlayer != null && Main.PlayGame && !_ThePlayer.IsDead)
                 ClickLocation = e.Location;
         }
 
@@ -67,7 +67,8 @@ namespace PuzzleCraft_v3
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            Skeleton s1 = new();
+            _ThePlayer.Health = 0;
+            _ThePlayer.Token?.UpdateTokenHP(_ThePlayer);
         }
     }
 }

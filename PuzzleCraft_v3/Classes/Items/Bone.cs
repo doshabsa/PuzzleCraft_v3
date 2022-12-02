@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace PuzzleCraft_v3.Classes.Items
 {
-    public class Arrow : Item
+    public class Bone : Item
     {
-        public Arrow(Point loc, string name) : base(loc, name)
+        public Bone(Point loc, string name) : base(loc, name)
         {
             if (name != null)
             {
@@ -26,7 +26,7 @@ namespace PuzzleCraft_v3.Classes.Items
 
         public override void UseItem()
         {
-            MessageBox.Show("Shoots things!");
+            MessageBox.Show("Used for crafting items.");
         }
     }
 }

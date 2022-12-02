@@ -23,7 +23,7 @@ namespace PuzzleCraft_v3.Classes
         #region Methods
         public static void CreateNewMonster()
         {
-            switch (1)//(rnd.Next(0, 4))
+            switch (rnd.Next(0, 4))
             {
                 case 0:
                     Raven m0 = new();

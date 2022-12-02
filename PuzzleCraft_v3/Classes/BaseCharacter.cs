@@ -34,7 +34,9 @@ namespace PuzzleCraft_v3.Classes
             set
             {
                 if (_HP <= 0)
+                {
                     _IsDead = true;
+                }
                 else if (value < 0) _HP = 0;
                 else _HP = value;
             }
@@ -92,6 +94,11 @@ namespace PuzzleCraft_v3.Classes
             {
                 if (this is Item)
                     _IsDead = value;
+                if (this is Player)
+                {
+                    _IsDead = value;
+                    Token.Bitmap = Resource1.dead;
+                }
             }
         }
         #endregion
@@ -217,7 +224,7 @@ namespace PuzzleCraft_v3.Classes
             else
                 Health -= damage;
 
-            if (!_IsDead) _Token?.UpdateTokenHP(damage);
+            _Token?.UpdateTokenHP(this);
         }
         #endregion
 
