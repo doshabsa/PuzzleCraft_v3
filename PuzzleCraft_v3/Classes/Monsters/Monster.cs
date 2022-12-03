@@ -34,12 +34,12 @@ namespace PuzzleCraft_v3.Classes
                     break;
 
                 case 2:
-                    Wolf1 w1 = new();
+                    Wolf w1 = new();
                     break;
 
-                case 3:
-                    Wolf2 w2 = new();
-                    break;
+                //case 3:
+                //    Wolf2 w2 = new();
+                //    break;
             }
         }
 

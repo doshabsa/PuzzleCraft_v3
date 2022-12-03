@@ -12,11 +12,13 @@ namespace PuzzleCraft_v3.GUI
 
     public partial class Token : UserControl
     {
+        private static Random rnd = new Random();
+
         private BaseCharacter _Character;
         private Bitmap _Bitmap;
         private ProgressBar HealthBar;
         private PictureBox PicBox;
-        private static Random rnd = new Random();
+
         private double _startX;
         private double _startY;
         private float Angle;
@@ -90,6 +92,7 @@ namespace PuzzleCraft_v3.GUI
         }
         #endregion
 
+        #region Constructors
         public Token(BaseCharacter character)
         {
             InitializeComponent();
@@ -129,7 +132,9 @@ namespace PuzzleCraft_v3.GUI
             PicBox.Image = RotateImage(_Bitmap, Angle + 90);
             Main.MainForm?.Controls.Add(this);
         }
+        #endregion
 
+        #region Randomizers
         //Monster and Player spawn locations are randomized
         public static Point SpawnLocation(Size newToken)
         {
@@ -148,7 +153,9 @@ namespace PuzzleCraft_v3.GUI
                 Angle = tmp;
             this.Invalidate(false);
         }
+        #endregion
 
+        #region Progress Bar
         public void UpdateTokenHP(BaseCharacter character)
         {
             if(character.Health > 0)
@@ -164,7 +171,14 @@ namespace PuzzleCraft_v3.GUI
                 //}
             }
         }
+        #endregion
 
+        #region Picturebox
+        public void UpdatePictureDirection(float angle)
+        {
+            Angle = angle;
+            this.Invalidate(false);
+        }
 
         private void SetUpPicture(BaseCharacter character)
         {
@@ -181,12 +195,6 @@ namespace PuzzleCraft_v3.GUI
             HealthBar.Value = character.Health;
             this.Controls.Add(HealthBar);
             HealthBar.BringToFront();
-        }
-
-        public void UpdatePictureDirection(float angle)
-        {
-            Angle = angle;
-            this.Invalidate(false);
         }
 
         private static Image RotateImage(Image img, float rotationAngle)
@@ -211,5 +219,6 @@ namespace PuzzleCraft_v3.GUI
                 PicBox.Image = tmpImage;
             }
         }
+        #endregion
     }
 }

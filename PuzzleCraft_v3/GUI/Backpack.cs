@@ -7,7 +7,7 @@ namespace PuzzleCraft_v3.GUI
     public partial class Backpack : UserControl
     {
         //Backpack items cause random background discolouration 
-        //within the backpack over time (is beige in color)
+        //within the backpack over time (is beige in color, they are close to the same color)
         #region Fields
         private static List<PictureBox> BoxList;
         private static List<Label> LabelList;
@@ -33,7 +33,7 @@ namespace PuzzleCraft_v3.GUI
         }
         #endregion
 
-        #region Editing Controls
+        #region Setup/Edit Controls
         public void ToggleBag()
         {
             if (!IsVisible)
@@ -77,7 +77,7 @@ namespace PuzzleCraft_v3.GUI
         }
         #endregion
 
-        #region Item Use
+        #region Item On Use
         private void PictureBox_Select(object sender, EventArgs e)
         {
             selected = (PictureBox)sender;

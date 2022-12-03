@@ -9,37 +9,12 @@ namespace PuzzleCraft_v3.Classes
 {
     internal static class Map
     {
-        #region Properties/Fields/Delegates
-        //public delegate void SetupMap();
-        //public static event SetupMap UpdateMapBackdrop;
-
-        private static List<Image> ListMaps = new();
-        private static Random rnd = new();
-        #endregion
-
-        #region Constructiors
+        /*
+         I was unable to get transparency working with tokens, which stopped map making pretty quickly.
+         */
         static Map()
         {            
-            CreateMapList();
-            //Main.MainForm.BackgroundImage = ListMaps[rnd.Next(0, ListMaps.Count)];
-        }
-        #endregion
 
-        #region Methods
-        private static void CreateMapList()
-        {
-            if(ListMaps.Count != 0)
-                ListMaps.Clear();
-            switch(rnd.Next(0, 3))
-            {
-                case 0:
-                    break;
-                case 1:
-                    break;
-                case 2:
-                    break;
-            }
         }
-        #endregion
     }
 }

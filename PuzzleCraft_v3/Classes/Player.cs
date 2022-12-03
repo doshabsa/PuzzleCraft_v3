@@ -6,20 +6,14 @@ namespace PuzzleCraft_v3.Classes
 {
     internal class Player : BaseCharacter
     {
-        #region Fields
         public static Player _ThePlayer;
+
         public Backpack Pack 
         { 
             get 
             { 
                 return _Pack;
             } 
-        }
-        #endregion
-
-        static Player()
-        {
-
         }
 
         #region Constructors

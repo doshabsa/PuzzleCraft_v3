@@ -17,18 +17,37 @@ namespace PuzzleCraft_v3
         public Main()
         {
             InitializeComponent();
+
+            MainForm = this;
+
             this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             this.SetStyle(ControlStyles.UserPaint, true);
-            MainForm = this;
+
             Start newGame = new();
             newGame.ShowPack += PackButtonVisible;
         }
+
+        #region Backpack Events
         private void PackButtonVisible()
         {
             btnBackpack.Visible = true;
         }
 
+        private void btnBackpack_Click(object sender, EventArgs e)
+        {
+            Player._ThePlayer.Pack.ToggleBag();
+            if (btnBackpack.Text == "Open Pack")
+            {
+                btnBackpack.Text = "Close Pack";
+                btnBackpack.BringToFront();
+            }
+            else
+                btnBackpack.Text = "Open Pack";
+        }
+        #endregion
+
+        #region Mouse Events
         private void Main_MouseDown(object sender, MouseEventArgs e)
         {
             if (_ThePlayer != null && !_ThePlayer.IsDead)
@@ -37,6 +56,11 @@ namespace PuzzleCraft_v3
                 PlayGame = true;
                 ClickLocation = e.Location;
             }
+        }
+        private void Main_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (_ThePlayer != null && Main.PlayGame && !_ThePlayer.IsDead)
+                ClickLocation = e.Location;
         }
 
         private void Main_MouseUp(object sender, MouseEventArgs e)
@@ -48,25 +72,10 @@ namespace PuzzleCraft_v3
                 ClickLocation = new Point((int)Player._ThePlayer.Token.Left, (int)Player._ThePlayer.Token.Top);
             }
         }
+        #endregion
 
-        private void Main_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (_ThePlayer != null && Main.PlayGame && !_ThePlayer.IsDead)
-                ClickLocation = e.Location;
-        }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Player._ThePlayer.Pack.ToggleBag();
-            if (btnBackpack.Text == "Open Pack")
-            {
-                btnBackpack.Text = "Close Pack";
-                btnBackpack.BringToFront();
-            }
-            else
-                btnBackpack.Text = "Open Pack";
-        }
-
+        //Testing controls
         private void button1_Click_1(object sender, EventArgs e)
         {
             _ThePlayer.Health -= 10;
