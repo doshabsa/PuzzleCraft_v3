@@ -9,8 +9,13 @@ namespace PuzzleCraft_v3.Classes
     public abstract class BaseCharacter
     {
         #region Fields
+        public static System.Windows.Forms.Timer? PlayerTimer = new();
+        public static List<BaseCharacter> CharacterList = new();
+        protected static Random rnd = new Random();
+
         protected Token _Token;
         protected Bitmap _Bitmap;
+        protected Backpack _Pack;
         protected Size _TokenSize;
         protected string? _Name;
         protected bool _IsSmart;
@@ -19,12 +24,7 @@ namespace PuzzleCraft_v3.Classes
         protected double _Speed;
         protected int _HP;
         protected int _Damage;
-        protected Backpack _Pack;
         public bool Moving;
-
-        protected static Random rnd = new Random();
-        public static System.Windows.Forms.Timer? PlayerTimer = new();
-        public static List<BaseCharacter> CharacterList = new();
         #endregion
 
         #region Public Properties
