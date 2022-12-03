@@ -1,13 +1,4 @@
-﻿using PuzzleCraft_v3.GUI;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-
-namespace PuzzleCraft_v3.Classes.Monsters
+﻿namespace PuzzleCraft_v3.Classes.Monsters
 {
     internal class Skeleton : _Monster
     {
@@ -20,6 +11,7 @@ namespace PuzzleCraft_v3.Classes.Monsters
 
             _CanMove = false;
             _IsSmart = false;
+            _TokenSize = new(50, 50);
             _Bitmap = Resource1.skeleton;
             _Name = "Skeleton";
             _HP = 1;
