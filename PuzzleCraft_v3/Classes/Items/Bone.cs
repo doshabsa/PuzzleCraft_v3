@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PuzzleCraft_v3.Classes.Items
 {
-    public class Bone : Item
+    public class Bone : _Item
     {
         public Bone(Point loc, string name) : base(loc, name)
         {

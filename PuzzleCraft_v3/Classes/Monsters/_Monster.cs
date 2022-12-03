@@ -3,7 +3,7 @@ using PuzzleCraft_v3.Classes.Monsters;
 
 namespace PuzzleCraft_v3.Classes
 {
-    public abstract class Monster : BaseCharacter
+    public abstract class _Monster : BaseCharacter
     {
         #region Fields
         protected bool isSmart;
@@ -14,7 +14,7 @@ namespace PuzzleCraft_v3.Classes
         #endregion
 
         #region Constructors
-        public Monster() : base()
+        public _Monster() : base()
         {
 
         }
@@ -43,7 +43,7 @@ namespace PuzzleCraft_v3.Classes
             }
         }
 
-        public static (Point, string?) DeathDrop(Monster monster)
+        public static (Point, string?) DeathDrop(_Monster monster)
         {
             int newDrop = rnd.Next(0, 4);
             string? tmp = null;

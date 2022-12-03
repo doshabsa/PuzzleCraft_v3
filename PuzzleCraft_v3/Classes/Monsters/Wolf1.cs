@@ -9,7 +9,7 @@ using System.Xml.Linq;
 
 namespace PuzzleCraft_v3.Classes.Monsters
 {
-    internal class Wolf1 : Monster
+    internal class Wolf1 : _Monster
     {
         public Wolf1() : base()
         {
