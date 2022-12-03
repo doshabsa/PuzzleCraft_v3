@@ -46,7 +46,7 @@ namespace PuzzleCraft_v3.GUI
                     else
                         this.Left = (int)value;
                 }
-                else if (_Character is Monster)
+                else if (_Character is _Monster)
                 {
                     _startX = value;
                 }
@@ -64,7 +64,7 @@ namespace PuzzleCraft_v3.GUI
                     else
                         this.Left = (int)value;
                 }
-                else if (_Character is Monster)
+                else if (_Character is _Monster)
                 {
                     _startY = value;
                 }
@@ -114,8 +114,9 @@ namespace PuzzleCraft_v3.GUI
             Main.MainForm?.Controls.Add(this);
         }
 
-        //Item spawn location is the same location as where a monster died
-        public Token(Item item, Point location)
+        //Item spawn location is the same location as where a monster died, could 
+        //possibly move certain treasures (or use for bombs?!)
+        public Token(_Item item, Point location)
         {
             InitializeComponent();
             this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
@@ -164,11 +165,6 @@ namespace PuzzleCraft_v3.GUI
             {
                 HealthBar.Value = 0;
                 character.IsDead = true;
-                //if (character is Player)
-                //{
-                //    character.Token.Bitmap = Resource1.dead;
-                //    PicBox.Image = RotateImage(_Bitmap, Angle +90);
-                //}
             }
         }
         #endregion

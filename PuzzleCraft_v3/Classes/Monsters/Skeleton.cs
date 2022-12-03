@@ -9,20 +9,19 @@ using System.Xml.Linq;
 
 namespace PuzzleCraft_v3.Classes.Monsters
 {
-    internal class Skeleton : Monster
+    internal class Skeleton : _Monster
     {
         public Skeleton() : base()
         {
-            _ItemDrop0 = "bone";
-            _ItemDrop1 = "bone";
-            _ItemDrop2 = "bone";
-            _ItemDrop3 = "bone";
+            _ItemDrop0 = "arrow";
+            _ItemDrop1 = null;
+            _ItemDrop2 = null;
+            _ItemDrop3 = null;
 
-            _Name = "skeleton";
             _CanMove = false;
             _IsSmart = false;
-            _TokenSize = new(40, 40);
-            _Bitmap = GetImage(_Name);
+            _Bitmap = Resource1.skeleton;
+            _Name = "Skeleton";
             _HP = 1;
             _Speed = 0;
             _Damage = 0;

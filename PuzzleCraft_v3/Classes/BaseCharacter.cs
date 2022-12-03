@@ -92,7 +92,7 @@ namespace PuzzleCraft_v3.Classes
             get { return _IsDead; }
             set
             {
-                if (this is Item)
+                if (this is _Item)
                     _IsDead = value;
             }
         }
@@ -173,10 +173,10 @@ namespace PuzzleCraft_v3.Classes
                     {
                         Player.GameOver();
                     }
-                    else if (CharacterList[i] is Monster)
+                    else if (CharacterList[i] is _Monster)
                     {
-                        (Point, string?) tmp = Monster.DeathDrop((Monster)CharacterList[i]);
-                        Item.CreateNewItem(tmp.Item1, tmp.Item2);
+                        (Point, string?) tmp = _Monster.DeathDrop((_Monster)CharacterList[i]);
+                        _Item.CreateNewItem(tmp.Item1, tmp.Item2);
                     }
                 }
 
@@ -205,10 +205,10 @@ namespace PuzzleCraft_v3.Classes
                                     CharacterList[j].OnCollision(
                                         CharacterList[i]._Damage, CharacterList[j]);
                                 }
-                if (Item.ItemList.Count > 0)
-                    for (int i = 0; i < Item.ItemList.Count; i++)
-                        if (CrashTest(Player._ThePlayer, Item.ItemList[i]))
-                            Player._ThePlayer.OnCollision(Player._ThePlayer._Damage, Item.ItemList[i]);
+                if (_Item.ItemList.Count > 0)
+                    for (int i = 0; i < _Item.ItemList.Count; i++)
+                        if (CrashTest(Player._ThePlayer, _Item.ItemList[i]))
+                            Player._ThePlayer.OnCollision(Player._ThePlayer._Damage, _Item.ItemList[i]);
             }
             catch { }
         }
@@ -224,8 +224,8 @@ namespace PuzzleCraft_v3.Classes
 
         private void OnCollision(int damage, BaseCharacter otherGuy)
         {
-            if (this is Player && otherGuy is Item)
-                Inventory.PickUp((Item)otherGuy);
+            if (this is Player && otherGuy is _Item)
+                Inventory.PickUp((_Item)otherGuy);
             else
                 Health -= damage;
 
@@ -238,7 +238,7 @@ namespace PuzzleCraft_v3.Classes
         {
             if (this is Player)
                 CalcTrajectory(Token.Left, Token.Top, Main.ClickLocation.X, Main.ClickLocation.Y);
-            if (this is Monster && _ThePlayer is not null)
+            if (this is _Monster && _ThePlayer is not null)
                 CalcTrajectory(Token.Left, Token.Top, _ThePlayer.Token.Left, _ThePlayer.Token.Top);
         }
 

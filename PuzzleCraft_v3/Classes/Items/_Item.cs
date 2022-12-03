@@ -5,17 +5,17 @@ using System.Xml.Linq;
 
 namespace PuzzleCraft_v3.Classes.Items
 {
-    public abstract class Item : BaseCharacter
+    public abstract class _Item : BaseCharacter
     {
-        public static List<Item> ItemList;
+        public static List<_Item> ItemList;
 
         #region Constructor
-        static Item()
+        static _Item()
         {
             ItemList = new();
         }
 
-        public Item(Point location, string? name)
+        public _Item(Point location, string? name)
         {
             
         }
