@@ -139,14 +139,12 @@ namespace PuzzleCraft_v3.Classes
             CheckForCrash();
             Backpack.UpdateItems();
             RemoveTheDead();
-            GC.Collect(); //Optional; it never actually overflows
+            GC.Collect(); //Optional; it never actually overflows, but doesn't look good
             //Should see if changes to token rotation method helps?
 
 
             if (CharacterList.Count < 2)
-            {
                 _Monster.CreateNewMonster();
-            }
         }
 
         #region Tick Events

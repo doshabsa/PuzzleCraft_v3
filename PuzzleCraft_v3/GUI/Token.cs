@@ -96,21 +96,30 @@ namespace PuzzleCraft_v3.GUI
         public Token(BaseCharacter character)
         {
             InitializeComponent();
+            this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
+            this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
+            this.SetStyle(ControlStyles.UserPaint, true);
+
             _Character = character;
             //Transparent background breaks the game?
+
             Point StartPoint = SpawnLocation(_Character.TokenSize);
+
             _startX = StartPoint.X;
             _startY = StartPoint.Y;
             _Bitmap = _Character.Bitmap;
             this.Top = (int)_startY;
             this.Left = (int)_startX;
             this.Size = _Character.TokenSize;
+
             SetUpPicture(_Character);
+
             if (character.IsSmart)
             {
                 SpawnAngle();
                 PicBox.Image = RotateImage(_Bitmap, Angle + 90);
             }
+
             Main.MainForm?.Controls.Add(this);
         }
 
@@ -122,12 +131,14 @@ namespace PuzzleCraft_v3.GUI
             this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             this.SetStyle(ControlStyles.UserPaint, true);
+
             _startX = location.X;
             _startY = location.Y;
             _Bitmap = item.Bitmap;
             this.Top = (int)_startY;
             this.Left = (int)_startX;
             this.Size = item.TokenSize;
+
             SetUpPicture(item);
             SpawnAngle();
             PicBox.Image = RotateImage(_Bitmap, Angle + 90);
@@ -181,8 +192,10 @@ namespace PuzzleCraft_v3.GUI
             PicBox = new();
             PicBox.SizeMode = PictureBoxSizeMode.StretchImage;
             PicBox.Image = character.Bitmap;
-            PicBox.Size = new Size((int)Math.Round(character.TokenSize.Width / 1.05), (int)Math.Round(character.TokenSize.Height / 1.05));
-            PicBox.Location = new Point(character.TokenSize.Width / 2 - PicBox.Width / 2, character.TokenSize.Height / 2 - PicBox.Height / 2);
+            PicBox.Size = new Size((int)Math.Round(character.TokenSize.Width / 1.05), 
+                                        (int)Math.Round(character.TokenSize.Height / 1.05));
+            PicBox.Location = new Point(character.TokenSize.Width / 2 - PicBox.Width / 2, 
+                                            character.TokenSize.Height / 2 - PicBox.Height / 2);
             this.Controls.Add(PicBox);
 
             HealthBar = new ProgressBar();
