@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace PuzzleCraft_v3.Classes.Maps
 {
+     /*
+     May add fences/obstacles to maps in the future
+     */
+
     static class _Map
     {
         public static List<Image> MapList = new();
