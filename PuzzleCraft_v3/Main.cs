@@ -1,14 +1,8 @@
 using PuzzleCraft_v3.Classes;
-using PuzzleCraft_v3.Classes.Items;
-using PuzzleCraft_v3.Classes.Maps;
-using PuzzleCraft_v3.Classes.Monsters;
-using PuzzleCraft_v3.GUI;
 using static PuzzleCraft_v3.Classes.Player;
 
 namespace PuzzleCraft_v3
 {
-    public delegate void Notify(Point e);
-
     public partial class Main : Form
     {
         public static Main? MainForm;
@@ -25,15 +19,17 @@ namespace PuzzleCraft_v3
             this.SetStyle(ControlStyles.UserPaint, true);
 
             Start newGame = new();
-            newGame.ShowPack += PackButtonVisible;
+            newGame.canStartGame += ConnectPack;
         }
 
         #region Backpack Events
-        private void PackButtonVisible()
+        private void ConnectPack()
         {
             btnBackpack.Visible = true;
         }
 
+        //This was done for ease of access to use. Could 100% move into backpack and make
+        //the control handle itself.
         private void btnBackpack_Click(object sender, EventArgs e)
         {
             Player._ThePlayer.Pack.ToggleBag();
@@ -61,9 +57,7 @@ namespace PuzzleCraft_v3
         private void Main_MouseMove(object sender, MouseEventArgs e)
         {
             if (_ThePlayer != null && Main.PlayGame && !_ThePlayer.IsDead)
-            {
                 ClickLocation = e.Location;
-            }
         }
 
         private void Main_MouseUp(object sender, MouseEventArgs e)

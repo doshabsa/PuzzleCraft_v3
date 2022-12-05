@@ -1,9 +1,4 @@
-﻿using Microsoft.VisualBasic.Logging;
-using PuzzleCraft_v3.Classes.Monsters;
-using System.Reflection;
-using System.Xml.Linq;
-
-namespace PuzzleCraft_v3.Classes.Items
+﻿namespace PuzzleCraft_v3.Classes.Items
 {
     public abstract class _Item : _Character
     {

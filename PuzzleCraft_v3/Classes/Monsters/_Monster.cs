@@ -1,5 +1,4 @@
-﻿using PuzzleCraft_v3.Classes.Items;
-using PuzzleCraft_v3.Classes.Monsters;
+﻿using PuzzleCraft_v3.Classes.Monsters;
 
 namespace PuzzleCraft_v3.Classes
 {

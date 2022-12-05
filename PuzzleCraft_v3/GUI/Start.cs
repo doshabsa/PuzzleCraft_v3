@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Resources;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using static System.Windows.Forms.DataFormats;
+﻿using System.Resources;
 using PuzzleCraft_v3.Classes;
 using PuzzleCraft_v3.Classes.Monsters;
 using PuzzleCraft_v3.Classes.Maps;
@@ -17,8 +7,15 @@ namespace PuzzleCraft_v3
 {
     public partial class Start : UserControl
     {
-        public delegate void GameStart();
-        public GameStart ShowPack;
+        public delegate void ConnectPack();
+        public ConnectPack canStartGame;
+
+        /*
+         Added delegate with intent to make more usable on game reset
+         The pack is also stored within the Player class, so once the class is istablished
+         and a pack is instantiated, this delegate will allow the button (on main form, for easy
+         access/use) to display. Otherwise player has no backpack button to use!
+         */
 
         private const int NUMTOKENS = 32;
         private Random rnd = new Random();
@@ -66,8 +63,8 @@ namespace PuzzleCraft_v3
                 Player newPlayer = new((Bitmap)selected.Image, txtName.Text);
                 Raven m1 = new();
                 Player.PlayerTimer.Stop();
-                ShowPack();
                 _Map.Fetch();
+                canStartGame();
                 this.Dispose();
             }
             else

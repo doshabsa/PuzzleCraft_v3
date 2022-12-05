@@ -1,13 +1,4 @@
-﻿ using PuzzleCraft_v3.GUI;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-
-namespace PuzzleCraft_v3.Classes.Monsters
+﻿namespace PuzzleCraft_v3.Classes.Monsters
 {
     internal class Raven : _Monster
     {

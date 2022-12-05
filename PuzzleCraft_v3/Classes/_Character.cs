@@ -1,7 +1,5 @@
 ﻿using PuzzleCraft_v3.Classes.Items;
 using PuzzleCraft_v3.GUI;
-using System;
-using System.Collections.Generic;
 using static PuzzleCraft_v3.Classes.Player;
 
 namespace PuzzleCraft_v3.Classes

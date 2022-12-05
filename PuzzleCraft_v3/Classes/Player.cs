@@ -10,10 +10,8 @@ namespace PuzzleCraft_v3.Classes
 
         public Backpack Pack 
         { 
-            get 
-            { 
-                return _Pack;
-            } 
+            get {  return _Pack; }
+            set { _Pack = value; }
         }
 
         #region Constructors
@@ -28,8 +26,8 @@ namespace PuzzleCraft_v3.Classes
             _HP = 100;
             _Speed = 3;
             _Damage = 5;
+            _ThePlayer.Pack = new();
             _Token = new(this);
-            _Pack = new();
             CharacterList.Add(this);
         }
         #endregion

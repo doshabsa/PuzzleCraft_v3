@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PuzzleCraft_v3.Classes.Maps
+﻿namespace PuzzleCraft_v3.Classes.Maps
 {
      /*
      May add fences/obstacles to maps in the future
