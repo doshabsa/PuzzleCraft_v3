@@ -41,14 +41,15 @@ namespace PuzzleCraft_v3.Classes.Items
             }
         }
 
-        public static void CreateTreasure(string item)
+        public static _Item CreateTreasure(string item)
         {
             switch (item)
             {
                 case "gold":
                     Gold gold = new("gold");
-                    break;
+                    return gold;
             }
+            return null;
         }
         #endregion
 

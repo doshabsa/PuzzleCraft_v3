@@ -5,14 +5,14 @@ namespace PuzzleCraft_v3.Classes.Quests
 {
     internal class _Quest
     {
-        public int _ID;
-        private string _Title;
-        private string _Description;
-        private Bitmap _Photo;
-        private List<_Item> _RewardList; //One list, it just refills/refreshse per quest
-        private static Random rnd = new Random();
+        public static int _ID;
+        protected string _Title;
+        protected string _Description;
+        protected Bitmap _Photo;
+        protected List<_Item> _RewardList; //One list, it just refills/refreshes per quest
+        protected static Random rnd = new Random();
 
-        private static List<_Quest> QuestList;
+        protected static List<_Quest> QuestList;
 
         public string Title { get { return _Title; } }
         public string Description { get { return _Description; } }
@@ -24,30 +24,22 @@ namespace PuzzleCraft_v3.Classes.Quests
             QuestList = new();
         }
 
-        public _Quest(string title, string description, Bitmap pic)
+        public _Quest()
         {
-            //perhaps eventually have quests pick a monster as the "kill" target, then
-            //pull that targeted monsters inventory as reward (make it work, for now)
-            _RewardList = new List<_Item>();
-            NewRewards();
 
-            _Title = title;
-            _Description = description;
-            _Photo = pic;
-            QuestList.Add(this);
         }
 
-        private static List<_Item> NewRewards()
+        private static _Item NewRewards()
         {
             //Adjust a stopwatch/timer to trigger quest creations?
             //An item list, to accomodate additional rewards per quest (for now it is a single item)
             List<_Item> list = new();
 
             _Character character = _Character.CharacterList[rnd.Next(1, _Character.CharacterList.Count)];
-            _Item.CreateTreasure(_Monster.GetQuestItem((_Monster)character));
+            _Item newReward = _Item.CreateTreasure(_Monster.GetQuestItem((_Monster)character));
 
             //Currently the only active reward is gold, which is handled differently than other items
-            return list;
+            return newReward;
         }
     }
 }

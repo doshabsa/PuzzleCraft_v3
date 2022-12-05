@@ -6,9 +6,9 @@ using System.Drawing.Drawing2D;
 
 namespace PuzzleCraft_v3.GUI
 {
-     /*
-     Token will face right by default when not moving
-     */
+    /*
+    Token will face right by default when not moving
+    */
 
     public partial class Token : UserControl
     {
@@ -18,6 +18,7 @@ namespace PuzzleCraft_v3.GUI
         private Bitmap _Bitmap;
         private ProgressBar HealthBar;
         private PictureBox PicBox;
+        private Bitmap tmp;
 
         private double _startX;
         private double _startY;
@@ -121,6 +122,7 @@ namespace PuzzleCraft_v3.GUI
             {
                 SpawnAngle();
                 PicBox.Image = RotateImage(_Bitmap, Angle + 90);
+                PicBox.Paint += PicBox_Paint;
             }
 
             Main.MainForm?.Controls.Add(this);
@@ -145,6 +147,7 @@ namespace PuzzleCraft_v3.GUI
             SetUpPicture(item);
             SpawnAngle();
             PicBox.Image = RotateImage(_Bitmap, Angle + 90);
+            PicBox.Paint += PicBox_Paint;
             Main.MainForm?.Controls.Add(this);
         }
 
@@ -157,13 +160,12 @@ namespace PuzzleCraft_v3.GUI
             this.SetStyle(ControlStyles.UserPaint, true);
 
             _Bitmap = item.Bitmap;
-            this.Top = (int)_startY;
-            this.Left = (int)_startX;
             this.Size = item.TokenSize;
 
             SetUpPicture(item);
             SpawnAngle();
             PicBox.Image = RotateImage(_Bitmap, Angle + 90);
+            PicBox.Paint += PicBox_Paint;
         }
         #endregion
 
@@ -191,7 +193,7 @@ namespace PuzzleCraft_v3.GUI
         #region Progress Bar
         public void UpdateTokenHP(_Character character)
         {
-            if(character.Health > 0)
+            if (character.Health > 0)
                 HealthBar.Value = character.Health;
             else if (character.Health <= 0)
             {
@@ -205,17 +207,19 @@ namespace PuzzleCraft_v3.GUI
         public void UpdatePictureDirection(float angle)
         {
             Angle = angle;
-            this.Invalidate(false);
+            PicBox.Image = tmp;
+            PicBox.Invalidate(false);
         }
 
         private void SetUpPicture(_Character character)
         {
             PicBox = new();
+            PicBox.BackColor = Color.Transparent;
             PicBox.SizeMode = PictureBoxSizeMode.StretchImage;
             PicBox.Image = character.Bitmap;
-            PicBox.Size = new Size((int)Math.Round(character.TokenSize.Width / 1.05), 
+            PicBox.Size = new Size((int)Math.Round(character.TokenSize.Width / 1.05),
                                         (int)Math.Round(character.TokenSize.Height / 1.05));
-            PicBox.Location = new Point(character.TokenSize.Width / 2 - PicBox.Width / 2, 
+            PicBox.Location = new Point(character.TokenSize.Width / 2 - PicBox.Width / 2,
                                             character.TokenSize.Height / 2 - PicBox.Height / 2);
             this.Controls.Add(PicBox);
 
@@ -240,13 +244,13 @@ namespace PuzzleCraft_v3.GUI
             return bmp;
         }
 
-        private void Token_Paint(object sender, PaintEventArgs e)
+        private void PicBox_Paint(object? sender, PaintEventArgs e)
         {
             if (Main.PlayGame && _Character is not Skeleton)
             {
                 Image tmpImage;
                 tmpImage = RotateImage(_Bitmap, Angle + 90);
-                PicBox.Image = tmpImage;
+                tmp = (Bitmap)tmpImage;
             }
         }
         #endregion

@@ -61,7 +61,9 @@ namespace PuzzleCraft_v3
         private void Main_MouseMove(object sender, MouseEventArgs e)
         {
             if (_ThePlayer != null && Main.PlayGame && !_ThePlayer.IsDead)
+            {
                 ClickLocation = e.Location;
+            }
         }
 
         private void Main_MouseUp(object sender, MouseEventArgs e)
