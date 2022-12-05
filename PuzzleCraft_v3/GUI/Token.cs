@@ -147,6 +147,24 @@ namespace PuzzleCraft_v3.GUI
             PicBox.Image = RotateImage(_Bitmap, Angle + 90);
             Main.MainForm?.Controls.Add(this);
         }
+
+        //For treasure creation
+        public Token(_Item item)
+        {
+            InitializeComponent();
+            this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
+            this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
+            this.SetStyle(ControlStyles.UserPaint, true);
+
+            _Bitmap = item.Bitmap;
+            this.Top = (int)_startY;
+            this.Left = (int)_startX;
+            this.Size = item.TokenSize;
+
+            SetUpPicture(item);
+            SpawnAngle();
+            PicBox.Image = RotateImage(_Bitmap, Angle + 90);
+        }
         #endregion
 
         #region Randomizers

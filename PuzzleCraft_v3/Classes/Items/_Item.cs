@@ -8,6 +8,9 @@ namespace PuzzleCraft_v3.Classes.Items
     public abstract class _Item : _Character
     {
         public static List<_Item> ItemList;
+        protected int _Counter;
+
+        public int Count { get { return _Counter; } }
 
         #region Constructor
         static _Item()
@@ -15,11 +18,18 @@ namespace PuzzleCraft_v3.Classes.Items
             ItemList = new();
         }
 
+        public _Item(string name) //For treasure spawns
+        {
+            _Name = name;
+        }
+
         public _Item(Point location, string? name) //For monster kills
         {
             
         }
+        #endregion
 
+        #region Item Creation
         public static void CreateNewItem(Point loc, string? name)
         {
             switch (name)
@@ -34,9 +44,14 @@ namespace PuzzleCraft_v3.Classes.Items
             }
         }
 
-        public static _Item CreateTreasure(string item)
+        public static void CreateTreasure(string item)
         {
-            //Add code to turn string into desired item (return the item)
+            switch (item)
+            {
+                case "gold":
+                    Gold gold = new("gold");
+                    break;
+            }
         }
         #endregion
 

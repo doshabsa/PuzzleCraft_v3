@@ -44,8 +44,7 @@ namespace PuzzleCraft_v3.Classes.Quests
             List<_Item> list = new();
 
             _Character character = _Character.CharacterList[rnd.Next(1, _Character.CharacterList.Count)];
-            string tmp = _Monster.GetQuestItem((_Monster)character);
-            list.Add(_Item.CreateTreasure(tmp));
+            _Item.CreateTreasure(_Monster.GetQuestItem((_Monster)character));
             return list;
         }
     }

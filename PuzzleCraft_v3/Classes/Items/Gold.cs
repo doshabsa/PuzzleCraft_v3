@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace PuzzleCraft_v3.Classes.Items
 {
-    public class Arrow : _Item
+    public class Gold : _Item
     {
-        public Arrow(Point loc, string name) : base(loc, name)
+        public Gold(string name) : base(name)
         {
             if (name != null)
             {
@@ -19,15 +19,15 @@ namespace PuzzleCraft_v3.Classes.Items
                 _CanMove = false;
                 _IsSmart = false;
                 _Bitmap = GetImage(name);
-                _Token = new(this, loc);
+                _Token = new(this);
                 _Counter++;
-                ItemList.Add(this);
+                Inventory.InventoryList.Add(this);
             }
         }
 
         public override void UseItem()
         {
-            MessageBox.Show("Shoots things!");
+            MessageBox.Show("Used to purchase other items.");
         }
     }
 }
