@@ -90,6 +90,7 @@ namespace PuzzleCraft_v3.GUI
             {
                 if (selected == BoxList[i] && BoxList[i].Image != null)
                 {
+                    //Add check for it item is actually used for crafting
                     Inventory.InventoryList[i].UseItem();
                     Inventory.InventoryList[i].Token.Dispose();
                     Inventory.InventoryList[i].IsDead = true;

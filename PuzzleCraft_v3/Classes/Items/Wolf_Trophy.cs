@@ -6,9 +6,20 @@ using System.Threading.Tasks;
 
 namespace PuzzleCraft_v3.Classes.Items
 {
-    public class Arrow : _Item
+    public class Wolf_Trophy : _Item
     {
-        public Arrow(Point loc, string name) : base(loc, name)
+        protected static int _Wolf_TrophyCount = 0;
+
+        public static int Count
+        {
+            get { return _Wolf_TrophyCount; }
+            set
+            {
+                _Wolf_TrophyCount -= value;
+            }
+        }
+
+        public Wolf_Trophy(string name) : base(name)
         {
             if (name != null)
             {
@@ -19,14 +30,15 @@ namespace PuzzleCraft_v3.Classes.Items
                 _CanMove = false;
                 _IsSmart = false;
                 _Bitmap = GetImage(name);
-                _Token = new(this, loc);
-                ItemList.Add(this);
+                _Token = new(this);
+                _Wolf_TrophyCount++;
+                Inventory.InventoryList.Add(this);
             }
         }
 
         public override void UseItem()
         {
-            MessageBox.Show("Shoots things! You need a bow though.");
+            MessageBox.Show("Can be hung to intimidate your foes!");
         }
     }
 }

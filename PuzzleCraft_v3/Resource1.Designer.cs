@@ -403,6 +403,16 @@ namespace PuzzleCraft_v3 {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap bosswolf {
+            get {
+                object obj = ResourceManager.GetObject("bosswolf", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap dead {
             get {
                 object obj = ResourceManager.GetObject("dead", resourceCulture);
@@ -473,9 +483,9 @@ namespace PuzzleCraft_v3 {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap wolf1 {
+        internal static System.Drawing.Bitmap wolf_trophy {
             get {
-                object obj = ResourceManager.GetObject("wolf1", resourceCulture);
+                object obj = ResourceManager.GetObject("wolf_trophy", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

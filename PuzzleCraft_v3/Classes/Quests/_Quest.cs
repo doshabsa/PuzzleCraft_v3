@@ -27,7 +27,7 @@ namespace PuzzleCraft_v3.Classes.Quests
         public _Quest(string title, string description, Bitmap pic)
         {
             //perhaps eventually have quests pick a monster as the "kill" target, then
-            //pull that targeted monsters inventory as reward
+            //pull that targeted monsters inventory as reward (make it work, for now)
             _RewardList = new List<_Item>();
             NewRewards();
 
@@ -40,11 +40,13 @@ namespace PuzzleCraft_v3.Classes.Quests
         private static List<_Item> NewRewards()
         {
             //Adjust a stopwatch/timer to trigger quest creations?
-            //A list, to accomodate additional rewards per quest
+            //An item list, to accomodate additional rewards per quest (for now it is a single item)
             List<_Item> list = new();
 
             _Character character = _Character.CharacterList[rnd.Next(1, _Character.CharacterList.Count)];
             _Item.CreateTreasure(_Monster.GetQuestItem((_Monster)character));
+
+            //Currently the only active reward is gold, which is handled differently than other items
             return list;
         }
     }

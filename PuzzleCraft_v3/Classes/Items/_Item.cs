@@ -8,9 +8,6 @@ namespace PuzzleCraft_v3.Classes.Items
     public abstract class _Item : _Character
     {
         public static List<_Item> ItemList;
-        protected int _Counter;
-
-        public int Count { get { return _Counter; } }
 
         #region Constructor
         static _Item()

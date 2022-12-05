@@ -139,7 +139,7 @@ namespace PuzzleCraft_v3.Classes
             CheckForCrash();
             Backpack.UpdateItems();
             RemoveTheDead();
-
+            Inventory.UpdateTrackers();
             GC.Collect(); //Optional; it never actually overflows, but doesn't look great in RAM usage haha
             //Should see if changes to token rotation method helps?
 
@@ -148,16 +148,6 @@ namespace PuzzleCraft_v3.Classes
                 _Monster.CreateNewMonster();
         }
 
-        #region Item Events
-        private void UpdateTrackers()
-        {
-            foreach(_Item item in Inventory.InventoryList)
-            {
-                if(item is Gold)
-                    item.UpdateTrackers();
-            }
-        }
-        #endregion
 
         #region Tick Events
         private bool hasValidPosition()

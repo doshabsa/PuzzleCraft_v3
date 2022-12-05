@@ -6,8 +6,23 @@ using System.Threading.Tasks;
 
 namespace PuzzleCraft_v3.Classes.Items
 {
+    /*
+     Gold is handled differently than other items.
+     Can be used to purchase items from the store (which currently does not exist.)
+     */
+
     public class Gold : _Item
     {
+        protected static int _GoldCount = 0;
+
+        public static int Count { 
+            get { return _GoldCount; }
+            set
+            {
+                _GoldCount -= value;
+            }
+        }
+
         public Gold(string name) : base(name)
         {
             if (name != null)
@@ -20,7 +35,7 @@ namespace PuzzleCraft_v3.Classes.Items
                 _IsSmart = false;
                 _Bitmap = GetImage(name);
                 _Token = new(this);
-                _Counter++;
+                _GoldCount++;
                 Inventory.InventoryList.Add(this);
             }
         }
