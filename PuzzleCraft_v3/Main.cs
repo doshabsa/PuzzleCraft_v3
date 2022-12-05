@@ -1,5 +1,6 @@
 using PuzzleCraft_v3.Classes;
 using PuzzleCraft_v3.Classes.Items;
+using PuzzleCraft_v3.Classes.Maps;
 using PuzzleCraft_v3.Classes.Monsters;
 using PuzzleCraft_v3.GUI;
 using static PuzzleCraft_v3.Classes.Player;
@@ -17,7 +18,6 @@ namespace PuzzleCraft_v3
         public Main()
         {
             InitializeComponent();
-
             MainForm = this;
 
             this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);

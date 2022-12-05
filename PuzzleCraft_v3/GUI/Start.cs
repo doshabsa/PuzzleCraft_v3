@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using static System.Windows.Forms.DataFormats;
 using PuzzleCraft_v3.Classes;
 using PuzzleCraft_v3.Classes.Monsters;
+using PuzzleCraft_v3.Classes.Maps;
 
 namespace PuzzleCraft_v3
 {
@@ -66,6 +67,7 @@ namespace PuzzleCraft_v3
                 Raven m1 = new();
                 Player.PlayerTimer.Stop();
                 ShowPack();
+                _Map.Fetch();
                 this.Dispose();
             }
             else

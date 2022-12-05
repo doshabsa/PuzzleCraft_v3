@@ -1,5 +1,6 @@
 ﻿using PuzzleCraft_v3.Classes;
 using PuzzleCraft_v3.Classes.Items;
+using PuzzleCraft_v3.Classes.Maps;
 using System.Windows.Forms;
 
 namespace PuzzleCraft_v3.GUI
@@ -13,6 +14,7 @@ namespace PuzzleCraft_v3.GUI
         private static List<Label> LabelList;
         private bool IsVisible = false;
         private PictureBox? selected;
+        private static Label lblGold;
         #endregion
 
         static Backpack()
@@ -56,7 +58,6 @@ namespace PuzzleCraft_v3.GUI
             foreach (Label lbl in control.Controls.OfType<Label>())
                 LabelList.Add(lbl);
         }
-
         #endregion
 
         #region Item Display
@@ -73,6 +74,12 @@ namespace PuzzleCraft_v3.GUI
                 BoxList[i].Image = Inventory.InventoryList[i].Token.Bitmap;
                 BoxList[i].BackColor = Color.Transparent;
                 LabelList[i].Text = Inventory.InventoryList[i].Name;
+            }
+
+            foreach (_Item item in _Item.ItemList)
+            {
+                if (item is Gold)
+                    lblGold.Text = $"Gold: ${Gold.Count}";
             }
         }
         #endregion
@@ -102,5 +109,19 @@ namespace PuzzleCraft_v3.GUI
             }
         }
         #endregion
+
+        private void lblDayCycle_Click(object sender, EventArgs e)
+        {
+            if (Main.MainForm.BackgroundImage == _Map.MapList[0])
+            {
+                Main.MainForm.BackgroundImage = _Map.MapList[1];
+                lblDayCycle.Text = "Cycle Day";
+            }
+            else
+            {
+                Main.MainForm.BackgroundImage = _Map.MapList[0];
+                lblDayCycle.Text = "Cycle Night";
+            }
+        }
     }
 }

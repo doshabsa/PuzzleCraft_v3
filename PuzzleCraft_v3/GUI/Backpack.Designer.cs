@@ -41,6 +41,8 @@
             this.lbl3 = new System.Windows.Forms.Label();
             this.lbl4 = new System.Windows.Forms.Label();
             this.lbl5 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.lblDayCycle = new System.Windows.Forms.Label();
             this.tlpTable.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pic0)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pic1)).BeginInit();
@@ -76,6 +78,8 @@
             this.tlpTable.Controls.Add(this.lbl3, 1, 9);
             this.tlpTable.Controls.Add(this.lbl4, 4, 9);
             this.tlpTable.Controls.Add(this.lbl5, 7, 9);
+            this.tlpTable.Controls.Add(this.label1, 7, 1);
+            this.tlpTable.Controls.Add(this.lblDayCycle, 4, 1);
             this.tlpTable.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlpTable.Location = new System.Drawing.Point(0, 0);
             this.tlpTable.Margin = new System.Windows.Forms.Padding(4);
@@ -251,6 +255,32 @@
             this.lbl5.TabIndex = 12;
             this.lbl5.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.tlpTable.SetColumnSpan(this.label1, 2);
+            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label1.Location = new System.Drawing.Point(424, 3);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(132, 38);
+            this.label1.TabIndex = 13;
+            this.label1.Text = "Gold: $0";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // lblDayCycle
+            // 
+            this.lblDayCycle.AutoSize = true;
+            this.tlpTable.SetColumnSpan(this.lblDayCycle, 2);
+            this.lblDayCycle.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblDayCycle.Font = new System.Drawing.Font("Arial", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblDayCycle.Location = new System.Drawing.Point(217, 3);
+            this.lblDayCycle.Name = "lblDayCycle";
+            this.lblDayCycle.Size = new System.Drawing.Size(132, 38);
+            this.lblDayCycle.TabIndex = 14;
+            this.lblDayCycle.Text = "Cycle Night";
+            this.lblDayCycle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblDayCycle.Click += new System.EventHandler(this.lblDayCycle_Click);
+            // 
             // Backpack
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 19F);
@@ -290,5 +320,7 @@
         private Label lbl3;
         private Label lbl4;
         private Label lbl5;
+        private Label label1;
+        private Label lblDayCycle;
     }
 }

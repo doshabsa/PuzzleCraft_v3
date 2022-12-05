@@ -36,7 +36,7 @@ namespace PuzzleCraft_v3.Classes.Items
                 _Bitmap = GetImage(name);
                 _Token = new(this);
                 _GoldCount++;
-                Inventory.InventoryList.Add(this);
+                _Item.ItemList.Add(this);
             }
         }
 
