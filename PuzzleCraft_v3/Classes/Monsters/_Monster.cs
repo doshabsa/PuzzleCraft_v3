@@ -3,7 +3,7 @@ using PuzzleCraft_v3.Classes.Monsters;
 
 namespace PuzzleCraft_v3.Classes
 {
-    public abstract class _Monster : BaseCharacter
+    public abstract class _Monster : _Character
     {
         #region Fields
         protected bool isSmart;
@@ -11,6 +11,8 @@ namespace PuzzleCraft_v3.Classes
         protected string? _ItemDrop1;
         protected string? _ItemDrop2;
         protected string? _ItemDrop3;
+        protected string? _QuestItem;
+        //Add in an identifier for "special" monsters, so they may be flagged for a kill quest
         #endregion
 
         #region Constructors
@@ -63,6 +65,11 @@ namespace PuzzleCraft_v3.Classes
                     break;
             }
             return (monster.Token.Location, tmp);
+        }
+
+        public static string GetQuestItem(_Monster monster)
+        {
+            return monster._QuestItem;
         }
         #endregion
     }

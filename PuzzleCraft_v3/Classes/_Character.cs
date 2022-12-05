@@ -6,11 +6,11 @@ using static PuzzleCraft_v3.Classes.Player;
 
 namespace PuzzleCraft_v3.Classes
 {
-    public abstract class BaseCharacter
+    public abstract class _Character
     {
         #region Fields
         public static System.Windows.Forms.Timer? PlayerTimer = new();
-        public static List<BaseCharacter> CharacterList = new();
+        public static List<_Character> CharacterList = new();
         protected static Random rnd = new Random();
 
         protected Token _Token;
@@ -99,19 +99,19 @@ namespace PuzzleCraft_v3.Classes
         #endregion
 
         #region Constructors
-        static BaseCharacter()
+        static _Character()
         {
             PlayerTimer.Interval = 5;
             PlayerTimer.Tick += PlayerTimer_Tick;
             PlayerTimer.Enabled = true;
         }
 
-        public BaseCharacter() //For Monsters and Items
+        public _Character() //For Monsters and Items
         {
             _IsDead = false;
         }
 
-        public BaseCharacter(Bitmap pic, string name) //For Player
+        public _Character(Bitmap pic, string name) //For Player
         {
             _IsDead = false;
             _Bitmap = pic;
@@ -128,11 +128,11 @@ namespace PuzzleCraft_v3.Classes
 
         private static void PlayerTimer_Tick(object? sender, EventArgs e)
         {
-            foreach (BaseCharacter c in CharacterList)
+            foreach (_Character c in CharacterList)
                 if(c._IsSmart)
                     c.RotateToken();
 
-            foreach (BaseCharacter c in CharacterList)
+            foreach (_Character c in CharacterList)
                 if(c._CanMove)
                     c.MoveToken();
 
@@ -213,7 +213,7 @@ namespace PuzzleCraft_v3.Classes
             catch { }
         }
 
-        private static bool CrashTest(BaseCharacter One, BaseCharacter Two)
+        private static bool CrashTest(_Character One, _Character Two)
         {
             if (One.Token.Left + One.Token.Width < Two.Token.Left) return false;
             if (Two.Token.Left + Two.Token.Width < One.Token.Left) return false;
@@ -222,7 +222,7 @@ namespace PuzzleCraft_v3.Classes
             return true;
         }
 
-        private void OnCollision(int damage, BaseCharacter otherGuy)
+        private void OnCollision(int damage, _Character otherGuy)
         {
             if (this is Player && otherGuy is _Item)
                 Inventory.PickUp((_Item)otherGuy);

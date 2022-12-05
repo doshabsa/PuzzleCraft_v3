@@ -14,7 +14,7 @@ namespace PuzzleCraft_v3.GUI
     {
         private static Random rnd = new Random();
 
-        private BaseCharacter _Character;
+        private _Character _Character;
         private Bitmap _Bitmap;
         private ProgressBar HealthBar;
         private PictureBox PicBox;
@@ -86,14 +86,14 @@ namespace PuzzleCraft_v3.GUI
                 }
             }
         }
-        public BaseCharacter Character
+        public _Character Character
         {
             get { return _Character; }
         }
         #endregion
 
         #region Constructors
-        public Token(BaseCharacter character)
+        public Token(_Character character)
         {
             InitializeComponent();
             this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
@@ -171,7 +171,7 @@ namespace PuzzleCraft_v3.GUI
         #endregion
 
         #region Progress Bar
-        public void UpdateTokenHP(BaseCharacter character)
+        public void UpdateTokenHP(_Character character)
         {
             if(character.Health > 0)
                 HealthBar.Value = character.Health;
@@ -190,7 +190,7 @@ namespace PuzzleCraft_v3.GUI
             this.Invalidate(false);
         }
 
-        private void SetUpPicture(BaseCharacter character)
+        private void SetUpPicture(_Character character)
         {
             PicBox = new();
             PicBox.SizeMode = PictureBoxSizeMode.StretchImage;

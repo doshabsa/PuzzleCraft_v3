@@ -5,7 +5,7 @@ using System.Xml.Linq;
 
 namespace PuzzleCraft_v3.Classes.Items
 {
-    public abstract class _Item : BaseCharacter
+    public abstract class _Item : _Character
     {
         public static List<_Item> ItemList;
 
@@ -15,7 +15,7 @@ namespace PuzzleCraft_v3.Classes.Items
             ItemList = new();
         }
 
-        public _Item(Point location, string? name)
+        public _Item(Point location, string? name) //For monster kills
         {
             
         }
@@ -24,10 +24,6 @@ namespace PuzzleCraft_v3.Classes.Items
         {
             switch (name)
             {
-                case "dead":
-
-                    break;
-
                 case "arrow":
                     Arrow arrow = new(loc, name);
                     break;
@@ -36,6 +32,11 @@ namespace PuzzleCraft_v3.Classes.Items
                     Bone b1 = new(loc, name);
                     break;
             }
+        }
+
+        public static _Item CreateTreasure(string item)
+        {
+            //Add code to turn string into desired item (return the item)
         }
         #endregion
 

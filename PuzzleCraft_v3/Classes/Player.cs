@@ -4,7 +4,7 @@ using System.Xml.Linq;
 
 namespace PuzzleCraft_v3.Classes
 {
-    internal class Player : BaseCharacter
+    internal class Player : _Character
     {
         public static Player _ThePlayer;
 

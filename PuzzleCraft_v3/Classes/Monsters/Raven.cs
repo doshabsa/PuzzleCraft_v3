@@ -17,6 +17,7 @@ namespace PuzzleCraft_v3.Classes.Monsters
             _ItemDrop1 = null;
             _ItemDrop2 = null;
             _ItemDrop3 = null;
+            _QuestItem = null;
 
             _CanMove = true;
             _IsSmart = true;

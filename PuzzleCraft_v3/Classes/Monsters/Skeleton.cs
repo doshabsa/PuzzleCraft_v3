@@ -8,6 +8,7 @@
             _ItemDrop1 = "bone";
             _ItemDrop2 = "bone";
             _ItemDrop3 = "bone";
+            _QuestItem = null;
 
             _CanMove = false;
             _IsSmart = false;
