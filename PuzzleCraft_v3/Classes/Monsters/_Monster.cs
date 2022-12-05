@@ -23,7 +23,7 @@ namespace PuzzleCraft_v3.Classes
         #region Methods
         public static void CreateNewMonster()
         {
-            switch (rnd.Next(0, 4))
+            switch (rnd.Next(0, 3))
             {
                 case 0:
                     Raven m0 = new();
@@ -36,13 +36,10 @@ namespace PuzzleCraft_v3.Classes
                 case 2:
                     Wolf w1 = new();
                     break;
-
-                //case 3:
-                //    Wolf2 w2 = new();
-                //    break;
             }
         }
 
+        //The items dropped are determined within the child monster; rather than here in the base class.
         public static (Point, string?) DeathDrop(_Monster monster)
         {
             int newDrop = rnd.Next(0, 4);

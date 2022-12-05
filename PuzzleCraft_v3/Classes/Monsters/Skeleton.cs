@@ -4,10 +4,10 @@
     {
         public Skeleton() : base()
         {
-            _ItemDrop0 = "arrow";
-            _ItemDrop1 = null;
-            _ItemDrop2 = null;
-            _ItemDrop3 = null;
+            _ItemDrop0 = "bone";
+            _ItemDrop1 = "bone";
+            _ItemDrop2 = "bone";
+            _ItemDrop3 = "bone";
 
             _CanMove = false;
             _IsSmart = false;

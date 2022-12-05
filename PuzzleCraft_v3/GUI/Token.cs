@@ -6,7 +6,7 @@ using System.Drawing.Drawing2D;
 
 namespace PuzzleCraft_v3.GUI
 {
-    /*
+     /*
      Token will face right by default when not moving
      */
 
@@ -101,7 +101,10 @@ namespace PuzzleCraft_v3.GUI
             this.SetStyle(ControlStyles.UserPaint, true);
 
             _Character = character;
-            //Transparent background breaks the game?
+            //Transparent background for the control breaks the game?
+            //Attempted to use only picturebox, but had similar issues.
+            //Also, a single picturebox didn't seem it as much warrented 
+            //having its own class
 
             Point StartPoint = SpawnLocation(_Character.TokenSize);
 

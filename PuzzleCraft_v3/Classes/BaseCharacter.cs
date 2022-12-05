@@ -139,7 +139,8 @@ namespace PuzzleCraft_v3.Classes
             CheckForCrash();
             Backpack.UpdateItems();
             RemoveTheDead();
-            GC.Collect(); //Optional; it never actually overflows, but doesn't look good
+
+            GC.Collect(); //Optional; it never actually overflows, but doesn't look great in RAM usage haha
             //Should see if changes to token rotation method helps?
 
 

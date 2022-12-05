@@ -35,6 +35,14 @@ namespace PuzzleCraft_v3.Classes
         #endregion
 
         #region Methods
+
+        /*
+         I initally had issues in which the player token would freak out once it reached it's destination point.
+        To prevent this without breaking angles, I changed constantly running timers to only fire when the mouse
+        button is held down. I felt this has grander dreams for cross platform, as this would be a common control 
+        for many mobile games.
+         */
+
         protected override void MoveToken()
         {
             if (Token.StepX > 0)
