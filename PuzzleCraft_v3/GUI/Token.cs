@@ -11,6 +11,7 @@ namespace PuzzleCraft_v3.GUI
 
     public partial class Token : UserControl
     {
+        #region Fields
         private static Random rnd = new Random();
 
         private _Character _Character;
@@ -22,6 +23,7 @@ namespace PuzzleCraft_v3.GUI
         private double _startX;
         private double _startY;
         private float Angle;
+        #endregion
 
         #region Public Propteries
         public double StepX
@@ -253,10 +255,5 @@ namespace PuzzleCraft_v3.GUI
             }
         }
         #endregion
-
-        private void Token_Load(object sender, EventArgs e)
-        {
-
-        }
     }
 }

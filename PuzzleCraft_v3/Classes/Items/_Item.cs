@@ -35,17 +35,6 @@
                     break;
             }
         }
-
-        public static _Item CreateTreasure(string item)
-        {
-            switch (item)
-            {
-                case "gold":
-                    Gold gold = new("gold");
-                    return gold;
-            }
-            return null;
-        }
         #endregion
 
         #region Methods
