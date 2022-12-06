@@ -23,6 +23,7 @@ namespace PuzzleCraft_v3.GUI
             btnPack = new();
             BoxList = new();
             LabelList = new();
+            lblGold = new();
         }
 
         #region Constructor
@@ -31,7 +32,7 @@ namespace PuzzleCraft_v3.GUI
             InitializeComponent();
             SetupPackButton();
             this.Font = new Font("Arial", 12);
-            SetupLists(tlpTable);
+            Setup(tlpTable);
             this.Visible = false;
             this.Location = new Point(3, 3);
             Main.MainForm?.Controls.Add(this);
@@ -67,12 +68,18 @@ namespace PuzzleCraft_v3.GUI
             }
         }
 
-        private void SetupLists(Control control)
+        private void Setup(Control control)
         {
             foreach (PictureBox pic in control.Controls.OfType<PictureBox>())
                 BoxList.Add(pic);
             foreach (Label lbl in control.Controls.OfType<Label>())
                 LabelList.Add(lbl);
+
+            //Label needed to be static for UpdateItems()
+            lblGold.Dock = DockStyle.Fill;
+            lblGold.TextAlign = ContentAlignment.MiddleCenter;
+            tlpTable.Controls.Add(lblGold, 7, 1);
+            tlpTable.SetColumnSpan(lblGold, 2);
         }
         #endregion
 
@@ -92,11 +99,7 @@ namespace PuzzleCraft_v3.GUI
                 LabelList[i].Text = Inventory.InventoryList[i].Name;
             }
 
-            foreach (_Item item in _Item.ItemList)
-            {
-                if (item is Gold)
-                    lblGold.Text = $"Gold: ${Gold.Count}";
-            }
+            lblGold.Text = $"Gold: ${Gold.Count}";
         }
         #endregion
 

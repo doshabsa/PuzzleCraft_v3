@@ -1,4 +1,5 @@
 ﻿using PuzzleCraft_v3.Classes.Items;
+using PuzzleCraft_v3.GUI;
 
 namespace PuzzleCraft_v3.Classes.Quests
 {
@@ -6,30 +7,36 @@ namespace PuzzleCraft_v3.Classes.Quests
     {
         public Mission1() : base()
         {
-            _ID++;
-            //perhaps eventually have quests pick a monster as the "kill" target, then
-            //pull that targeted monsters inventory as reward (make it work, for now)
-            _RewardList = new List<_Item>();
-            _RewardList.Add(NewRewards());
-
-            _Title = "Slaughter Birds";
-            _Description = @"Birds provide an excellent source for feathers, which can be used to craft
-                            arrows. Arrows can be used to protect yourself. You will need to create a bow though!";
-            _Photo = Resource1.cat;
+            _Reward = NewRewards();
+            _Title = "Collect Feathers";
+            _Description = @"Birds provide an excellent source for feathers. Collect three of them to complete your quest.";
             QuestList.Add(this);
+        }
+
+        public override bool QuestStatus()
+        {
+            int tmp = 0;
+            foreach(_Item item in Inventory.InventoryList)
+            {
+                if (item is Feather)
+                    tmp++;
+            }
+
+            if (tmp >= 3)
+            {
+                _Item.ItemList.Remove(QuestLog._CurrentQuest.Reward);
+                Inventory.InventoryList.Add(QuestLog._CurrentQuest.Reward);
+                _IsComplete = true;
+                return true;
+            }
+            else
+                return false;
         }
 
         private static _Item NewRewards()
         {
-            //Adjust a stopwatch/timer to trigger quest creations?
-            //An item list, to accomodate additional rewards per quest (for now it is a single item)
-            List<_Item> list = new();
-
-            _Character character = _Character.CharacterList[rnd.Next(1, _Character.CharacterList.Count)];
-            _Item newReward = _Item.CreateTreasure(_Monster.GetQuestItem((_Monster)character));
-
-            //Currently the only active reward is gold, which is handled differently than other items
-            return newReward;
+            Gold g1 = new("gold");
+            return g1;
         }
     }
 }

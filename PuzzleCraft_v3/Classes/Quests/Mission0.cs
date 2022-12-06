@@ -1,4 +1,5 @@
 ﻿using PuzzleCraft_v3.Classes.Items;
+using PuzzleCraft_v3.GUI;
 
 namespace PuzzleCraft_v3.Classes.Quests
 {
@@ -6,35 +7,36 @@ namespace PuzzleCraft_v3.Classes.Quests
     {
         public Mission0() : base()
         {
-            _ID++;
-            //perhaps eventually have quests pick a monster as the "kill" target, then
-            //pull that targeted monsters inventory as reward (make it work, for now)
-            _RewardList = new List<_Item>();
-            _RewardList.Add(NewRewards());
-
+            _Reward = NewRewards();
             _Title = "Tutorial";
             _Description = @"Welcome to Puzzlecraft! This game was created for the ITEC 225 (Programming) class of 2022!
-                            This version includes a simplification of code, while making it more adaptable to ongoing changes
-                            to the base idea of the game. 
-                            In this redition, key press controls have been removed and replaced with movement to the mouse loation
-                            on click press/hold. As well, there is now diagonal movement and a more easily configured monster/item
-                            collection.
-                            To begin, please click anywhere on the main form to dismiss this message.";
-            _Photo = Resource1.cat;
+This version includes a simplification of code, while making it more adaptable to ongoing changes
+to the base idea of the game. In this redition, key press controls have been removed and replaced with movement to the mouse loation
+on click press/hold. As well, there is now diagonal movement and a more easily configured monster/item collection.
+
+To hand in your quests, click the reward shown below. (To begin yoru quests, please click the wolf head.)
+
+!!!! DAMAGE IS CURRENTLY DISABLED IN DEMO MODE (but it does work) !!!";
             QuestList.Add(this);
         }
 
-        private static _Item NewRewards()
+        public override bool QuestStatus()
         {
-            //Adjust a stopwatch/timer to trigger quest creations?
-            //An item list, to accomodate additional rewards per quest (for now it is a single item)
-            List<_Item> list = new();
+            if (!Inventory.InventoryList.Contains(_Reward))
+            {
+                _Item.ItemList.Remove(QuestLog._CurrentQuest.Reward);
+                Inventory.InventoryList.Add(QuestLog._CurrentQuest.Reward);
+                _IsComplete = true;
+                return true;
+            }
+            else
+                return false;
+        }
 
-            _Character character = _Character.CharacterList[rnd.Next(1, _Character.CharacterList.Count)];
-            _Item newReward = _Item.CreateTreasure(_Monster.GetQuestItem((_Monster)character));
-
-            //Currently the only active reward is gold, which is handled differently than other items
-            return newReward;
+        protected override _Item NewRewards()
+        {
+            Wolf_Trophy item = new("wolf_trophy");
+            return item;
         }
     }
 }

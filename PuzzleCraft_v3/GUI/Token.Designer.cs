@@ -34,6 +34,7 @@
             // 
             this.BackColor = System.Drawing.Color.Transparent;
             this.Name = "Token";
+            this.Load += new System.EventHandler(this.Token_Load);
             this.ResumeLayout(false);
 
         }

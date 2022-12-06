@@ -3,21 +3,27 @@ using PuzzleCraft_v3.Classes.Monsters;
 
 namespace PuzzleCraft_v3.Classes.Quests
 {
-    internal class _Quest
+    public class _Quest
     {
-        public static int _ID;
+
+        /*
+         I ran out of time to implement a more robust quest/reward system - so just made due.
+         */
+        public delegate void UpdateQuest(_Quest quest);
+        public UpdateQuest Alert;
+
         protected string _Title;
         protected string _Description;
-        protected Bitmap _Photo;
-        protected List<_Item> _RewardList; //One list, it just refills/refreshes per quest
+        protected bool _IsComplete;
+        protected _Item _Reward; //optionally use a list?
         protected static Random rnd = new Random();
 
-        protected static List<_Quest> QuestList;
+        public static List<_Quest> QuestList;
 
         public string Title { get { return _Title; } }
-        public string Description { get { return _Description; } }
-        public Bitmap Photo { get { return _Photo; } }  
-        public List<_Item> RewardList { get { return _RewardList; } }
+        public string Description { get { return _Description; } } 
+        public _Item Reward { get { return _Reward; } }
+        public bool IsComplete { get; set; } //Eventually make this less accessible
 
         static _Quest()
         {
@@ -26,20 +32,18 @@ namespace PuzzleCraft_v3.Classes.Quests
 
         public _Quest()
         {
-
+            _IsComplete = false;
+            QuestList.Add(this);
         }
 
-        private static _Item NewRewards()
+        public virtual bool QuestStatus()
         {
-            //Adjust a stopwatch/timer to trigger quest creations?
-            //An item list, to accomodate additional rewards per quest (for now it is a single item)
-            List<_Item> list = new();
+            return false;
+        }
 
-            _Character character = _Character.CharacterList[rnd.Next(1, _Character.CharacterList.Count)];
-            _Item newReward = _Item.CreateTreasure(_Monster.GetQuestItem((_Monster)character));
-
-            //Currently the only active reward is gold, which is handled differently than other items
-            return newReward;
+        protected virtual _Item NewRewards()
+        {
+            return null;
         }
     }
 }

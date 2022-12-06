@@ -20,7 +20,8 @@
 
         public override void UseItem()
         {
-            MessageBox.Show("Used for crafting items.");
+            MessageBox.Show("This has been chewed on... gross!");
+            Gold.Count += 2;
         }
     }
 }

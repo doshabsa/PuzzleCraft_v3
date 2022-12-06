@@ -13,7 +13,6 @@ namespace PuzzleCraft_v3.Classes
 
         protected Token _Token;
         protected Bitmap _Bitmap;
-        protected Backpack _Pack;
         protected Size _TokenSize;
         protected string? _Name;
         protected bool _IsSmart;
@@ -138,11 +137,10 @@ namespace PuzzleCraft_v3.Classes
             Backpack.UpdateItems();
             RemoveTheDead();
             GC.Collect(); //Optional; it never actually overflows, but doesn't look great in RAM usage haha
-            //Should see if changes to token rotation method helps?
-
+                          //Should see if changes to token rotation method helps?
 
             if (CharacterList.Count < 2)
-                _Monster.CreateNewMonster();
+                _Monster.CreateNewMonster();               
         }
 
 

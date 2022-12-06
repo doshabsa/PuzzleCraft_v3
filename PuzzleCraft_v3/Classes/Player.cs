@@ -7,6 +7,8 @@ namespace PuzzleCraft_v3.Classes
     internal class Player : _Character
     {
         public static Player _ThePlayer;
+        protected Backpack _Pack;
+        protected QuestLog _Log;
 
         public Backpack Pack 
         { 
@@ -26,7 +28,8 @@ namespace PuzzleCraft_v3.Classes
             _HP = 100;
             _Speed = 3;
             _Damage = 5;
-            _ThePlayer.Pack = new();
+            _Pack = new();
+            _Log = new();
             _Token = new(this);
             CharacterList.Add(this);
         }

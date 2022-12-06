@@ -26,8 +26,8 @@
         {
             switch (name)
             {
-                case "arrow":
-                    Arrow arrow = new(loc, name);
+                case "feather":
+                    Feather feather = new(loc, name);
                     break;
 
                 case "bone":

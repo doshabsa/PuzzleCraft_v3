@@ -1,8 +1,8 @@
 ﻿namespace PuzzleCraft_v3.Classes.Items
 {
-    public class Arrow : _Item
+    public class Feather : _Item
     {
-        public Arrow(Point loc, string name) : base(loc, name)
+        public Feather(Point loc, string name) : base(loc, name)
         {
             if (name != null)
             {
@@ -20,7 +20,8 @@
 
         public override void UseItem()
         {
-            MessageBox.Show("Shoots things! You need a bow though.");
+            MessageBox.Show("Jet black!");
+            Gold.Count += 1;
         }
     }
 }

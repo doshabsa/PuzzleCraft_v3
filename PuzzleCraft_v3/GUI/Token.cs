@@ -253,5 +253,10 @@ namespace PuzzleCraft_v3.GUI
             }
         }
         #endregion
+
+        private void Token_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

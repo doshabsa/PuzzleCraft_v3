@@ -26,13 +26,14 @@
                 _Bitmap = GetImage(name);
                 _Token = new(this);
                 _Wolf_TrophyCount++;
-                Inventory.InventoryList.Add(this);
+                _Item.ItemList.Add(this);
             }
         }
 
         public override void UseItem()
         {
-            MessageBox.Show("Can be hung to intimidate your foes!");
+            MessageBox.Show("Can be sold for gold.");
+            Gold.Count += 10;
         }
     }
 }
