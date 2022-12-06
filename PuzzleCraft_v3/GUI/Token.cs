@@ -209,7 +209,8 @@ namespace PuzzleCraft_v3.GUI
         {
             Angle = angle;
             PicBox.Image = tmp;
-            PicBox.Invalidate(false);
+            if(PicBox.Image != null)
+                PicBox.Invalidate(false);
         }
 
         private void SetUpPicture(_Character character)
@@ -236,6 +237,7 @@ namespace PuzzleCraft_v3.GUI
         {
             Bitmap bmp = new Bitmap(img.Width, img.Height);
             Graphics gfx = Graphics.FromImage(bmp);
+            //Transform is not -quite- right for all images
             gfx.TranslateTransform((float)bmp.Width / 2, (float)bmp.Height / 2);
             gfx.RotateTransform(rotationAngle);
             gfx.TranslateTransform(-(float)bmp.Width / 2, -(float)bmp.Height / 2);

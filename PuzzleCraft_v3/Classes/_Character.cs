@@ -8,7 +8,7 @@ namespace PuzzleCraft_v3.Classes
     {
         #region Fields
         public static System.Windows.Forms.Timer? PlayerTimer = new();
-        public static List<_Character> CharacterList = new();
+        public static List<_Character>? CharacterList = new();
         protected static Random rnd = new Random();
 
         protected Token _Token;
@@ -33,6 +33,8 @@ namespace PuzzleCraft_v3.Classes
                 if (_HP <= 0)
                 {
                     _IsDead = true;
+                    if (this is Player)
+                        _ThePlayer.EndGame();
                 }
                 else if (value < 0) _HP = 0;
                 else _HP = value;

@@ -17,7 +17,7 @@
             _Name = "Raven";
             _HP = 1;
             _Speed = 1;
-            _Damage = 0;
+            _Damage = 2;
             _Token = new(this);
             CharacterList.Add(this);
         }

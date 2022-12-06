@@ -75,7 +75,6 @@ namespace PuzzleCraft_v3.GUI
             foreach (Label lbl in control.Controls.OfType<Label>())
                 LabelList.Add(lbl);
 
-            //Label needed to be static for UpdateItems()
             lblGold.Dock = DockStyle.Fill;
             lblGold.TextAlign = ContentAlignment.MiddleCenter;
             tlpTable.Controls.Add(lblGold, 7, 1);

@@ -6,6 +6,9 @@ namespace PuzzleCraft_v3.Classes
 {
     internal class Player : _Character
     {
+        public delegate void GameStatus();
+        public GameStatus EndGame;
+
         public static Player _ThePlayer;
         protected Backpack _Pack;
         protected QuestLog _Log;

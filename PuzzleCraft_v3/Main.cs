@@ -19,6 +19,14 @@ namespace PuzzleCraft_v3
             this.SetStyle(ControlStyles.UserPaint, true);
 
             Start newGame = new();
+            newGame.EndGame += GameOver;
+        }
+
+        private void GameOver()
+        {
+            MessageBox.Show("You have died - please play again.");
+            Start newGame = new();
+            newGame.EndGame += GameOver;
         }
 
         #region Mouse Events

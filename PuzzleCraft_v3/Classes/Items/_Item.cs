@@ -2,7 +2,7 @@
 {
     public abstract class _Item : _Character
     {
-        public static List<_Item> ItemList;
+        public static List<_Item>? ItemList;
 
         #region Constructor
         static _Item()
@@ -32,6 +32,18 @@
 
                 case "bone":
                     Bone b1 = new(loc, name);
+                    break;
+
+                case "rabbitfoot":
+                    RabbitFoot foot = new(name);
+                    break;
+
+                case "wolf_trophy":
+                    Wolf_Trophy trophy = new(name);
+                    break;
+
+                case "gold":
+                    Gold gold = new(name);
                     break;
             }
         }

@@ -21,6 +21,7 @@ namespace PuzzleCraft_v3.GUI
             } 
         }
 
+        #region Constructors
         static QuestLog()
         {
             QuestQueue = new();
@@ -36,6 +37,7 @@ namespace PuzzleCraft_v3.GUI
             this.Visible = false;
             Main.MainForm?.Controls.Add(this);
         }
+        #endregion
 
         #region Manage Quests
         private void QuestStart(_Quest quest)
@@ -62,7 +64,7 @@ namespace PuzzleCraft_v3.GUI
         {
             _CurrentQuest = null;
             lblTitle.Text = null;
-            rtbDescription.Text = "You are done all the current quests :)";
+            rtbDescription.Text = "You have completed all the available quests :)";
             picReward.Image = null;
         }
         #endregion

@@ -7,9 +7,6 @@
 
     public class Gold : _Item
     {
-        public delegate void PickupGold();
-        public PickupGold AddGold;
-
         public static int _GoldCount;
 
         public static int Count
@@ -18,6 +15,7 @@
             set
             {
                 _GoldCount = value;
+
             }
         }
 

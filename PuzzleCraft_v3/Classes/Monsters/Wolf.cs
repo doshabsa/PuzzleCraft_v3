@@ -17,7 +17,7 @@
             _Bitmap = GetImage(_Name);
             _HP = 10;
             _Speed = 2;
-            _Damage = 0;
+            _Damage = 5;
             _Token = new(this);
             CharacterList.Add(this);
         }

@@ -2,11 +2,15 @@
 using PuzzleCraft_v3.Classes;
 using PuzzleCraft_v3.Classes.Monsters;
 using PuzzleCraft_v3.Classes.Maps;
+using PuzzleCraft_v3.Classes.Items;
 
 namespace PuzzleCraft_v3
 {
     public partial class Start : UserControl
     {
+        public delegate void GameStatus();
+        public GameStatus EndGame;
+
         private const int NUMTOKENS = 32;
         private Random rnd = new Random();
         private static List<Bitmap> pcTokens = new();
@@ -51,8 +55,11 @@ namespace PuzzleCraft_v3
             if (selected != null)
             {
                 Player newPlayer = new((Bitmap)selected.Image, txtName.Text);
-                Raven m1 = new();
+                newPlayer.EndGame += GameOver;
                 Player.PlayerTimer.Stop();
+
+                Raven m1 = new();
+
                 _Map.Fetch();
                 this.Dispose();
             }
@@ -81,6 +88,14 @@ namespace PuzzleCraft_v3
                 if (selected == BoxList[i])
                     BoxList[i].BackColor = Color.White;
             }
+        }
+
+        private void GameOver()
+        {
+            _Character.CharacterList = null;
+            Inventory.InventoryList = null;
+            _Item.ItemList = null;
+            EndGame();
         }
     }
 }

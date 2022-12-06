@@ -5,13 +5,6 @@ namespace PuzzleCraft_v3.Classes.Quests
 {
     public class _Quest
     {
-
-        /*
-         I ran out of time to implement a more robust quest/reward system - so just made due.
-         */
-        public delegate void UpdateQuest(_Quest quest);
-        public UpdateQuest Alert;
-
         protected string _Title;
         protected string _Description;
         protected bool _IsComplete;

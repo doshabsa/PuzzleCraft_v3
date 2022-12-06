@@ -5,7 +5,7 @@ namespace PuzzleCraft_v3.Classes
 {
     static class Inventory
     {
-        public static List<_Item> InventoryList;
+        public static List<_Item>? InventoryList;
 
         static Inventory()
         {
