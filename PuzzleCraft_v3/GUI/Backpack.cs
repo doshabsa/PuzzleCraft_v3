@@ -1,16 +1,18 @@
 ﻿using PuzzleCraft_v3.Classes;
 using PuzzleCraft_v3.Classes.Items;
 using PuzzleCraft_v3.Classes.Maps;
+using System;
 
 namespace PuzzleCraft_v3.GUI
 {
     public partial class Backpack : UserControl
     {
-        //Backpack items cause random background discolouration 
+        //Backpack items can cause random background discolouration 
         //within the backpack over time (is beige in color, they are close to the same color)
         #region Fields
         private static List<PictureBox> BoxList;
         private static List<Label> LabelList;
+        public static Button btnPack;
         private bool IsVisible = false;
         private PictureBox? selected;
         private static Label lblGold;
@@ -18,6 +20,7 @@ namespace PuzzleCraft_v3.GUI
 
         static Backpack()
         {
+            btnPack = new();
             BoxList = new();
             LabelList = new();
         }
@@ -26,6 +29,7 @@ namespace PuzzleCraft_v3.GUI
         public Backpack()
         {
             InitializeComponent();
+            SetupPackButton();
             this.Font = new Font("Arial", 12);
             SetupLists(tlpTable);
             this.Visible = false;
@@ -35,7 +39,20 @@ namespace PuzzleCraft_v3.GUI
         #endregion
 
         #region Setup/Edit Controls
-        public void ToggleBag()
+        private void SetupPackButton()
+        {
+            btnPack.Enabled = true;
+            btnPack.FlatStyle = FlatStyle.Flat;
+            btnPack.Location = new Point(9, 9);
+            btnPack.Size = new Size(109, 33);
+            btnPack.Text = "Open Pack";
+            btnPack.Font = new Font("Arial", 9, FontStyle.Bold);
+            btnPack.ForeColor = Color.DarkGoldenrod;
+            btnPack.Click += BtnPack_Click;
+            Main.MainForm.Controls.Add(btnPack);
+        }
+
+        private void BtnPack_Click(object? sender, EventArgs e)
         {
             if (!IsVisible)
             {
@@ -109,6 +126,7 @@ namespace PuzzleCraft_v3.GUI
         }
         #endregion
 
+        #region Settings
         private void lblDayCycle_Click(object sender, EventArgs e)
         {
             if (Main.MainForm.BackgroundImage == _Map.MapList[0])
@@ -122,5 +140,6 @@ namespace PuzzleCraft_v3.GUI
                 lblDayCycle.Text = "Cycle Night";
             }
         }
+        #endregion
     }
 }

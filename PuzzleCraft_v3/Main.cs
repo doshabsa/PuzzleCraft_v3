@@ -19,29 +19,7 @@ namespace PuzzleCraft_v3
             this.SetStyle(ControlStyles.UserPaint, true);
 
             Start newGame = new();
-            newGame.canStartGame += ConnectPack;
         }
-
-        #region Backpack Events
-        private void ConnectPack()
-        {
-            btnBackpack.Visible = true;
-        }
-
-        //This was done for ease of access to use. Could 100% move into backpack and make
-        //the control handle itself.
-        private void btnBackpack_Click(object sender, EventArgs e)
-        {
-            Player._ThePlayer.Pack.ToggleBag();
-            if (btnBackpack.Text == "Open Pack")
-            {
-                btnBackpack.Text = "Close Pack";
-                btnBackpack.BringToFront();
-            }
-            else
-                btnBackpack.Text = "Open Pack";
-        }
-        #endregion
 
         #region Mouse Events
         private void Main_MouseDown(object sender, MouseEventArgs e)

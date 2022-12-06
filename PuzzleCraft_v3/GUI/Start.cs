@@ -7,16 +7,6 @@ namespace PuzzleCraft_v3
 {
     public partial class Start : UserControl
     {
-        public delegate void ConnectPack();
-        public ConnectPack canStartGame;
-
-        /*
-         Added delegate with intent to make more usable on game reset
-         The pack is also stored within the Player class, so once the class is istablished
-         and a pack is instantiated, this delegate will allow the button (on main form, for easy
-         access/use) to display. Otherwise player has no backpack button to use!
-         */
-
         private const int NUMTOKENS = 32;
         private Random rnd = new Random();
         private static List<Bitmap> pcTokens = new();
@@ -64,7 +54,6 @@ namespace PuzzleCraft_v3
                 Raven m1 = new();
                 Player.PlayerTimer.Stop();
                 _Map.Fetch();
-                canStartGame();
                 this.Dispose();
             }
             else

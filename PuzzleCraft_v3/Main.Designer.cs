@@ -28,31 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnBackpack = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
-            // btnBackpack
-            // 
-            this.btnBackpack.BackColor = System.Drawing.Color.OldLace;
-            this.btnBackpack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnBackpack.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnBackpack.ForeColor = System.Drawing.Color.DarkGoldenrod;
-            this.btnBackpack.Location = new System.Drawing.Point(12, 12);
-            this.btnBackpack.Name = "btnBackpack";
-            this.btnBackpack.Size = new System.Drawing.Size(109, 33);
-            this.btnBackpack.TabIndex = 0;
-            this.btnBackpack.Text = "Open Pack";
-            this.btnBackpack.UseVisualStyleBackColor = false;
-            this.btnBackpack.Visible = false;
-            this.btnBackpack.Click += new System.EventHandler(this.btnBackpack_Click);
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(984, 611);
-            this.Controls.Add(this.btnBackpack);
+            this.ClientSize = new System.Drawing.Size(904, 546);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "Main";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
@@ -65,7 +48,5 @@
         }
 
         #endregion
-
-        private Button btnBackpack;
     }
 }

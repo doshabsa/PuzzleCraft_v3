@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.tlpTable = new System.Windows.Forms.TableLayoutPanel();
+            this.btnClosePack = new System.Windows.Forms.Button();
             this.pic0 = new System.Windows.Forms.PictureBox();
             this.pic1 = new System.Windows.Forms.PictureBox();
             this.pic2 = new System.Windows.Forms.PictureBox();
@@ -66,6 +67,7 @@
             this.tlpTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.16216F));
             this.tlpTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.16216F));
             this.tlpTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 1.351351F));
+            this.tlpTable.Controls.Add(this.btnClosePack, 1, 1);
             this.tlpTable.Controls.Add(this.pic0, 1, 2);
             this.tlpTable.Controls.Add(this.pic1, 4, 2);
             this.tlpTable.Controls.Add(this.pic2, 7, 2);
@@ -98,6 +100,21 @@
             this.tlpTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 1.097695F));
             this.tlpTable.Size = new System.Drawing.Size(568, 354);
             this.tlpTable.TabIndex = 0;
+            // 
+            // btnClosePack
+            // 
+            this.btnClosePack.BackColor = System.Drawing.Color.OldLace;
+            this.tlpTable.SetColumnSpan(this.btnClosePack, 2);
+            this.btnClosePack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnClosePack.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnClosePack.ForeColor = System.Drawing.Color.DarkGoldenrod;
+            this.btnClosePack.Location = new System.Drawing.Point(10, 6);
+            this.btnClosePack.Name = "btnClosePack";
+            this.btnClosePack.Size = new System.Drawing.Size(109, 32);
+            this.btnClosePack.TabIndex = 0;
+            this.btnClosePack.Text = "Close";
+            this.btnClosePack.UseVisualStyleBackColor = false;
+            this.btnClosePack.Click += new System.EventHandler(this.BtnPack_Click);
             // 
             // pic0
             // 
@@ -322,5 +339,6 @@
         private Label lbl5;
         private Label label1;
         private Label lblDayCycle;
+        private Button btnClosePack;
     }
 }
